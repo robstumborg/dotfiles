@@ -1,0 +1,8 @@
+configuration {
+    display: "HDMI-A-1";
+    font: "Hack Nerd Font Mono 14";
+    modi: "run,ssh,combi";
+    terminal: "/usr/bin/alacritty";
+    display-run: "> ";
+}
+@theme "onedark"

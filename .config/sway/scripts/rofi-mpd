@@ -1,0 +1,85 @@
+#!/usr/bin/env sh
+
+m() { rofi -dmenu -i "$@" ;}
+mb() { rofi -dmenu -i -kb-custom-1 "Alt+q" "$@" ;}
+
+artist() {
+  lines="$(mpc list artist | wc -l)"
+  [ "$lines" -gt 30 ] && lines=30
+  mpc list artist | sort -f | m -p "artists" -l $lines
+}
+
+a_album() {
+  artist="$1"
+  lines="$(mpc list album artist "$artist" | wc -l)"
+  [ "$lines" -gt 30 ] && lines=30
+  mpc list album artist "$artist" | sort -f | mb -p "albums" -l $lines
+}
+
+album() {
+  lines="$(mpc list album | wc -l)"
+  [ "$lines" -gt 30 ] && lines=30
+  mpc list album | sort -f | mb -p "album" -l $lines
+}
+
+song() {
+  lines="$(mpc list title | wc -l)"
+  [ "$lines" -gt 30 ] && lines=30
+  mpc list title | sort -f | mb -p "song" -l 30
+}
+
+case "$1" in
+  -l | --library) mode=library ;;
+  -A | --album) mode=album ;;
+  -s | --song) mode=song ;;
+  -a | --ask)
+    MODE=$(printf "library\nalbum\nsong" | m -p "music" -l 3)
+    mode=$MODE
+    ;;
+  -h | --help)
+    echo "
+  usage: rofi-mpd [-h] [-l] [-s] [-a]
+
+  arguments:
+  -h, --help        show this message and exit
+  -l, --library     library mode (artist -> album)
+  -A, --album       album mode
+  -s, --song        song mode (select one song)
+  -a, --ask         ask for mode
+
+  bindings:
+  enter             play song/album now
+  alt+q             add song/album to queue
+    "
+    exit
+    ;;
+esac
+
+case "$mode" in
+  library)
+    artist=$(artist)
+    [ ! "$artist" ] && exit
+    album=$(a_album "$artist")
+    cod=$?
+    [ ! "$album" ] && exit
+    [ "$cod" -eq 10 ] || mpc clear
+    mpc find artist "$artist" album "$album" | mpc add
+    mpc play >/dev/null
+    ;;
+  song)
+    song=$(song)
+    cod=$?
+    [ ! "$song" ] && exit
+    [ "$cod" -eq 10 ] || mpc clear
+    mpc search "(title==\"$song\")" | mpc add
+    mpc play >/dev/null
+    ;;
+  album)
+    album=$(album)
+    cod=$?
+    [ ! "$album" ] && exit
+    [ "$cod" -eq 10 ] || mpc clear
+    mpc find album "$album" | mpc add
+    mpc play >/dev/null
+    ;;
+esac

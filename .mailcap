@@ -1,0 +1,6 @@
+text/html; w3m -dump -o document_charset=%{charset} '%s'; nametemplate=%s.html; copiousoutput;
+image/*; vimiv '%s';
+video/*; mpv '%s';
+audio/*; mpv '%s';
+application/pdf; zathura '%s';
+application/pgp-keys; gpg --import '%s'; copiousoutput;

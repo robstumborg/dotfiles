@@ -1,0 +1,47 @@
+[init]
+    defaultBranch = master
+[user]
+    useConfigOnly = true
+[pretty]
+    better-oneline = "format:%C(auto)%h%d %s %Cblue[%cn]"
+[alias]
+    id = "!f() { \
+            git config user.name \"$(git config user.$1.name)\"; \
+            git config user.email \"$(git config user.$1.email)\"; \
+        if [ $(git config user.$1.signingkey) ]; then \
+            git config user.signingkey \"$(git config user.$1.signingkey)\"; \
+            git config commit.gpgsign true; \
+        else \
+            git config --unset user.signingkey; \
+            git config --unset commit.gpgsign; \
+        fi; \
+        if [ $(git config user.$1.sshkey) ]; then \
+            git config core.sshCommand \"ssh -i $HOME/.ssh/$(git config user.$1.sshkey)\"; \
+        else \
+            git config --unset core.sshCommand; \
+        fi; \
+        if [ $(git config user.$1.email) ]; then \
+            git config sendemail.smtpserveroption \"--account=$(git config user.$1.email)\"; \
+        else \
+            git config --unset sendemail.smtpserveroption; \
+        fi; \
+        }; f"
+    history = log -p
+    lg      = log --pretty=better-oneline
+    tree    = log --pretty=better-oneline --all --graph
+    co      = checkout
+    cob     = checkout -b
+    br      = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+    undo    = reset HEAD~1 --mixed
+    st      = status -sb
+    leaderboard = shortlog -s -n
+[sendemail]
+    smtpserver = /usr/bin/msmtp
+[user "rj1"]
+    name = rj1
+    email = rj1@hotmail.com
+    signingkey = F042A0B6CB41FDA2
+    sshkey = rj1
+    email = rj1
+[include]
+    path = ~/.config/git/identities

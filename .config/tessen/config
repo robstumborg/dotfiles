@@ -1,0 +1,5 @@
+userkey="user"
+action="copy"
+pass_backend="pass"
+dmenu_backend="rofi"
+rofi_config_file="$XDG_CONFIG_HOME/rofi/config.rasi"

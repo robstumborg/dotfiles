@@ -1,0 +1,16 @@
+noblacklist ${HOME}/.config/firefox
+mkdir ${HOME}/.config/firefox
+whitelist ${HOME}/.config/firefox
+noblacklist ${HOME}/.config/foot
+mkdir ${HOME}/.config/foot
+whitelist ${HOME}/.config/foot
+noblacklist ${HOME}/.config/nvim
+mkdir ${HOME}/.config/nvim
+whitelist ${HOME}/.config/nvim
+noblacklist /usr/share/nvim
+whitelist /usr/share/nvim
+ignore private-tmp
+whitelist ${HOME}/dl
+include /etc/firejail/allow-lua.inc
+include /etc/firejail/firefox.profile
+dbus-user.talk org.freedesktop.Notifications

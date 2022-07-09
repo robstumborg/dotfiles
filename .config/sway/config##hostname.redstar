@@ -1,0 +1,211 @@
+# keeb settings
+input "type:keyboard" {
+    xkb_layout us,es
+    repeat_delay 250
+    repeat_rate 60
+    xkb_options caps:escape
+}
+
+# hide mouse cursor
+seat seat0 hide_cursor 1500
+
+# display settings
+set $display_two DVI-D-1
+set $display_three DP-1
+set $display_one HDMI-A-1
+
+output $display_three pos 4920 800 res 1920x1080
+output $display_two pos 3840 0 transform 270
+output $display_one pos 0 0 res 3840x2160
+
+output $display_one bg $XDG_CONFIG_HOME/sway/bg/bg1.jpg fill
+output $display_two bg $XDG_CONFIG_HOME/sway/bg/bg2.png fill
+output $display_three bg $XDG_CONFIG_HOME/sway/bg/bg3.png fill
+
+# theme
+set $font Hack Nerd Font Mono
+font pango:$font
+default_border pixel 1
+gaps inner 10
+
+# class                 border  bg      text    indicator child_border
+client.focused          #98c379 #98c379 #666666 #98c379   #98c379
+client.focused_inactive #333333 #222222 #ffffff #484e50   #3e4452
+client.unfocused        #333333 #222222 #888888 #292d2e   #3e4452
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+# waybar
+bar {
+    position bottom
+    swaybar_command waybar
+}
+
+# lock settings
+set $sleep "swaylock \
+    --font $font \
+    --screenshots \
+    --clock \
+    --indicator \
+    --indicator-radius 100 \
+    --indicator-thickness 7 \
+    --effect-blur 7x5 \
+    --effect-vignette 0.5:0.5 \
+    --ring-color c678dd \
+    --key-hl-color 6eaafb \
+    --text-color abb2bf \
+    --ring-ver-color 98c379 \
+    --inside-ver-color 98c379 \
+    --line-color 00000000 \
+    --inside-color 282c34 \
+    --separator-color 00000000 \
+    --grace 5 \
+    --fade-in 0.5"
+
+exec swayidle timeout 180 $sleep \
+    timeout 300 'swaymsg "output * dpms off"' \
+    timeout 60 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
+    resume 'swaymsg "output * dpms on"'
+
+bindsym ctrl+alt+delete exec $sleep
+
+# winkey
+set $mod mod4
+set $left h
+set $down j
+set $up k
+set $right l
+
+# switch keyboard layout
+bindsym $mod+shift+e input "12815:20484:SONiX_USB_DEVICE" xkb_switch_layout next
+
+# terminal
+bindsym $mod+return exec bash -c '$XDG_CONFIG_HOME/sway/scripts/alacritty.sh'
+
+# kill focused window
+bindsym $mod+shift+q kill
+
+# rofi
+bindsym $mod+space exec rofi -show run
+
+# rofi+pass
+bindsym $mod+p exec bash -c tessen
+
+# sshot
+bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
+
+# screencast
+bindsym $mod+shift+s exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh'
+
+# move workspace to another display
+bindsym $mod+shift+d move workspace to output left
+
+# toggle horizontal/vertical
+bindsym $mod+d layout toggle split
+bindsym $mod+apostrophe splitv
+bindsym $mod+semicolon splith
+
+# fullscreen
+bindsym $mod+f fullscreen
+
+# floating/tiled toggle
+bindsym $mod+shift+f floating toggle
+
+# drag floating windows
+floating_modifier $mod normal
+
+# audio
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --anchor bottom \
+        --background-color "#1d2330dd" \
+        --bar-color "#98c379cc" \
+        --border 0 \
+        --padding 0 \
+        --overflow-background-color "#1d2330dd" \
+        --overflow-bar-color "#d19a66dd" \
+        --offset 2 \
+        --height 30 \
+        --margin 400
+
+# volume control
+bindsym $mod+equal exec pamixer -ui 2 && pamixer --get-volume > $WOBSOCK
+bindsym $mod+minus exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
+bindsym $mod+0 exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $WOBSOCK ) || pamixer --get-volume > $WOBSOCK
+
+# media control
+bindsym $mod+slash exec mpc toggle
+bindsym $mod+period exec mpc next
+bindsym $mod+comma exec mpc prev
+bindsym $mod+shift+comma exec mpc seek -5
+bindsym $mod+shift+period exec mpc seek +5
+
+# reload sway
+bindsym $mod+shift+r reload
+
+# quit sway
+bindsym $mod+shift+x exec swaynag -t warning \
+    -m 'is you finished or is you done?' -b 'ye' 'swaymsg exit'
+
+# switch windows
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# move windows
+bindsym $mod+shift+$left move left
+bindsym $mod+shift+$down move down
+bindsym $mod+shift+$up move up
+bindsym $mod+shift+$right move right
+
+# workspaces
+workspace "main" output $display_one
+workspace "goog" output $display_one
+workspace "video" output $display_three
+
+# switch workspaces
+bindsym $mod+b workspace "main"
+bindsym $mod+g workspace "goog"
+bindsym $mod+v workspace "video"
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+
+# move windows to workspaces
+bindsym $mod+shift+b move container to workspace "main"
+bindsym $mod+shift+g move container to workspace "goog"
+bindsym $mod+shift+v move container to workspace "video"
+bindsym $mod+shift+1 move container to workspace number 1
+bindsym $mod+shift+2 move container to workspace number 2
+bindsym $mod+shift+3 move container to workspace number 3
+bindsym $mod+shift+4 move container to workspace number 4
+bindsym $mod+shift+5 move container to workspace number 5
+bindsym $mod+shift+6 move container to workspace number 6
+bindsym $mod+shift+7 move container to workspace number 7
+bindsym $mod+shift+8 move container to workspace number 8
+bindsym $mod+shift+9 move container to workspace number 9
+
+assign [app_id="chromium"] "goog"
+assign [app_id="mpv"] "video"
+
+# resize mode
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # return to default mode
+    bindsym return mode "default"
+    bindsym escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+

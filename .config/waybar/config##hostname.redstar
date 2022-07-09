@@ -1,0 +1,115 @@
+{
+    "position": "bottom",
+    "layer": "top",
+    "output": ["HDMI-A-1", "DP-1"],
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["custom/recorder", "sway/language", "custom/arrow1", "network", "custom/arrow2", "custom/vpn", "custom/arrow3", "pulseaudio", "custom/arrow4", "mpd", "custom/arrow5", "temperature", "custom/arrow6", "clock"],
+    "sway/window": {
+        "format": "{}",
+        "max-length": 200,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "$1 - firefox",
+        }
+    },
+    "clock": {
+        "format": "{:%a, %d. %b  %H:%M:%S}",
+        "format-alt": "{:%r}",
+        "interval": 1
+    },
+    "network": {
+        "interface": "redstar",
+        "interval": 1,
+        "format-wifi": " {essid} ({signalStrength}%) {bandwidthUpBits} {bandwidthDownBits}",
+        "format-ethernet": "{bandwidthUpBits}  {bandwidthDownBits} ",
+        "format-disconnected": "⚠  disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}"
+    },
+    "temperature": {
+        "thermal-zone": 2,
+        "format": "cpu: {temperatureC}°C",
+        "interval": 10
+    },
+    "memory": {
+        "interval": 5,
+        "format": "mem: {percentage}%"
+    },
+    "custom/vpn":{
+        "format": "{icon}",
+        "tooltip-format": "{icon}",
+        "exec": "$HOME/.config/waybar/vpn.sh",
+        "return-type": "json",
+        "interval": 5,
+        "format-icons": ["",""]
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": " muted",
+        "format-icons": {
+            "headphone": "",
+            "phone": "", "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 1,
+        "on-click": "pavucontrol"
+    },
+    "custom/recorder": {
+        "format": "",
+        "return-type": "json",
+        "interval": 1,
+        "exec": "echo '{\"class\": \"recording\"}'",
+        "exec-if": "pgrep wf-recorder"
+    },
+    "custom/cmus": {
+        "format": "♪ {}",
+        "interval": 1,
+        "exec": "cmus-remote -C \"format_print '%a - %t'\"",
+        "exec-if": "pgrep cmus",
+        "on-click": "cmus-remote -u",
+        "escape": true
+    },
+    "mpd": {
+        "format": " {stateIcon} {artist} - {title} ",
+        "interval": 1,
+        "exec": "mpc current",
+        "exec-if": "pgrep mpd",
+        "on-click": "mpc toggle",
+        "escape": true,
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        }
+    },
+    "custom/weather": {
+        "format": "{}",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "python $HOME/.config/waybar/wttr.py",
+        "return-type": "json"
+    },
+    "sway/language": {
+        "on-click": "swaymsg input '12815:20484:SONiX_USB_DEVICE' xkb_switch_layout next",
+        "format": "{short} {variant}",
+    },
+    "custom/arrow1": {
+        "format": ""
+    },
+    "custom/arrow2": {
+        "format": ""
+    },
+    "custom/arrow3": {
+        "format": ""
+    },
+    "custom/arrow4": {
+        "format": ""
+    },
+    "custom/arrow5": {
+        "format": ""
+    },
+    "custom/arrow6": {
+        "format": ""
+    }
+}
+

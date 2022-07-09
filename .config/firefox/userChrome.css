@@ -1,0 +1,26 @@
+tabs {
+  counter-reset: tab-counter;
+}
+
+.tab-label::before {
+  counter-increment: tab-counter;
+  content: counter(tab-counter) " - ";
+}
+
+#statuspanel {
+  right: 0;
+  display: inline;
+}
+
+:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #TabsToolbar {
+  visibility: collapse;
+}
+
+#sidebar-box #sidebar-header {
+  display: none !important;
+}
+
+#TabsToolbar {
+  visibility: collapse;
+}
+

@@ -1,0 +1,6 @@
+# -*- mode: sh; -*-
+
+OPTS=''
+LOGGING_ENABLE=1
+LOG_LEVEL=2
+LOG_DIR="$HOME/var/log/pipewire"
