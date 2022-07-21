@@ -37,11 +37,5 @@
     leaderboard = shortlog -s -n
 [sendemail]
     smtpserver = /usr/bin/msmtp
-[user "rj1"]
-    name = rj1
-    email = rj1@hotmail.com
-    signingkey = F042A0B6CB41FDA2
-    sshkey = rj1
-    email = rj1
 [include]
     path = ~/.config/git/identities
