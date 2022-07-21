@@ -64,3 +64,7 @@ export NVM_DIR=$XDG_DATA_HOME/nvm
 # ruby
 export PATH=$PATH:$XDG_DATA_HOME/gem/ruby/3.0.0/bin
 
+# js
+export NPM_PACKAGES=$XDG_DATA_HOME/npm
+export PATH=$PATH:$NPM_PACKAGES/bin
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/config

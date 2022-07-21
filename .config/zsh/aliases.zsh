@@ -39,6 +39,7 @@ alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias sysu="systemctl --user"
 alias xbi="sudo xbps-install"
+alias mail="$XDG_CONFIG_HOME/email/check-email.sh"
 
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "${method}"="curl -X '${method}'"

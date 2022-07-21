@@ -50,6 +50,7 @@ user_pref("browser.newtabpage.directory.ping", "");
 user_pref("browser.newtabpage.enabled", false);
 user_pref("browser.newtabpage.enhanced", false);
 user_pref("browser.newtabpage.introShown", true);
+user_pref("browser.search.region", "EN");
 user_pref("toolkit.telemetry.enabled", false);
 user_pref("toolkit.telemetry.coverage.opt-out", true);
 user_pref("toolkit.telemetry.server", "");

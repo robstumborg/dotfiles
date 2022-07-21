@@ -117,6 +117,11 @@ require('transparent').setup({
 })
 
 require('gitsigns').setup()
+
+require('kommentary.config').configure_language("php", {
+    single_line_comment_string = "//",
+    multi_line_comment_strings = {"/*", "*/"},
+})
 EOF
 
 " color scheme
@@ -156,6 +161,9 @@ au filetype vue setl shiftwidth=2
 au filetype vim setl shiftwidth=2 tabstop=4
 au filetype dart setl shiftwidth=2
 au filetype yaml setl shiftwidth=2
+
+" yyeol
+nno Y y$
 
 " buffer switching
 nno <silent> <c-k> :bn!<cr>
@@ -210,6 +218,7 @@ let g:coc_global_extensions = [
       \'coc-phpls',
       \'coc-git',
       \'coc-tsserver',
+      \'coc-go',
       \'coc-vetur',
       \'coc-clangd',
       \'coc-html',

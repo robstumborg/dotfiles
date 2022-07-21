@@ -114,6 +114,9 @@ bindsym $mod+shift+f floating toggle
 # drag floating windows
 floating_modifier $mod normal
 
+# notifications
+exec mako
+
 # audio
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --anchor bottom \
