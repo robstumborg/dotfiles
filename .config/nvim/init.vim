@@ -79,9 +79,6 @@ Plug 'lambdalisue/suda.vim'
 
 " tmux
 Plug 'preservim/vimux'
-
-" copilot
-Plug 'github/copilot.vim', { 'on': 'Copilot'}
 call plug#end()
 
 lua << EOF
