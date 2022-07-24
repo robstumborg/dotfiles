@@ -10,17 +10,17 @@ input "type:keyboard" {
 seat seat0 hide_cursor 1500
 
 # display settings
-set $display_two DVI-D-1
-set $display_three DP-1
-set $display_one HDMI-A-1
+set $display_right DVI-D-1
+set $display_left DP-1
+set $display_main HDMI-A-1
 
-output $display_three pos 4920 800 res 1920x1080
-output $display_two pos 3840 0 transform 270
-output $display_one pos 0 0 res 3840x2160
+output $display_left pos 0 0 res 1920x1080
+output $display_main pos 1920 0 res 3840x2160
+output $display_right pos 5760 0 transform 270
 
-output $display_one bg $XDG_CONFIG_HOME/sway/bg/bg1.jpg fill
-output $display_two bg $XDG_CONFIG_HOME/sway/bg/bg2.png fill
-output $display_three bg $XDG_CONFIG_HOME/sway/bg/bg3.png fill
+output $display_left bg $XDG_DATA_HOME/backgrounds/bg3.png fill
+output $display_main bg $XDG_DATA_HOME/backgrounds/wallhaven-e7gwwk.png fill
+output $display_right bg $XDG_DATA_HOME/backgrounds/bg2.png fill
 
 # theme
 set $font Hack Nerd Font Mono
@@ -133,7 +133,9 @@ exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --anchor bottom
 # volume control
 bindsym $mod+equal exec pamixer -ui 2 && pamixer --get-volume > $WOBSOCK
 bindsym $mod+minus exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
-bindsym $mod+0 exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $WOBSOCK ) || pamixer --get-volume > $WOBSOCK
+bindsym $mod+0 exec pamixer --toggle-mute \
+    && ( pamixer --get-mute && echo 0 > $WOBSOCK ) \
+    || pamixer --get-volume > $WOBSOCK
 
 # media control
 bindsym $mod+slash exec mpc toggle
@@ -162,9 +164,9 @@ bindsym $mod+shift+$up move up
 bindsym $mod+shift+$right move right
 
 # workspaces
-workspace "main" output $display_one
-workspace "goog" output $display_one
-workspace "video" output $display_three
+workspace "main" output $display_main
+workspace "goog" output $display_main
+workspace "video" output $display_left
 
 # switch workspaces
 bindsym $mod+b workspace "main"
