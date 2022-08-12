@@ -142,6 +142,7 @@ set clipboard=unnamedplus
 set undofile
 set splitbelow
 set noswapfile
+set nowrap
 " disable consecutive comment lines
 au bufnewfile,bufread,bufwritepre * setlocal formatoptions-=ro
 
@@ -210,9 +211,9 @@ nn <silent> <a-c> :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")
 nn <silent> <leader>s :call fzf#run({'source': prosession#ListSessions(), 'sink': 'Prosession', 'window': {'width': 0.9, 'height': 0.6}})<cr>
 
 " coc
-let g:coc_start_at_startup = 0
 let g:coc_global_extensions = [
       \'coc-phpls',
+      \'coc-pyright',
       \'coc-git',
       \'coc-tsserver',
       \'coc-go',
@@ -251,7 +252,6 @@ nnoremap <nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<
 inoremap <nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
-
 let g:user_emmet_leader_key='<c-e>'
 
 function! s:GoToDefinition()
@@ -268,8 +268,8 @@ endfunction
 nmap <silent> gd :call <sid>GoToDefinition()<cr>
 aug qs_colors
   au!
-  au colorscheme onedark highlight quickscopeprimary guifg='#ffffff' gui=underline ctermfg=1 cterm=underline
-  au colorscheme onedark highlight quickscopesecondary guifg='#f0fff0' ctermfg=2
+  au colorscheme onedarkpro highlight quickscopeprimary guifg='#ffffff' gui=underline ctermfg=1 cterm=underline
+  au colorscheme onedarkpro highlight quickscopesecondary guifg='#f0fff0' ctermfg=2
 aug END
 
 let g:airline_theme="onedark"
@@ -393,4 +393,19 @@ aug end
 au bufnewfile,bufread *waybar/config set ft=json
 au bufnewfile,bufread /tmp/mitmproxy* set nofixendofline shortmess=a
 au bufnewfile,bufread ~/.ssh/servers set ft=sshconfig
+
+" unminify
+:command! UnminifyHTML :%s/<[^>]*>/\r&\r/g
+:command! RemoveBlankLines :g/^$/d 
+
+" Simple re-format for minified Javascript
+command! UnminifyJS call UnminifyJS()
+function! UnminifyJS()
+    %s/{\ze[^\r\n]/{\r/g
+    %s/){/) {/g
+    %s/};\?\ze[^\r\n]/\0\r/g
+    %s/;\ze[^\r\n]/;\r/g
+    %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
+    normal ggVG=
+endfunction
 

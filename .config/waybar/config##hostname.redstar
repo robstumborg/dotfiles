@@ -2,9 +2,36 @@
     "position": "bottom",
     "layer": "top",
     "output": ["HDMI-A-1", "DP-1"],
-    "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["custom/recorder", "sway/language", "custom/arrow1", "network", "custom/arrow2", "custom/vpn", "custom/arrow3", "pulseaudio", "custom/arrow4", "mpd", "custom/arrow5", "temperature", "custom/arrow6", "clock"],
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-right": [
+        "custom/recorder",
+        "sway/language",
+        "custom/arrow1",
+        "network",
+        "custom/arrow2",
+        "custom/vpn",
+        "custom/arrow3",
+        "pulseaudio",
+        "custom/arrow4",
+        "mpd",
+        "custom/arrow5",
+        "temperature",
+        "custom/arrow6",
+        "custom/worldclock",
+        "clock#utc",
+        "clock#uk",
+        "clock#china",
+        "clock#nyc",
+        "clock#la",
+        "clock#sk",
+        "clock"
+    ],
     "sway/window": {
         "format": "{}",
         "max-length": 200,
@@ -13,9 +40,39 @@
         }
     },
     "clock": {
-        "format": "{:%a, %d. %b  %H:%M:%S}",
-        "format-alt": "{:%r}",
+        "format": "{:%H:%M:%S}",
+        "format-alt": "{:%a, %d. %b  %H:%M:%S}",
         "interval": 1
+    },
+    "clock#la": {
+        "format": "{:%H:%M} LA  •",
+        "interval": 1,
+        "timezone": "America/Los_Angeles"
+    },
+    "clock#nyc": {
+        "format": "{:%H:%M} NYC  •",
+        "interval": 1,
+        "timezone": "America/New_York"
+    },
+    "clock#uk": {
+        "format": "{:%H:%M} UK  •",
+        "interval": 1,
+        "timezone": "Europe/London"
+    },
+    "clock#china": {
+        "format": "{:%H:%M} HK  •",
+        "interval": 1,
+        "timezone": "Asia/Hong_Kong"
+    },
+    "clock#utc": {
+        "format": " {:%H:%M} UTC  •",
+        "interval": 1,
+        "timezone": "UTC"
+    },
+    "clock#sk": {
+        "format": " {:%H:%M} SK  •",
+        "interval": 1,
+        "timezone": "America/Regina"
     },
     "network": {
         "interface": "redstar",
@@ -23,12 +80,14 @@
         "format-wifi": " {essid} ({signalStrength}%) {bandwidthUpBits} {bandwidthDownBits}",
         "format-ethernet": "{bandwidthUpBits}  {bandwidthDownBits} ",
         "format-disconnected": "⚠  disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}"
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "tooltip": false
     },
     "temperature": {
         "thermal-zone": 2,
         "format": "cpu: {temperatureC}°C",
-        "interval": 10
+        "interval": 10,
+        "tooltip": false
     },
     "memory": {
         "interval": 5,
@@ -53,7 +112,8 @@
             "default": ["", ""]
         },
         "scroll-step": 1,
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "tooltip": false
     },
     "custom/recorder": {
         "format": "",
@@ -61,14 +121,6 @@
         "interval": 1,
         "exec": "echo '{\"class\": \"recording\"}'",
         "exec-if": "pgrep wf-recorder"
-    },
-    "custom/cmus": {
-        "format": "♪ {}",
-        "interval": 1,
-        "exec": "cmus-remote -C \"format_print '%a - %t'\"",
-        "exec-if": "pgrep cmus",
-        "on-click": "cmus-remote -u",
-        "escape": true
     },
     "mpd": {
         "format": " {stateIcon} {artist} - {title} ",
@@ -80,7 +132,9 @@
         "state-icons": {
             "paused": "",
             "playing": ""
-        }
+        },
+        "max-length": 50,
+        "tooltip": false
     },
     "custom/weather": {
         "format": "{}",
@@ -94,22 +148,28 @@
         "format": "{short} {variant}",
     },
     "custom/arrow1": {
-        "format": ""
+        "format": "",
+        "tooltip": false
     },
     "custom/arrow2": {
-        "format": ""
+        "format": "",
+        "tooltip": false
     },
     "custom/arrow3": {
-        "format": ""
+        "format": "",
+        "tooltip": false
     },
     "custom/arrow4": {
-        "format": ""
+        "format": "",
+        "tooltip": false
     },
     "custom/arrow5": {
-        "format": ""
+        "format": "",
+        "tooltip": false
     },
     "custom/arrow6": {
-        "format": ""
+        "format": "",
+        "tooltip": false
     }
 }
 

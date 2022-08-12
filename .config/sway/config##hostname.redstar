@@ -1,3 +1,6 @@
+exec systemctl --user import-environment
+exec systemctl --user start graphical-session.target
+
 # keeb settings
 input "type:keyboard" {
     xkb_layout us,es
@@ -11,8 +14,8 @@ seat seat0 hide_cursor 1500
 
 # display settings
 set $display_right DVI-D-1
-set $display_left DP-1
 set $display_main HDMI-A-1
+set $display_left DP-1
 
 output $display_left pos 0 0 res 1920x1080
 output $display_main pos 1920 0 res 3840x2160
@@ -43,7 +46,7 @@ bar {
 
 # lock settings
 set $sleep "swaylock \
-    --font $font \
+    --font '$font' \
     --screenshots \
     --clock \
     --indicator \
@@ -59,8 +62,7 @@ set $sleep "swaylock \
     --line-color 00000000 \
     --inside-color 282c34 \
     --separator-color 00000000 \
-    --grace 5 \
-    --fade-in 0.5"
+    --grace 5"
 
 exec swayidle timeout 180 $sleep \
     timeout 300 'swaymsg "output * dpms off"' \
@@ -68,6 +70,8 @@ exec swayidle timeout 180 $sleep \
     resume 'swaymsg "output * dpms on"'
 
 bindsym ctrl+alt+delete exec $sleep
+
+exec gammastep
 
 # winkey
 set $mod mod4
@@ -94,7 +98,7 @@ bindsym $mod+p exec bash -c tessen
 # sshot
 bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
 
-# screencast
+# screen
 bindsym $mod+shift+s exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh'
 
 # move workspace to another display
@@ -213,4 +217,3 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
