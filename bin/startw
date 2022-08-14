@@ -1,4 +1,5 @@
 #!/bin/zsh
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+# export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 dbus-daemon --session --nofork --nopidfile --address=$DBUS_SESSION_BUS_ADDRESS &
-sway -V > /var/log/sway.log 2>&1
+sway
+# sway -V > ~/sway.log 2>&1
