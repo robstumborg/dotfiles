@@ -38,8 +38,12 @@ alias password="</dev/urandom tr -dc '123450!@#$%6789qwertQWERTasdfgASDFGzxcvbZX
 alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias sysu="systemctl --user"
-alias xbi="sudo xbps-install"
 alias mail="$XDG_CONFIG_HOME/email/check-email.sh"
+
+# xbps
+alias xbi="sudo xbps-install"
+alias xbr="sudo xbps-remove"
+alias xbq="xbps-query"
 
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "${method}"="curl -X '${method}'"
@@ -57,9 +61,9 @@ upload() {
     fi
 
     if [ $1 = "img" ]; then
-        file="$HOME/img/sshot/$(ls -Art $HOME/img/sshot | tail -n 1)"
+        file="$HOME/img/sshot/$(/usr/bin/ls -Art $HOME/img/sshot | tail -n 1)"
     elif [ $1 = "vid" ]; then
-        file="$HOME/vid/screencast/$(ls -Art $HOME/vid/screencast | tail -n 1 )"
+        file="$HOME/vid/screencast/$(/usr/bin/ls -Art $HOME/vid/screencast | tail -n 1 )"
     else
         file=$1
     fi
