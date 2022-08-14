@@ -3,5 +3,5 @@
 OPTS=''
 LOGGING_ENABLE=1
 LOG_LEVEL=3 # https://pipewire.pages.freedesktop.org/wireplumber/daemon-logging.html
-LOG_DIR="$HOME/var/log/wireplumber"
+LOG_DIR="$XDG_CONFIG_HOME/log/wireplumber"
 

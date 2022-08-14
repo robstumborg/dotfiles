@@ -3,4 +3,4 @@
 OPTS=''
 LOGGING_ENABLE=1
 LOG_LEVEL=2
-LOG_DIR="$HOME/var/log/pipewire"
+LOG_DIR="$XDG_CONFIG_HOME/log/pipewire"
