@@ -1,4 +1,7 @@
 #!/bin/zsh
+# source env vars for cronjob
+source ~/.config/zsh/.zprofile
+
 # download mail from remotes
 if [ $# -eq -0 ]; then
     /usr/bin/mbsync -c /home/rj1/.config/mbsync/config -aV
