@@ -213,7 +213,7 @@ nn <silent> <leader>s :call fzf#run({'source': prosession#ListSessions(),
 
 " coc
 let g:coc_global_extensions = [
-      \'coc-phpls',
+      \'@yaegassy/coc-intelephense',
       \'coc-pyright',
       \'coc-git',
       \'coc-tsserver',
