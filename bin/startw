@@ -1,4 +1,4 @@
 #!/bin/zsh
 dbus-daemon --session --nofork --nopidfile --address=$DBUS_SESSION_BUS_ADDRESS &
 sway
-# sway -V > ~/tmp/sway.log 2>&1
+# sway -V > /tmp/sway.log 2>&1
