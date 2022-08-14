@@ -1,5 +1,22 @@
-exec systemctl --user import-environment
-exec systemctl --user start graphical-session.target
+# display settings
+# set $display_right DVI-D-1
+set $display_main HDMI-A-1
+set $display_left DP-1
+
+output $display_left pos 0 0 res 1920x1080
+output $display_main pos 1920 0 res 3840x2160
+# output $display_right pos 5760 0 transform 270
+
+output $display_left bg $XDG_DATA_HOME/backgrounds/bg3.png fill
+output $display_main bg $XDG_DATA_HOME/backgrounds/wallhaven-e7gwwk.png fill
+# output $display_right bg $XDG_DATA_HOME/backgrounds/bg2.png fill
+
+# winkey
+set $mod mod4
+set $left h
+set $down j
+set $up k
+set $right l
 
 # keeb settings
 input "type:keyboard" {
@@ -9,21 +26,9 @@ input "type:keyboard" {
     xkb_options caps:escape
 }
 
-# hide mouse cursor
+# mouse settings
+seat seat0 xcursor_theme Adwaita
 seat seat0 hide_cursor 1500
-
-# display settings
-set $display_right DVI-D-1
-set $display_main HDMI-A-1
-set $display_left DP-1
-
-output $display_left pos 0 0 res 1920x1080
-output $display_main pos 1920 0 res 3840x2160
-output $display_right pos 5760 0 transform 270
-
-output $display_left bg $XDG_DATA_HOME/backgrounds/bg3.png fill
-output $display_main bg $XDG_DATA_HOME/backgrounds/wallhaven-e7gwwk.png fill
-output $display_right bg $XDG_DATA_HOME/backgrounds/bg2.png fill
 
 # theme
 set $font Hack Nerd Font Mono
@@ -37,12 +42,6 @@ client.focused_inactive #333333 #222222 #ffffff #484e50   #3e4452
 client.unfocused        #333333 #222222 #888888 #292d2e   #3e4452
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-
-# waybar
-bar {
-    position bottom
-    swaybar_command waybar
-}
 
 # lock settings
 set $sleep "swaylock \
@@ -71,15 +70,6 @@ exec swayidle timeout 180 $sleep \
 
 bindsym ctrl+alt+delete exec $sleep
 
-exec gammastep
-
-# winkey
-set $mod mod4
-set $left h
-set $down j
-set $up k
-set $right l
-
 # switch keyboard layout
 bindsym $mod+shift+e input "12815:20484:SONiX_USB_DEVICE" xkb_switch_layout next
 
@@ -93,7 +83,7 @@ bindsym $mod+shift+q kill
 bindsym $mod+space exec rofi -show run
 
 # rofi+pass
-bindsym $mod+p exec bash -c tessen
+bindsym $mod+p exec bash -c $HOME/bin/tessen
 
 # sshot
 bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
@@ -120,6 +110,9 @@ floating_modifier $mod normal
 
 # notifications
 exec mako
+
+# wlsunset
+exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wlsunset.sh'
 
 # audio
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
@@ -217,3 +210,10 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+# waybar
+bar {
+    position bottom
+    swaybar_command waybar
+}
+
