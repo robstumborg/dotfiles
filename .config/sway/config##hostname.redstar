@@ -11,6 +11,9 @@ output $display_left bg $XDG_DATA_HOME/backgrounds/bg3.png fill
 output $display_main bg $XDG_DATA_HOME/backgrounds/wallhaven-e7gwwk.png fill
 # output $display_right bg $XDG_DATA_HOME/backgrounds/bg2.png fill
 
+# focus main display on start
+focus output $display_main
+
 # winkey
 set $mod mod4
 set $left h
