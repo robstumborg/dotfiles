@@ -208,7 +208,8 @@ nmap <silent> <a-h> :set hls! <cr>
 nn <silent> <a-c> :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 
 " switch sessions fzf
-nn <silent> <leader>s :call fzf#run({'source': prosession#ListSessions(), 'sink': 'Prosession', 'window': {'width': 0.9, 'height': 0.6}})<cr>
+nn <silent> <leader>s :call fzf#run({'source': prosession#ListSessions(),
+    \ 'sink': 'Prosession', 'window': {'width': 0.9, 'height': 0.6}})<cr>
 
 " coc
 let g:coc_global_extensions = [
@@ -230,27 +231,27 @@ function! s:show_documentation()
     call feedkeys('K', 'in')
   endif
 endfunction
-nn <silent> K :call <SID>show_documentation()<CR>
+nn <silent> K :call <sid>show_documentation()<cr>
 
 ino <silent><expr> <c-space> coc#refresh()
 
 " errors
-nmap <silent> [e <Plug>(coc-diagnostic-prev)
-nmap <silent> ]e <Plug>(coc-diagnostic-next)
+nmap <silent> [e <plug>(coc-diagnostic-prev)
+nmap <silent> ]e <plug>(coc-diagnostic-next)
 
-" scroll through completions w/ tab
-ino <silent><expr> <cr> pumvisible() ? "\<c-y><cr>" : "\<cr>"
-ino <expr> <tab> pumvisible() ? "\<c-n>" : "\<tab>"
-ino <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+" scroll thru completions using tab / shift-tab
+ino <silent><expr> <tab> coc#pum#visible() ? coc#pum#next(0) : "\<tab>"
+ino <silent><expr> <s-tab> coc#pum#visible() ? coc#pum#prev(0) : "\<s-tab>"
 
-" enter behavior
-ino <silent><expr> <cr> pumvisible() ? "\<c-y><cr>"
-      \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<cr>"
+" pressing enter selections the completion
+ino <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm()
+        \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<cr>"
 
-nnoremap <nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <nowait><expr> <C-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <nowait><expr> <C-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+" use ctrl+d/u for scrolling inside the coc.nvim popups
+nno <nowait><expr> <c-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nno <nowait><expr> <c-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+ino <nowait><expr> <c-d> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+ino <nowait><expr> <c-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 let g:user_emmet_leader_key='<c-e>'
 
@@ -396,7 +397,7 @@ au bufnewfile,bufread ~/.ssh/servers set ft=sshconfig
 
 " unminify
 :command! UnminifyHTML :%s/<[^>]*>/\r&\r/g
-:command! RemoveBlankLines :g/^$/d 
+:command! RemoveBlankLines :g/^$/d
 
 " Simple re-format for minified Javascript
 command! UnminifyJS call UnminifyJS()
