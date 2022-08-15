@@ -65,7 +65,7 @@ export ANDROID_HOME=$XDG_DATA_HOME/android
 export NVM_DIR=$XDG_DATA_HOME/nvm
 
 # ruby
-export PATH=$PATH:$XDG_DATA_HOME/gem/ruby/3.0.0/bin
+export PATH=$PATH:$XDG_DATA_HOME/gem/ruby/3.1.0/bin
 
 # js
 export NPM_PACKAGES=$XDG_DATA_HOME/npm
