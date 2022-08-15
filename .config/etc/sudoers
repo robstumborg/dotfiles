@@ -1,0 +1,5 @@
+root ALL=(ALL:ALL) ALL
+%wheel ALL=(ALL:ALL) ALL
+rj1 ALL=NOPASSWD:/usr/bin/reboot
+rj1 ALL=NOPASSWD:/usr/bin/shutdown
+Defaults passprompt="[sudo] password: "
