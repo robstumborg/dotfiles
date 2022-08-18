@@ -114,9 +114,6 @@ floating_modifier $mod normal
 # notifications
 exec mako
 
-# wlsunset
-exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wlsunset.sh'
-
 # audio
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --anchor bottom \
@@ -220,3 +217,5 @@ bar {
     swaybar_command waybar
 }
 
+# wlsunset
+exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wlsunset.sh'
