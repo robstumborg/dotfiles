@@ -79,6 +79,7 @@ Plug 'lambdalisue/suda.vim'
 
 " tmux
 Plug 'preservim/vimux'
+
 call plug#end()
 
 lua << EOF
@@ -143,6 +144,8 @@ set undofile
 set splitbelow
 set noswapfile
 set nowrap
+set mouse=a
+
 " disable consecutive comment lines
 au bufnewfile,bufread,bufwritepre * setlocal formatoptions-=ro
 
