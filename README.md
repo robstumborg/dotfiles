@@ -4,8 +4,8 @@ this repo contains my configuration files, mostly used with [void linux](https:/
 
 ## screenshots
 
-![screenshot1](https://rj1.neocities.org/img/sshot1.png)
-![screenshot2](https://rj1.neocities.org/img/sshot2.png)
+[empty workspace](https://rj1.neocities.org/img/sshot1.png)  
+[busy workspace](https://rj1.neocities.org/img/sshot2.png)  
 
 ## sway keymap
 
