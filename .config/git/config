@@ -34,6 +34,7 @@
     br      = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
     undo    = reset HEAD~1 --mixed
     st      = status -sb
+    sl      = stash list --name-status --pretty='format:%gd [%ar]: %s'
     leaderboard = shortlog -s -n
 [sendemail]
     smtpserver = /usr/bin/msmtp
