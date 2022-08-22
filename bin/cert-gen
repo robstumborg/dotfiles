@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# generate root ca:
+# openssl genrsa -des3 -out rootCA.key 4096
+# openssl req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.crt
+
+if [ $# -lt 1 ]; then
+    echo "domain name parameter required"
+    exit 1
+fi
+
+# create dir for cert
+cert_dir=$XDG_DATA_HOME/ssl/certs/$1
+mkdir -p $cert_dir
+
+# generate cert key
+openssl genrsa -out $cert_dir/privkey.pem 2048
+
+openssl req -new -sha256 \
+    -key $cert_dir/privkey.pem \
+    -subj "/C=RU/ST=CFD/O=KGB/OU=FSB/CN=${1}" \
+    -reqexts SAN \
+    -config <(cat /etc/ssl/openssl.cnf <(printf "\n[SAN]\nsubjectAltName=DNS:${1}")) \
+    -out $cert_dir/csr.pem
+
+
+openssl x509 -req -extfile <(printf "subjectAltName=DNS:${1}") \
+    -days 365 \
+    -in $cert_dir/csr.pem \
+    -CA $XDG_DATA_HOME/ssl/root-ca/rootCA.crt \
+    -CAkey $XDG_DATA_HOME/ssl/root-ca/rootCA.key \
+    -CAcreateserial \
+    -out $cert_dir/certificate.pem \
+    -sha256
