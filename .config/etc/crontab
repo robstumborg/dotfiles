@@ -1,1 +1,2 @@
+0 0 * * * crontab -l > /home/rj1/.config/etc/crontab
 */5 * * * * DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus /home/rj1/.config/email/check-email.sh
