@@ -80,6 +80,7 @@ Plug 'lambdalisue/suda.vim'
 " tmux
 Plug 'preservim/vimux'
 
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 lua << EOF
