@@ -57,6 +57,7 @@ Plug 'vimwiki/vimwiki'
 
 " syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'yioneko/nvim-yati'
 Plug 'isobit/vim-caddyfile'
 Plug 'LeonB/vim-nginx'
 Plug 'mtdl9/vim-log-highlighting'
@@ -65,6 +66,7 @@ Plug 'jamespeapen/swayconfig.vim'
 Plug 'fcpg/vim-weblogs'
 Plug '1995parham/vim-tcpdump'
 Plug 'chunkhang/vim-mbsync'
+
 
 " language/framework specific
 Plug 'nvim-lua/plenary.nvim'
@@ -108,8 +110,11 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     disable = {},
     additional_vim_regex_highlighting = false,
-    },
-  }
+  },
+}
+require("nvim-treesitter.configs").setup {
+  yati = { enable = true },
+}
 
 require('transparent').setup({
   enable = true
@@ -138,7 +143,7 @@ set incsearch
 set hlsearch
 set smartcase
 set expandtab
-set smartindent
+set nosmartindent
 set confirm
 set clipboard=unnamedplus
 set undofile
@@ -218,7 +223,7 @@ nn <silent> <leader>s :call fzf#run({'source': prosession#ListSessions(),
 " coc
 let g:coc_global_extensions = [
       \'@yaegassy/coc-intelephense',
-      \'coc-pyright',
+      \'coc-jedi',
       \'coc-git',
       \'coc-tsserver',
       \'coc-go',
