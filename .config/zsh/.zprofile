@@ -5,7 +5,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 
 # dbus
-export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 
 # runit
 export SVDIR=$XDG_CONFIG_HOME/runit/services
