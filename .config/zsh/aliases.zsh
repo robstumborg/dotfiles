@@ -29,8 +29,6 @@ alias checkencoding="ffprobe -v error -select_streams v:0 -show_entries stream=c
 alias clip2qr="wl-paste | qrencode -t ANSI"
 alias sshfs="sshfs -oauto_cache,reconnect"
 alias studev="sshfs -oauto_cache,reconnect stu:/home/stu ~/mount/stu"
-alias vpnup="sudo systemctl start wg-quick@redstar.service"
-alias vpndown="sudo systemctl stop wg-quick@redstar.service"
 alias mp3='yt-dlp -f bestaudio --extract-audio --audio-format mp3 --add-metadata -o "%(title)s.%(ext)s"'
 alias mp3tor='mp3 --proxy socks5://127.0.0.1:9050'
 alias mp3album='yt-dlp -f bestaudio --extract-audio --audio-format mp3 --split-chapters -o "chapter:%(section_title)s.%(ext)s" --add-metadata --parse-metadata "title:%(artist)s - %(album)s"'
