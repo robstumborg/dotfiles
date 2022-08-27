@@ -1,0 +1,9 @@
+[binds]
+r = rotate by 90
+n = next
+p = prev
+c = exec cp -rf "$imv_current_file" /home/rj1/web/gallery/current/
+k = zoom +5
+j = zoom -5
+h = zoom actual
+yy = exec echo "$imv_current_file" | wl-copy
