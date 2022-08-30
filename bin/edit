@@ -1,0 +1,77 @@
+#!/bin/python
+import libtmux
+from pynvim import attach
+from i3ipc import Connection
+import sys
+import os
+import glob
+
+def in_dir(path, dir):
+    return os.path.realpath(path).startswith(os.path.realpath(dir) + os.sep)
+
+server = libtmux.Server()
+tmux_session = server.find_where({"session_name": "edit"})
+windows = tmux_session._list_windows()
+
+# todo: check if `edit` tmux session exists
+# if not, create it and open nvim to default scratchpad session
+# should this script launch a new tmux window when a session file is available
+# but not currently open?
+
+# get list of windows in our 'edit' tmux session
+open_windows = []
+for window in windows:
+    if window['session_name'] == 'edit':
+        open_windows.append(window['window_name'])
+
+# fetch list of all neovim sessions
+session_dir = os.getenv('XDG_DATA_HOME') + '/nvim/session'
+sessions = map(os.path.basename, glob.glob(session_dir + '/*.vim'))
+
+# deeper dirs go first so we don't end up in e.g. ~/.config session instead of
+# ~/.config/nvim/plugins/some-plugin session
+sessions = sorted(sessions, key=len, reverse=True)
+
+# create open sessions list
+open_sessions = {}
+for session in sessions:
+    dir = session.replace('%', '/')
+    dir = dir.replace('.vim', '')
+    basename = os.path.basename(dir)
+    if basename in open_windows:
+        open_sessions[basename] = {}
+        open_sessions[basename]['session_file'] = session
+        open_sessions[basename]['dir'] = dir
+
+# absolute file path
+if os.path.isabs(sys.argv[1]):
+    file = sys.argv[1]
+else:
+    file = os.getcwd() + '/' + sys.argv[1]
+
+# set default scratchpad session
+use_session = open_sessions['scratch']
+
+# see if there's an active session we should be using
+for open_session in open_sessions.values():
+    if in_dir(file, open_session['dir']) is True:
+        use_session = open_session
+        break
+
+# connect to neovim socket and open file
+# note: this requires the creation of sockets per session in your neovim config
+# e.g. au sessionloadpost * call serverstart('/tmp/nvim-' . SessionName())
+socket = '/tmp/nvim-' + os.path.basename(use_session['dir'])
+nvim = attach('socket', path=socket)
+nvim.command('edit ' + file)
+
+# find tmux window and switch to it
+# normally we could simply call select_window here w/ the basename, but this
+# doesn't work w/ hidden dirs such as .config due to limitations in tmux
+# todo: switch to correct pane?
+switch = os.path.basename(use_session['dir'])
+find_window = tmux_session.find_where({'window_name': switch})
+window = tmux_session.select_window(str(find_window).split(':')[0].split()[1])
+
+# switch to edit window w/ sway ipc
+Connection().get_tree().find_named('edit')[0].command('focus')
