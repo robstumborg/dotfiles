@@ -5,17 +5,37 @@ from i3ipc import Connection
 import sys
 import os
 import glob
+import time
 
 def in_dir(path, dir):
     return os.path.realpath(path).startswith(os.path.realpath(dir) + os.sep)
 
+tmux_session_name = 'edit'
+vim_session_name = 'scratch'
+vim_session_dir = '/home/rj1/playground/scratch'
+
 server = libtmux.Server()
-tmux_session = server.find_where({"session_name": "edit"})
+tmux_session = server.find_where({"session_name": tmux_session_name})
+
+# check if 'edit' tmux session is open
+if tmux_session is None:
+    # if we don't have a tmux 'edit' session, create one
+    tmux_session = server.new_session(tmux_session_name,
+        window_name=vim_session_name, attach=False)
+    # open nvim in new session/window w/ a default session
+    window = tmux_session.find_where({"window_name": vim_session_name})
+    pane = window.attached_pane
+    pane.send_keys('nvim --listen /tmp/nvim-' + vim_session_name, enter=True)
+    pane.send_keys(':Prosession ' + vim_session_dir, enter=True)
+
+    if os.getenv('TMUX'):
+        print('tmux session"' + tmux_session_name + '" is ready')
+    else:
+        tmux_session.attach_session()
+
 windows = tmux_session._list_windows()
 
-# todo: check if `edit` tmux session exists
-# if not, create it and open nvim to default scratchpad session
-# should this script launch a new tmux window when a session file is available
+# todo: launch a new tmux window when a session file is available
 # but not currently open?
 
 # get list of windows in our 'edit' tmux session
@@ -50,7 +70,7 @@ else:
     file = os.getcwd() + '/' + sys.argv[1]
 
 # set default scratchpad session
-use_session = open_sessions['scratch']
+use_session = open_sessions[vim_session_name]
 
 # see if there's an active session we should be using
 for open_session in open_sessions.values():
