@@ -72,7 +72,7 @@ hints:
     command: xdg-open
     post_processing: true
     mouse:
-      enabled: false
+      enabled: true
       mods: none
     binding:
       key: E
