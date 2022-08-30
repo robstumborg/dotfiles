@@ -126,6 +126,7 @@ require('kommentary.config').configure_language("php", {
     single_line_comment_string = "//",
     multi_line_comment_strings = {"/*", "*/"},
 })
+
 EOF
 
 " color scheme
@@ -352,6 +353,7 @@ if exists('$TMUX')
   let g:VimuxHeight = "32"
   " rename tmux window when loading/switching session
   au sessionloadpost * call system("tmux rename-window " . SessionName())
+  au sessionloadpost * call serverstart('/tmp/nvim-' . SessionName())
   " hotkeys to run/compile programs
   au filetype c map <buffer> <f9> :w<cr>:VimuxRunCommand 'gcc ' . shellescape(@%, 1) . ' && ./a.out; rm -rf a.out'<cr>
   au filetype go map <buffer> <f9> :w<cr>:VimuxRunCommand 'go run ' . shellescape(@%, 1)<cr>
