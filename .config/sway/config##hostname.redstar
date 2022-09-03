@@ -37,7 +37,7 @@ seat seat0 hide_cursor 1500
 set $font Hack Nerd Font Mono
 font pango:$font
 default_border pixel 1
-gaps inner 10
+# gaps inner 10
 
 # class                 border  bg      text    indicator child_border
 client.focused          #98c379 #98c379 #666666 #98c379   #98c379
