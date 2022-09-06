@@ -7,10 +7,6 @@ output $display_left pos 0 0 res 1920x1080
 output $display_main pos 1920 0 res 3840x2160
 # output $display_right pos 5760 0 transform 270
 
-output $display_left bg $XDG_DATA_HOME/backgrounds/bg3.png fill
-output $display_main bg $XDG_DATA_HOME/backgrounds/wallhaven-e7gwwk.png fill
-# output $display_right bg $XDG_DATA_HOME/backgrounds/bg2.png fill
-
 # focus main display on start
 focus output $display_main
 
