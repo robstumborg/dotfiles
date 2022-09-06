@@ -83,6 +83,7 @@ Plug 'lambdalisue/suda.vim'
 Plug 'preservim/vimux'
 
 Plug 'editorconfig/editorconfig-vim'
+Plug 'vim-vdebug/vdebug'
 call plug#end()
 
 lua << EOF
