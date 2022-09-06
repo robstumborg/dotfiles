@@ -1,8 +1,7 @@
-.tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line {
-  height: 1px !important;
+#tabbrowser-tabs { 
+  visibility: collapse !important;
 }
 
-.tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-context-line + .tab-loading-burst {
-  background-color: var(--identity-tab-color);
-  opacity: 0.1;
+#sidebar-header {
+  visibility: collapse !important;
 }
