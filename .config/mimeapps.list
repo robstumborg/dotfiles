@@ -1,6 +1,10 @@
 [Default Applications]
 text/plain=nvim.desktop
 text/html=firefox.desktop
+text/x-php=nvim.desktop
+text/x-shellscript=nvim.desktop
+text/x-script.python=nvim.desktop
+text/x-perl=nvim.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
 x-scheme-handler/about=firefox.desktop
