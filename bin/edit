@@ -10,6 +10,12 @@ import time
 def in_dir(path, dir):
     return os.path.realpath(path).startswith(os.path.realpath(dir) + os.sep)
 
+def abs_filepath(filepath):
+    if os.path.isabs(filepath):
+        return filepath
+    else:
+        return os.getcwd() + '/' + filepath
+
 tmux_session_name = 'edit'
 vim_session_name = 'scratch'
 vim_session_dir = '/home/rj1/playground/scratch'
@@ -21,7 +27,7 @@ tmux_session = server.find_where({"session_name": tmux_session_name})
 if tmux_session is None:
     # if we don't have a tmux 'edit' session, create one
     tmux_session = server.new_session(tmux_session_name,
-        window_name=vim_session_name, attach=False)
+        window_name = vim_session_name, attach = False)
     # open nvim in new session/window w/ a default session
     window = tmux_session.find_where({"window_name": vim_session_name})
     pane = window.attached_pane
@@ -33,12 +39,14 @@ if tmux_session is None:
     else:
         tmux_session.attach_session()
 
-windows = tmux_session._list_windows()
+if len(sys.argv) >= 1:
+    print('missing file parameter, e.g. `edit <filename>`')
+    quit()
 
 # todo: launch a new tmux window when a session file is available
 # but not currently open?
-
 # get list of windows in our 'edit' tmux session
+windows = tmux_session._list_windows()
 open_windows = []
 for window in windows:
     if window['session_name'] == 'edit':
@@ -63,11 +71,8 @@ for session in sessions:
         open_sessions[basename]['session_file'] = session
         open_sessions[basename]['dir'] = dir
 
-# absolute file path
-if os.path.isabs(sys.argv[1]):
-    file = sys.argv[1]
-else:
-    file = os.getcwd() + '/' + sys.argv[1]
+# absolute filepath
+file = abs_filepath(sys.argv[1])
 
 # set default scratchpad session
 use_session = open_sessions[vim_session_name]
