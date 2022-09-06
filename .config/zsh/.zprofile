@@ -31,7 +31,6 @@ export GTK_THEME=Adwaita:dark
 export EDITOR=nvim
 export VISUAL=nvim
 export GPG_TTY=$(tty)
-# export NVIM_LISTEN_ADDRESS=/tmp/letsedit
 export CHROME_EXECUTABLE=/usr/bin/chromium
 export PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 export GNUPGHOME=$XDG_DATA_HOME/gnupg
@@ -71,3 +70,4 @@ export PATH=$PATH:$XDG_DATA_HOME/gem/ruby/3.1.0/bin
 export NPM_PACKAGES=$XDG_DATA_HOME/npm
 export PATH=$PATH:$NPM_PACKAGES/bin
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/config
+
