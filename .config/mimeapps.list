@@ -1,0 +1,23 @@
+[Default Applications]
+text/plain=nvim.desktop
+text/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/about=firefox.desktop
+x-scheme-handler/unknown=firefox.desktop
+image/jpeg=imv.desktop
+image/png=imv.desktop
+image/webp=imv.desktop
+image/gif=imv.desktop
+video/mp4=mpv.desktop
+video/x-msvideo=mpv.desktop
+application/x-mpegURL=mpv.desktop
+video/mp4=mpv.desktop
+video/x-matroska=mpv.desktop
+audio/x-wav=mpv.desktop
+audio/x-aiff=mpv.desktop
+audio/x-aiff=mpv.desktop
+audio/mpeg=mpv.desktop
+audio/mp4=mpv.desktop
+audio/mpeg=mpv.desktop
+application/ogg=mpv.desktop
