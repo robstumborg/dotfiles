@@ -37,6 +37,7 @@
             "hash",
             "iconv",
             "imap",
+            "imagick",
             "intl",
             "json",
             "ldap",
