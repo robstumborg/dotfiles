@@ -14,14 +14,12 @@ alias rm="rm -i"
 alias ls="ls --color"
 alias l="ls -lah"
 alias grep="grep --color"
-alias history="history 1"
 alias task="dstask"
 alias fd="fd --color=auto"
 alias tomb="tomb -f"
 alias campv="mpv av://v4l2:/dev/video0"
 alias tb="nc termbin.com 9999"
 alias cl="curl -F 'clbin=<-' https://clbin.com"
-alias upgrade="sudo pacman -Syu"
 alias ip='ip -color=auto'
 alias busy="cat /dev/urandom | hexdump -C | grep '1a cc'"
 alias tz="php ~/scripts/time.php"
@@ -37,6 +35,13 @@ alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias sysu="systemctl --user"
 alias mail="$XDG_CONFIG_HOME/email/check-email.sh"
+
+urlencode() {
+    php -r "echo urlencode('$1');"
+}
+urldecode() {
+    php -r "echo urldecode('$1');"
+}
 
 # xbps
 alias xbi="sudo xbps-install"
@@ -68,8 +73,8 @@ upload() {
 
     filename=$(basename $file)
 
-    curl -fsSL -F "files[]=@${file}" https://uguu.se/upload.php | jq -c -r ".files[].url"
-    # curl -fsSL -F "file=@${file}" http://0x0.st
+    # curl -fsSL -F "files[]=@${file}" https://uguu.se/upload.php | jq -c -r ".files[].url"
+    curl -fsSL -F "file=@${file}" http://0x0.st
 }
 alias up=upload
 
