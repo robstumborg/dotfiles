@@ -19,7 +19,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " file navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
+
+Plug 'kyazdani42/nvim-tree.lua'
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -67,7 +68,6 @@ Plug 'fcpg/vim-weblogs'
 Plug '1995parham/vim-tcpdump'
 Plug 'chunkhang/vim-mbsync'
 
-
 " language/framework specific
 Plug 'nvim-lua/plenary.nvim'
 Plug 'thosakwe/vim-flutter'
@@ -84,9 +84,20 @@ Plug 'preservim/vimux'
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-vdebug/vdebug'
+Plug 'tpope/vim-characterize'
 call plug#end()
 
 lua << EOF
+require("nvim-tree").setup({
+  view = {
+    mappings = {
+      list = {
+        { key = "s", action = "" },
+      }
+    }
+  }
+})
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
       "php",
@@ -204,7 +215,7 @@ nn <c-p> :FZF<cr>
 nn <c-f> :Rg<cr>
 
 " nerd tree toggle
-nn <c-b> :NERDTreeToggle<cr>
+nn <c-b> :NvimTreeToggle<cr>
 
 " new temp file
 nn <silent> <c-n> :enew<cr>
@@ -362,6 +373,7 @@ if exists('$TMUX')
   au filetype php map <buffer> <f9> :w<cr>:VimuxRunCommand 'php ' . shellescape(@%, 1)<cr>
   au filetype ruby map <buffer> <f9> :w<cr>:VimuxRunCommand 'ruby ' . shellescape(@%, 1)<cr>
   au filetype python map <buffer> <f9> :w<cr>:VimuxRunCommand 'python3 ' . shellescape(@%, 1)<cr>
+  au filetype javascript map <buffer> <f9> :w<cr>:VimuxRunCommand 'node ' . shellescape(@%, 1)<cr>
 else
   au filetype c map <buffer> <f9> :w<cr>:exec '!gcc ' . shellescape(@%, 1) . ' && ./a.out'<cr>
   au filetype go map <buffer> <f9> :w<cr>:exec '!go run' shellescape(@%, 1)<cr>
