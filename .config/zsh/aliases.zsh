@@ -33,7 +33,6 @@ alias mp3album='yt-dlp -f bestaudio --extract-audio --audio-format mp3 --split-c
 alias password="</dev/urandom tr -dc '123450!@#$%6789qwertQWERTasdfgASDFGzxcvbZXCVB' | head -c34"
 alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
-alias sysu="systemctl --user"
 alias mail="$XDG_CONFIG_HOME/email/check-email.sh"
 
 urlencode() {
@@ -73,7 +72,6 @@ upload() {
 
     filename=$(basename $file)
 
-    # curl -fsSL -F "files[]=@${file}" https://uguu.se/upload.php | jq -c -r ".files[].url"
     curl -fsSL -F "file=@${file}" http://0x0.st
 }
 alias up=upload
