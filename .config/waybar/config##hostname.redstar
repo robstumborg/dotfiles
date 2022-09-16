@@ -1,7 +1,6 @@
 {
     "position": "bottom",
     "layer": "top",
-    "output": ["HDMI-A-1", "DP-1"],
     "modules-left": [
         "sway/workspaces",
         "sway/mode"
@@ -75,7 +74,7 @@
         "timezone": "America/Regina"
     },
     "network": {
-        "interface": "redstar",
+        "interface": "enp3s0",
         "interval": 1,
         "format-wifi": " {essid} ({signalStrength}%) {bandwidthUpBits} {bandwidthDownBits}",
         "format-ethernet": "{bandwidthUpBits}  {bandwidthDownBits} ",
