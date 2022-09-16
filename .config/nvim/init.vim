@@ -19,7 +19,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " file navigation
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
 Plug 'kyazdani42/nvim-tree.lua'
 
 " git
@@ -381,6 +380,7 @@ else
   au filetype php map <buffer> <f9> :w<cr>:exec '!php ' shellescape(@%, 1)<cr>
   au filetype ruby map <buffer> <f9> :w<cr>:exec '!ruby ' . shellescape(@%, 1)<cr>
   au filetype python map <buffer> <f9> :w<cr>:exec '!python3 ' shellescape(@%, 1)<cr>
+  au filetype javascript map <buffer> <f9> :w<cr>:exec '!node ' . shellescape(@%, 1)<cr>
 endif
 
 au filetype markdown map <buffer> <f9> :MarkdownPreview<cr>
