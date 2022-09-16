@@ -191,6 +191,7 @@ bindsym $mod+shift+9 move container to workspace number 9
 
 assign [app_id="chromium"] "goog"
 assign [app_id="mpv"] "video"
+assign [class="Chromium-browser"] "video"
 
 # resize mode
 mode "resize" {
