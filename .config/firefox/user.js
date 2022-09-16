@@ -12,9 +12,9 @@ user_pref('media.rdd-vpx.enabled', false);
 user_pref('media.navigator.mediadatadecoder_vpx_enabled', true);
 
 // view-source editor
-user_pref("view_source.editor.external", true);
-user_pref("view_source.editor.path", "/usr/bin/foot");
-user_pref("view_source.editor.args", "nvim");
+user_pref("view_source.editor.external", false);
+// user_pref("view_source.editor.path", "/usr/bin/foot");
+// user_pref("view_source.editor.args", "nvim");
 
 // etc
 user_pref("general.warnOnAboutConfig", false);
