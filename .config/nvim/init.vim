@@ -184,6 +184,13 @@ au filetype yaml setl shiftwidth=2
 " yyeol
 nno Y y$
 
+" clear trailing spaces
+nn <silent> ts :let _s=@/<bar>:%s/\s\+$//e<bar>:let @/=_s<bar>:nohl<cr>
+            \ :echo "trailing spaces cleared"<cr>
+
+" center
+nnoremap cc :center<cr>
+
 " buffer switching
 nno <silent> <c-k> :bn!<cr>
 nno <silent> <c-j> :bp!<cr>
