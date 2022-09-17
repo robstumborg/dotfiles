@@ -9,8 +9,8 @@ this repo contains my configuration files, mostly used with [void linux](https:/
 
 ## sway keymap
 
-top row = super+key
-bottom row = super+shift+key
+top row = super+key  
+bottom row = super+shift+key  
 
 ```
                                                                     ┌───────┬───────┬───────┐
