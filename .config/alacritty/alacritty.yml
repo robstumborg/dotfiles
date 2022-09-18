@@ -75,7 +75,7 @@ hints:
     binding:
       key: E
       mods: control|shift
-  - regex: '[0-9a-f]{5,40}|((https?://|git@|git://|ssh://|ftp://|magnet://|file:///)[[:alnum:]?=%/_.:,;~@!#$&()*+-]*)|([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})|([0-9a-f]{12,128})|([[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})|2[0-9a-fA-F]{3}:(([0-9a-fA-F]{1,4}[:]{1,2}){1,6}[0-9a-fA-F]{1,4})'
+  - regex: '[0-9a-f]{5,40}|((https?://|git@|git://|ssh://|ftp://|magnet://|rtmp://|file:///)[[:alnum:]?=%/_.:,;~@!#$&()*+-]*)|([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})|([0-9a-f]{12,128})|([[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3})|2[0-9a-fA-F]{3}:(([0-9a-fA-F]{1,4}[:]{1,2}){1,6}[0-9a-fA-F]{1,4})'
     action: copy
     mouse:
       enabled: false
