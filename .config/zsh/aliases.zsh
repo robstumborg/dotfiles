@@ -72,7 +72,8 @@ upload() {
 
     filename=$(basename $file)
 
-    curl -fsSL -F "file=@${file}" http://0x0.st
+    curl -fsSL -F "file=@${file}" -F "url_len=5" https://filehole.org/
+    # curl -fsSL -F "file=@${file}" http://0x0.st
 }
 alias up=upload
 
