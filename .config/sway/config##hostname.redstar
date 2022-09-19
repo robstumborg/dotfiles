@@ -1,11 +1,9 @@
 # display settings
-# set $display_right DVI-D-1
 set $display_main HDMI-A-1
-set $display_left DP-1
+set $display_right DP-1
 
-output $display_left pos 0 0 res 1920x1080
-output $display_main pos 1920 0 res 3840x2160
-# output $display_right pos 5760 0 transform 270
+output $display_main pos 0 0 res 3840x2160
+output $display_right pos 3840 0 res 1920x1080 
 
 # focus main display on start
 focus output $display_main
@@ -28,6 +26,7 @@ input "type:keyboard" {
 # mouse settings
 seat seat0 xcursor_theme Borealis
 seat seat0 hide_cursor 1500
+exec_always gsettings set org.gnome.desktop.interface cursor-theme 'Borealis'
 
 # theme
 set $font Hack Nerd Font Mono
@@ -159,7 +158,7 @@ bindsym $mod+shift+$right move right
 # workspaces
 workspace "main" output $display_main
 workspace "goog" output $display_main
-workspace "video" output $display_left
+workspace "video" output $display_right
 
 # switch workspaces
 bindsym $mod+b workspace "main"
