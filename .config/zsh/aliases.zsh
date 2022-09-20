@@ -34,6 +34,7 @@ alias password="</dev/urandom tr -dc '123450!@#$%6789qwertQWERTasdfgASDFGzxcvbZX
 alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias mail="$XDG_CONFIG_HOME/email/check-email.sh"
+alias diff="nvim -d"
 
 urlencode() {
     php -r "echo urlencode('$1');"
