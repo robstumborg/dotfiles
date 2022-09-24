@@ -13,9 +13,9 @@ fi
 /usr/bin/notmuch new
 
 # do some tagging
-notmuch tag +inbox -- folder:/inbox/ and tag:new
-notmuch tag +notify -- folder:/inbox/ and tag:new
-notmuch tag -new -- tag:new
+/usr/bin/notmuch tag +inbox -- folder:/inbox/ and tag:new
+/usr/bin/notmuch tag +notify -- folder:/inbox/ and tag:new
+/usr/bin/notmuch tag -new -- tag:new
 
 # notify
 SEARCH="tag:notify"
