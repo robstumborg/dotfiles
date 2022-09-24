@@ -3,7 +3,9 @@ config.source('redirect.py')
 
 c.tabs.position = 'right'
 c.tabs.width = '15%'
-c.fonts.default_size = '16px'
+c.fonts.default_family = "Hack Nerd Font Mono"
+c.fonts.web.family.standard = "Hack Nerd Font Mono"
+c.fonts.default_size = '12px'
 c.hints.uppercase = True
 c.completion.height = '20%'
 c.downloads.location.directory = '~/dl'
