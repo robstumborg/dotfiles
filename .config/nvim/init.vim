@@ -180,6 +180,7 @@ au filetype vue setl shiftwidth=2
 au filetype vim setl shiftwidth=2 tabstop=4
 au filetype dart setl shiftwidth=2
 au filetype yaml setl shiftwidth=2
+au filetype lua setl shiftwidth=2
 
 " yyeol
 nno Y y$
@@ -220,6 +221,9 @@ ino <c-s> <c-o>:update<cr>
 nn <c-p> :FZF<cr>
 nn <c-f> :Rg<cr>
 
+" buffer navigation
+nn <c-h> :Buffers<cr>
+
 " nerd tree toggle
 nn <c-b> :NvimTreeToggle<cr>
 
@@ -249,7 +253,8 @@ let g:coc_global_extensions = [
       \'coc-vetur',
       \'coc-clangd',
       \'coc-html',
-      \'coc-css']
+      \'coc-css',
+      \'coc-lua']
 
 " show documentation hotkey
 function! s:show_documentation()
