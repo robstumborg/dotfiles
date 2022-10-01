@@ -32,7 +32,7 @@ Plug 'dhruvasagar/vim-prosession'
 " html
 Plug 'mattn/emmet-vim'
 Plug 'AndrewRadev/tagalong.vim'
-Plug 'gregsexton/MatchTag'
+Plug 'leafOfTree/vim-matchtag'
 Plug 'alvan/vim-closetag'
 Plug 'ap/vim-css-color'
 
@@ -446,3 +446,5 @@ function! UnminifyJS()
     normal ggVG=
 endfunction
 
+autocmd FileType * unlet! g:airline#extensions#whitespace#checks
+autocmd FileType markdown,vimwiki let g:airline#extensions#whitespace#checks = [ 'indent' ]
