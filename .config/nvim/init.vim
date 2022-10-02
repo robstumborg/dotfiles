@@ -66,6 +66,7 @@ Plug 'jamespeapen/swayconfig.vim'
 Plug 'fcpg/vim-weblogs'
 Plug '1995parham/vim-tcpdump'
 Plug 'chunkhang/vim-mbsync'
+Plug 'jparise/vim-graphql'
 
 " language/framework specific
 Plug 'nvim-lua/plenary.nvim'
