@@ -1,4 +1,14 @@
 {
+    "languageserver": {
+        "graphql": {
+            "command": "graphql-lsp",
+            "args": ["server", "-m", "stream"],
+            "filetypes": ["typescript", "typescriptreact", "graphql", "gql"],
+            "settings": {
+                "graphql-config.load.legacy": true
+            }
+        }
+    },
     "typescript.suggestionActions.enabled": false,
     "javascript.suggestionActions.enabled": false,
     "json.enable": true,
