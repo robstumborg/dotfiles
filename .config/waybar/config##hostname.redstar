@@ -24,7 +24,6 @@
         "custom/arrow6",
         "custom/worldclock",
         "clock#utc",
-        "clock#uk",
         "clock#china",
         "clock#nyc",
         "clock#la",
@@ -44,19 +43,14 @@
         "interval": 1
     },
     "clock#la": {
-        "format": "{:%H:%M} LA  •",
+        "format": "{:%H:%M} PST  •",
         "interval": 1,
         "timezone": "America/Los_Angeles"
     },
     "clock#nyc": {
-        "format": "{:%H:%M} NYC  •",
+        "format": "{:%H:%M} EST  •",
         "interval": 1,
         "timezone": "America/New_York"
-    },
-    "clock#uk": {
-        "format": "{:%H:%M} UK  •",
-        "interval": 1,
-        "timezone": "Europe/London"
     },
     "clock#china": {
         "format": "{:%H:%M} HK  •",
@@ -69,12 +63,12 @@
         "timezone": "UTC"
     },
     "clock#sk": {
-        "format": " {:%H:%M} SK  •",
+        "format": " {:%H:%M} CST  •",
         "interval": 1,
         "timezone": "America/Regina"
     },
     "network": {
-        "interface": "enp3s0",
+        "interface": "redstar2",
         "interval": 1,
         "format-wifi": " {essid} ({signalStrength}%) {bandwidthUpBits} {bandwidthDownBits}",
         "format-ethernet": "{bandwidthUpBits}  {bandwidthDownBits} ",
