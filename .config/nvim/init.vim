@@ -1,7 +1,7 @@
 let config_dir = $XDG_CONFIG_HOME . '/nvim'
 if empty(glob(config_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo ' . config_dir . '/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  au VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent execute '!curl -fLo ' . config_dir . '/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    au VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.config/nvim/plugins')
@@ -87,59 +87,6 @@ Plug 'vim-vdebug/vdebug'
 Plug 'tpope/vim-characterize'
 call plug#end()
 
-lua << EOF
-require("nvim-tree").setup({
-  view = {
-    mappings = {
-      list = {
-        { key = "s", action = "" },
-      }
-    }
-  }
-})
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-      "php",
-      "go",
-      "python",
-      "typescript",
-      "javascript",
-      "json",
-      "c",
-      "lua",
-      "rust"
-    },
-
-  sync_install = false,
-  ignore_install = {},
-
-  indent = {
-    enable = true,
-    },
-
-  highlight = {
-    enable = true,
-    disable = {},
-    additional_vim_regex_highlighting = false,
-  },
-}
-require("nvim-treesitter.configs").setup {
-  yati = { enable = true },
-}
-
-require('transparent').setup({
-  enable = true
-})
-
-require('gitsigns').setup()
-
-require('kommentary.config').configure_language("php", {
-    single_line_comment_string = "//",
-    multi_line_comment_strings = {"/*", "*/"},
-})
-
-EOF
 
 " color scheme
 colorscheme onedarkpro
@@ -242,28 +189,28 @@ nn <silent> <a-c> :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")
 
 " switch sessions fzf
 nn <silent> <leader>s :call fzf#run({'source': prosession#ListSessions(),
-    \ 'sink': 'Prosession', 'window': {'width': 0.9, 'height': 0.6}})<cr>
+            \ 'sink': 'Prosession', 'window': {'width': 0.9, 'height': 0.6}})<cr>
 
 " coc
 let g:coc_global_extensions = [
-      \'@yaegassy/coc-intelephense',
-      \'coc-jedi',
-      \'coc-git',
-      \'coc-tsserver',
-      \'coc-go',
-      \'coc-vetur',
-      \'coc-clangd',
-      \'coc-html',
-      \'coc-css',
-      \'coc-lua']
+            \'@yaegassy/coc-intelephense',
+            \'coc-jedi',
+            \'coc-git',
+            \'coc-tsserver',
+            \'coc-go',
+            \'coc-vetur',
+            \'coc-clangd',
+            \'coc-html',
+            \'coc-css',
+            \'coc-lua']
 
 " show documentation hotkey
 function! s:show_documentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
+    if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+    else
+        call feedkeys('K', 'in')
+    endif
 endfunction
 nn <silent> K :call <sid>show_documentation()<cr>
 
@@ -279,7 +226,7 @@ ino <silent><expr> <s-tab> coc#pum#visible() ? coc#pum#prev(0) : "\<s-tab>"
 
 " pressing enter selections the completion
 ino <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm()
-        \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<cr>"
+            \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<cr>"
 
 " use ctrl+d/u for scrolling inside the coc.nvim popups
 nno <nowait><expr> <c-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
@@ -290,21 +237,21 @@ ino <nowait><expr> <c-u> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<c
 let g:user_emmet_leader_key='<c-e>'
 
 function! s:GoToDefinition()
-  if CocAction('jumpDefinition')
-    return v:true
-  endif
+    if CocAction('jumpDefinition')
+        return v:true
+    endif
 
-  let ret = execute("silent! normal \<C-]>")
-  if ret =~ "Error"
-    call searchdecl(expand('<cword>'))
-  endif
+    let ret = execute("silent! normal \<C-]>")
+    if ret =~ "Error"
+        call searchdecl(expand('<cword>'))
+    endif
 endfunction
 
 nmap <silent> gd :call <sid>GoToDefinition()<cr>
 aug qs_colors
-  au!
-  au colorscheme onedarkpro highlight quickscopeprimary guifg='#ffffff' gui=underline ctermfg=1 cterm=underline
-  au colorscheme onedarkpro highlight quickscopesecondary guifg='#f0fff0' ctermfg=2
+    au!
+    au colorscheme onedarkpro highlight quickscopeprimary guifg='#ffffff' gui=underline ctermfg=1 cterm=underline
+    au colorscheme onedarkpro highlight quickscopesecondary guifg='#f0fff0' ctermfg=2
 aug END
 
 let g:airline_theme="onedark"
@@ -322,10 +269,10 @@ let g:suda_smart_edit = 1
 
 " show prosession name in status bar
 function! SessionName()
-  if ObsessionStatus() == ''
-    retu 'no session'
-  endif
-  return fnamemodify(getcwd(), ':t')
+    if ObsessionStatus() == ''
+        retu 'no session'
+    endif
+    return fnamemodify(getcwd(), ':t')
 endfunction
 
 let g:airline_section_b = '%-0.30{SessionName()}'
@@ -353,79 +300,79 @@ au filetype vimwiki set syntax=markdown
 au bufreadpre,filereadpre *.wiki.md setl noswapfile noundofile nobackup viminfo=
 
 aug encrypted
-  au!
-  au bufreadpre,filereadpre *.gpg,*.gpg.md setl noswapfile noundofile nobackup viminfo=
-  au bufreadpost *.gpg,*.gpg.md :sil %!gpg_tty=/dev/tty gpg2 --decrypt 2> /dev/null
-  au bufwritepre *.gpg,*.gpg.md :sil %!gpg_tty=/dev/tty gpg2 -se -a --default-recipient-self
-  au bufwritepost *.gpg,*.gpg.md :sil undo
+    au!
+    au bufreadpre,filereadpre *.gpg,*.gpg.md setl noswapfile noundofile nobackup viminfo=
+    au bufreadpost *.gpg,*.gpg.md :sil %!gpg_tty=/dev/tty gpg2 --decrypt 2> /dev/null
+    au bufwritepre *.gpg,*.gpg.md :sil %!gpg_tty=/dev/tty gpg2 -se -a --default-recipient-self
+    au bufwritepost *.gpg,*.gpg.md :sil undo
 aug end
 
 " hugo plugin doesn't like this not being set
 let g:markdown_fenced_languages = [
-      \'css',
-      \'javascript',
-      \'js=javascript',
-      \'json=javascript',
-      \'sh',
-      \'sass',
-      \'html',
-      \'php']
+            \'css',
+            \'javascript',
+            \'js=javascript',
+            \'json=javascript',
+            \'sh',
+            \'sass',
+            \'html',
+            \'php']
 
 " tmux specific settings
 if exists('$TMUX')
-  nmap <f10> :VimuxTogglePane<cr>
-  let g:VimuxHeight = "32"
-  " rename tmux window when loading/switching session
-  au sessionloadpost * call system("tmux rename-window " . SessionName())
-  au sessionloadpost * silent! call serverstart('/tmp/nvim-' . SessionName())
-  " hotkeys to run/compile programs
-  au filetype c map <buffer> <f9> :w<cr>:VimuxRunCommand 'gcc ' . shellescape(@%, 1) . ' && ./a.out; rm -rf a.out'<cr>
-  au filetype go map <buffer> <f9> :w<cr>:VimuxRunCommand 'go run ' . shellescape(@%, 1)<cr>
-  au filetype sh map <buffer> <f9> :w<cr>:VimuxRunCommand 'bash ' . shellescape(@%, 1)<cr>
-  au filetype php map <buffer> <f9> :w<cr>:VimuxRunCommand 'php ' . shellescape(@%, 1)<cr>
-  au filetype ruby map <buffer> <f9> :w<cr>:VimuxRunCommand 'ruby ' . shellescape(@%, 1)<cr>
-  au filetype python map <buffer> <f9> :w<cr>:VimuxRunCommand 'python3 ' . shellescape(@%, 1)<cr>
-  au filetype javascript map <buffer> <f9> :w<cr>:VimuxRunCommand 'node ' . shellescape(@%, 1)<cr>
+    nmap <f10> :VimuxTogglePane<cr>
+    let g:VimuxHeight = "32"
+    " rename tmux window when loading/switching session
+    au sessionloadpost * call system("tmux rename-window " . SessionName())
+    au sessionloadpost * silent! call serverstart('/tmp/nvim-' . SessionName())
+    " hotkeys to run/compile programs
+    au filetype c map <buffer> <f9> :w<cr>:VimuxRunCommand 'gcc ' . shellescape(@%, 1) . ' && ./a.out; rm -rf a.out'<cr>
+    au filetype go map <buffer> <f9> :w<cr>:VimuxRunCommand 'go run ' . shellescape(@%, 1)<cr>
+    au filetype sh map <buffer> <f9> :w<cr>:VimuxRunCommand 'bash ' . shellescape(@%, 1)<cr>
+    au filetype php map <buffer> <f9> :w<cr>:VimuxRunCommand 'php ' . shellescape(@%, 1)<cr>
+    au filetype ruby map <buffer> <f9> :w<cr>:VimuxRunCommand 'ruby ' . shellescape(@%, 1)<cr>
+    au filetype python map <buffer> <f9> :w<cr>:VimuxRunCommand 'python3 ' . shellescape(@%, 1)<cr>
+    au filetype javascript map <buffer> <f9> :w<cr>:VimuxRunCommand 'node ' . shellescape(@%, 1)<cr>
 else
-  au filetype c map <buffer> <f9> :w<cr>:exec '!gcc ' . shellescape(@%, 1) . ' && ./a.out'<cr>
-  au filetype go map <buffer> <f9> :w<cr>:exec '!go run' shellescape(@%, 1)<cr>
-  au filetype sh map <buffer> <f9> :w<cr>:exec 'bash ' . shellescape(@%, 1)<cr>
-  au filetype php map <buffer> <f9> :w<cr>:exec '!php ' shellescape(@%, 1)<cr>
-  au filetype ruby map <buffer> <f9> :w<cr>:exec '!ruby ' . shellescape(@%, 1)<cr>
-  au filetype python map <buffer> <f9> :w<cr>:exec '!python3 ' shellescape(@%, 1)<cr>
-  au filetype javascript map <buffer> <f9> :w<cr>:exec '!node ' . shellescape(@%, 1)<cr>
+    au filetype c map <buffer> <f9> :w<cr>:exec '!gcc ' . shellescape(@%, 1) . ' && ./a.out'<cr>
+    au filetype go map <buffer> <f9> :w<cr>:exec '!go run' shellescape(@%, 1)<cr>
+    au filetype sh map <buffer> <f9> :w<cr>:exec 'bash ' . shellescape(@%, 1)<cr>
+    au filetype php map <buffer> <f9> :w<cr>:exec '!php ' shellescape(@%, 1)<cr>
+    au filetype ruby map <buffer> <f9> :w<cr>:exec '!ruby ' . shellescape(@%, 1)<cr>
+    au filetype python map <buffer> <f9> :w<cr>:exec '!python3 ' shellescape(@%, 1)<cr>
+    au filetype javascript map <buffer> <f9> :w<cr>:exec '!node ' . shellescape(@%, 1)<cr>
 endif
 
 au filetype markdown map <buffer> <f9> :MarkdownPreview<cr>
 
 " popup a window showing registers when pasting
 function! FloatingWindow()
-  let width = float2nr(&columns * 0.8)
-  let height = float2nr(&lines * 0.6)
-  let top = ((&lines - height) / 2) - 1
-  let left = (&columns - width) / 2
-  let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-  let top = "╭" . repeat("─", width - 2) . "╮"
-  let mid = "│" . repeat(" ", width - 2) . "│"
-  let bot = "╰" . repeat("─", width - 2) . "╯"
-  let lines = [top] + repeat([mid], height - 2) + [bot]
-  let s:buf = nvim_create_buf(v:false, v:true)
-  call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-  call nvim_open_win(s:buf, v:true, opts)
-  set winhl=Normal:Floating
-  let opts.row += 1
-  let opts.height -= 2
-  let opts.col += 2
-  let opts.width -= 4
-  call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-  au BufWipeout <buffer> exe 'bw ' . s:buf
+    let width = float2nr(&columns * 0.8)
+    let height = float2nr(&lines * 0.6)
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw ' . s:buf
 endfunction
 let g:peekaboo_window="call FloatingWindow()"
 
 aug switchsplit
-  au!
-  au bufenter,focusgained,insertleave,winenter * if &nu && mode() != "i" | set rnu | endif
-  au bufleave,focuslost,insertenter,winleave   * if &nu                  | set nornu | endif
+    au!
+    au bufenter,focusgained,insertleave,winenter * if &nu && mode() != "i" | set rnu | endif
+    au bufleave,focuslost,insertenter,winleave   * if &nu                  | set nornu | endif
 aug end
 
 au bufnewfile,bufread *waybar/config set ft=json
@@ -449,3 +396,48 @@ endfunction
 
 autocmd FileType * unlet! g:airline#extensions#whitespace#checks
 autocmd FileType markdown,vimwiki let g:airline#extensions#whitespace#checks = [ 'indent' ]
+
+lua << EOF
+require("nvim-tree").setup({view = {mappings = {list = {{key = "s", action = ""}}}}})
+
+require("nvim-treesitter.configs").setup(
+{
+    yati = { enable = true },
+    ensure_installed = {
+        "php",
+        "go",
+        "python",
+        "typescript",
+        "javascript",
+        "json",
+        "c",
+        "lua",
+        "rust"
+    },
+
+    sync_install = false,
+    ignore_install = {},
+
+    indent = {
+        enable = true,
+    },
+
+    highlight = {
+        enable = true,
+        disable = {},
+        additional_vim_regex_highlighting = false,
+    }
+    }
+)
+
+require('transparent').setup({
+enable = true
+})
+
+require('gitsigns').setup()
+
+require('kommentary.config').configure_language("php", {
+    single_line_comment_string = "//",
+    multi_line_comment_strings = {"/*", "*/"},
+})
+EOF
