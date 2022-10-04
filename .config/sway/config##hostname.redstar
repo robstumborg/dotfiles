@@ -1,5 +1,5 @@
 # display settings
-output HDMI-A-1 pos 0 0 res 3840x2160
+output HDMI-A-1 pos 0 0 res 3840x2160 scale 1.75
 
 # winkey
 set $mod mod4
