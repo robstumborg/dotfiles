@@ -39,7 +39,7 @@
     },
     "clock": {
         "format": "{:%H:%M:%S}",
-        "format-alt": "{:%a, %d. %b  %H:%M:%S}",
+        "format-alt": "{:%a, %d. %b  %r}",
         "interval": 1
     },
     "clock#la": {

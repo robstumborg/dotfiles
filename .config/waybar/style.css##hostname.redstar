@@ -6,10 +6,6 @@
   min-height: 0;
 }
 
-window.HDMI-A-1 * {
-  font-size:15px;
-}
-
 window#waybar {
   background-color: #1D2330;
   color: #ffffff;
