@@ -171,7 +171,7 @@ bindsym $mod+shift+8 move container to workspace number 8
 bindsym $mod+shift+9 move container to workspace number 9
 
 assign [class="Chromium-browser"] "goog"
-assign [class="Chromium"] "goog"
+assign [app_id="chromium"] "goog"
 
 # resize mode
 mode "resize" {
