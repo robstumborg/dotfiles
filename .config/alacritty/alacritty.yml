@@ -4,7 +4,7 @@ env:
 font:
   normal:
     family: Hack Nerd Font Mono
-  size: 12
+  size: 9
 
 scrolling:
   history: 100000
