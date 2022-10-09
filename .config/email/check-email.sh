@@ -1,6 +1,12 @@
-#!/bin/zsh
+#!/bin/bash
 # source env vars for cronjob
 source ~/.config/zsh/.zprofile
+
+CHECK_GPG=$(gpg-connect-agent 'keyinfo --list' /bye 2>/dev/null | awk 'BEGIN{CACHED=0} /^S/ {if($7==1){CACHED=1}} END{if($0!=""){print CACHED} else {print "none"}}')
+if [ $CHECK_GPG != "1" ]; then
+    notify-send "mail" "please restore gpg cache"
+    kill -INT $$
+fi
 
 # download mail from remotes
 if [ $# -eq -0 ]; then
