@@ -75,6 +75,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'phelipetls/vim-hugo'
 Plug 'leafOfTree/vim-vue-plugin'
+Plug 'psf/black', { 'branch': 'stable' }
 
 " sudo edit
 Plug 'lambdalisue/suda.vim'
@@ -168,9 +169,14 @@ ino <c-s> <c-o>:update<cr>
 " file navigation
 nn <c-p> :FZF<cr>
 nn <c-f> :Rg<cr>
-
-" buffer navigation
 nn <c-h> :Buffers<cr>
+
+" file find
+nn <leader>ff :FZF<cr>
+" file search
+nn <leader>fs :Rg<cr>
+" file buffers
+nn <leader>fb :Buffers<cr>
 
 " nerd tree toggle
 nn <c-b> :NvimTreeToggle<cr>
@@ -294,10 +300,22 @@ let g:vim_json_conceal=0
 au filetype php let b:delimitMate_matchpairs = "(:),[:],{:}"
 au filetype html let b:delimitMate_matchpairs = "(:),[:],{:}"
 
+" python f-string support
+au FileType python let b:delimitMate_smart_quotes = '\%(_\|[^[:punct:][:space:]bfu]\|\%(\\\\\)*\\\)\%#\|\%#\%(\w\|[^[:space:][:punct:]]\)'
+
+" auto-wrap @ 80 in markdown files
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
+" disable trailing whitespace error in markdown files
+autocmd FileType * unlet! g:airline#extensions#whitespace#checks
+autocmd FileType markdown,vimwiki let g:airline#extensions#whitespace#checks = [ 'indent' ]
+
+
 " wiki
 let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': '.wiki.md'}]
 au filetype vimwiki set syntax=markdown
 au bufreadpre,filereadpre *.wiki.md setl noswapfile noundofile nobackup viminfo=
+
 
 aug encrypted
     au!
@@ -393,9 +411,6 @@ function! UnminifyJS()
     %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
     normal ggVG=
 endfunction
-
-autocmd FileType * unlet! g:airline#extensions#whitespace#checks
-autocmd FileType markdown,vimwiki let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
 lua << EOF
 require("nvim-tree").setup({view = {mappings = {list = {{key = "s", action = ""}}}}})
