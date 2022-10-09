@@ -126,7 +126,6 @@
             "paused": "",
             "playing": ""
         },
-        "max-length": 50,
         "tooltip": false
     },
     "custom/weather": {
