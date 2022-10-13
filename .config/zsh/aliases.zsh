@@ -35,7 +35,6 @@ alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias mail="$XDG_CONFIG_HOME/email/check-email.sh"
 alias diff="nvim -d"
-alias chromium="chromium --enable-features=UseOzonePlatform --ozone-platform=wayland"
 
 urlencode() {
     php -r "echo urlencode('$1');"
