@@ -95,3 +95,6 @@ user_pref("network.trr.default_provider_uri", "https://mozilla.cloudflare-dns.co
 user_pref("network.trr.uri", "https://mozilla.cloudflare-dns.com/dns-query");
 user_pref("network.trr.custom_uri", "https://mozilla.cloudflare-dns.com/dns-query");
 user_pref("network.trr.bootstrapAddress", "1.1.1.1");
+
+// don't allow websites to highjack rightclick context menu
+user_pref("dom.event.contextmenu.enabled", false);
