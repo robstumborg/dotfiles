@@ -343,22 +343,24 @@ if exists('$TMUX')
     " rename tmux window when loading/switching session
     au sessionloadpost * call system("tmux rename-window " . SessionName())
     au sessionloadpost * silent! call serverstart('/tmp/nvim-' . SessionName())
+    " run highlighted command in tmux pane
+    vn <silent> <leader>rs :<C-U>VimuxRunCommand(VisualSelection())<cr>
     " hotkeys to run/compile programs
-    au filetype c map <buffer> <f9> :w<cr>:VimuxRunCommand 'gcc ' . shellescape(@%, 1) . ' && ./a.out; rm -rf a.out'<cr>
-    au filetype go map <buffer> <f9> :w<cr>:VimuxRunCommand 'go run ' . shellescape(@%, 1)<cr>
-    au filetype sh map <buffer> <f9> :w<cr>:VimuxRunCommand 'bash ' . shellescape(@%, 1)<cr>
-    au filetype php map <buffer> <f9> :w<cr>:VimuxRunCommand 'php ' . shellescape(@%, 1)<cr>
-    au filetype ruby map <buffer> <f9> :w<cr>:VimuxRunCommand 'ruby ' . shellescape(@%, 1)<cr>
-    au filetype python map <buffer> <f9> :w<cr>:VimuxRunCommand 'python3 ' . shellescape(@%, 1)<cr>
-    au filetype javascript map <buffer> <f9> :w<cr>:VimuxRunCommand 'node ' . shellescape(@%, 1)<cr>
+    au filetype c map <buffer> <leader>rf :w<cr>:VimuxRunCommand 'gcc ' . shellescape(@%, 1) . ' && ./a.out; rm -rf a.out'<cr>
+    au filetype go map <buffer> <leader>rf :w<cr>:VimuxRunCommand 'go run ' . shellescape(@%, 1)<cr>
+    au filetype sh map <buffer> <leader>rf :w<cr>:VimuxRunCommand 'bash ' . shellescape(@%, 1)<cr>
+    au filetype php map <buffer> <leader>rf :w<cr>:VimuxRunCommand 'php ' . shellescape(@%, 1)<cr>
+    au filetype ruby map <buffer> <leader>rf :w<cr>:VimuxRunCommand 'ruby ' . shellescape(@%, 1)<cr>
+    au filetype python map <buffer> <leader>rf :w<cr>:VimuxRunCommand 'python3 ' . shellescape(@%, 1)<cr>
+    au filetype javascript map <buffer> <leader>rf :w<cr>:VimuxRunCommand 'node ' . shellescape(@%, 1)<cr>
 else
-    au filetype c map <buffer> <f9> :w<cr>:exec '!gcc ' . shellescape(@%, 1) . ' && ./a.out'<cr>
-    au filetype go map <buffer> <f9> :w<cr>:exec '!go run' shellescape(@%, 1)<cr>
-    au filetype sh map <buffer> <f9> :w<cr>:exec 'bash ' . shellescape(@%, 1)<cr>
-    au filetype php map <buffer> <f9> :w<cr>:exec '!php ' shellescape(@%, 1)<cr>
-    au filetype ruby map <buffer> <f9> :w<cr>:exec '!ruby ' . shellescape(@%, 1)<cr>
-    au filetype python map <buffer> <f9> :w<cr>:exec '!python3 ' shellescape(@%, 1)<cr>
-    au filetype javascript map <buffer> <f9> :w<cr>:exec '!node ' . shellescape(@%, 1)<cr>
+    au filetype c map <buffer> <leader>rf :w<cr>:exec '!gcc ' . shellescape(@%, 1) . ' && ./a.out'<cr>
+    au filetype go map <buffer> <leader>rf :w<cr>:exec '!go run' shellescape(@%, 1)<cr>
+    au filetype sh map <buffer> <leader>rf :w<cr>:exec '!bash ' . shellescape(@%, 1)<cr>
+    au filetype php map <buffer> <leader>rf :w<cr>:exec '!php ' shellescape(@%, 1)<cr>
+    au filetype ruby map <buffer> <leader>rf :w<cr>:exec '!ruby ' . shellescape(@%, 1)<cr>
+    au filetype python map <buffer> <leader>rf :w<cr>:exec '!python3 ' shellescape(@%, 1)<cr>
+    au filetype javascript map <buffer> <leader>rf :w<cr>:exec '!node ' . shellescape(@%, 1)<cr>
 endif
 
 au filetype markdown map <buffer> <f9> :MarkdownPreview<cr>
@@ -410,6 +412,18 @@ function! UnminifyJS()
     %s/;\ze[^\r\n]/;\r/g
     %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
     normal ggVG=
+endfunction
+
+function! VisualSelection()
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
 endfunction
 
 lua << EOF
