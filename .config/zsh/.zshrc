@@ -1,5 +1,5 @@
 export TERM=xterm-256color
-
+eval "$(dircolors)"
 
 source $XDG_CONFIG_HOME/zsh/vi.zsh
 source $XDG_CONFIG_HOME/zsh/completion.zsh
