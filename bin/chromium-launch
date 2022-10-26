@@ -1,1 +1,1 @@
-/usr/local/bin/chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
+/usr/local/bin/chromium --profile-directory="Default" --enable-features=UseOzonePlatform --ozone-platform=wayland
