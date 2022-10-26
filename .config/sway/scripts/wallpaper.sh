@@ -1,0 +1,7 @@
+#!/bin/sh
+while true;
+do
+    pkill swaybg
+    swaybg -i $(find $XDG_DATA_HOME/wallpapers -type f -name "*.jpg" | shuf -n1) -m fill &
+    sleep 900
+done

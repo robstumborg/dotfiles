@@ -1,6 +1,9 @@
 # display settings
 output HDMI-A-1 pos 0 0 res 3840x2160 scale 1.75
 
+# dynamic wallpaper
+exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wallpaper.sh'
+
 # winkey
 set $mod mod4
 set $left h
@@ -147,6 +150,7 @@ bindsym $mod+shift+$right move right
 # switch workspaces
 bindsym $mod+b workspace "main"
 bindsym $mod+g workspace "goog"
+bindsym $mod+t workspace "term"
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -160,6 +164,7 @@ bindsym $mod+9 workspace number 9
 # move windows to workspaces
 bindsym $mod+shift+b move container to workspace "main"
 bindsym $mod+shift+g move container to workspace "goog"
+bindsym $mod+shift+t move container to workspace "term"
 bindsym $mod+shift+1 move container to workspace number 1
 bindsym $mod+shift+2 move container to workspace number 2
 bindsym $mod+shift+3 move container to workspace number 3
@@ -170,8 +175,8 @@ bindsym $mod+shift+7 move container to workspace number 7
 bindsym $mod+shift+8 move container to workspace number 8
 bindsym $mod+shift+9 move container to workspace number 9
 
-assign [class="Chromium-browser"] "goog"
-assign [app_id="chromium"] "goog"
+# assign [class="Chromium-browser"] "goog"
+# assign [app_id="chromium"] "goog"
 
 # resize mode
 mode "resize" {
