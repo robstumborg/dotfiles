@@ -5,3 +5,7 @@
 #sidebar-header {
   visibility: collapse !important;
 }
+
+#TabsToolbar {
+  visibility: collapse !important;
+}
