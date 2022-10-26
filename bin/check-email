@@ -1,0 +1,41 @@
+#!/bin/zsh
+# source env vars for cronjob
+source ~/.config/zsh/.zprofile
+
+# get list of emails
+source ~/.config/lieer/config.sh
+
+for gmail in "${gmails[@]}"
+do
+  cd ~/mail/$gmail
+  echo "checking ${gmail}"
+  /home/rj1/.local/bin/gmi sync
+done
+
+# sync smtp mail if there's a parameter
+if ! [ -z "$1" ]; then
+  /usr/bin/mbsync -c /home/rj1/.config/mbsync/config -aV
+fi
+
+# add mail to notmuch db
+/usr/bin/notmuch new
+
+# do some tagging
+/usr/bin/notmuch tag +inbox -- tag:new
+/usr/bin/notmuch tag +notify -- tag:new
+/usr/bin/notmuch tag -new -- tag:new
+
+# notify
+SEARCH="tag:notify"
+
+NOTIFY_COUNT=$(/usr/bin/notmuch count "$SEARCH")
+
+if [ "$NOTIFY_COUNT" -gt 0 ]; then
+  RESULTS=$(/usr/bin/notmuch search --format=json --output=summary --limit=3 --sort="newest-first" "$SEARCH" | jq -r '.[] | "\(.authors): \(.subject)"')
+  /usr/bin/notify-send "$NOTIFY_COUNT new mails:" "$RESULTS"
+fi
+
+/usr/bin/notmuch tag -notify -- tag:notify
+
+# refresh alot buffer if it's open
+pkill --signal SIGUSR1 alot
