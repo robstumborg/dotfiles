@@ -11,11 +11,6 @@ user_pref('media.ffvpx.enabled', false);
 user_pref('media.rdd-vpx.enabled', false);
 user_pref('media.navigator.mediadatadecoder_vpx_enabled', true);
 
-// view-source editor
-user_pref("view_source.editor.external", false);
-// user_pref("view_source.editor.path", "/usr/bin/foot");
-// user_pref("view_source.editor.args", "nvim");
-
 // etc
 user_pref("general.warnOnAboutConfig", false);
 user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
@@ -97,4 +92,4 @@ user_pref("network.trr.custom_uri", "https://mozilla.cloudflare-dns.com/dns-quer
 user_pref("network.trr.bootstrapAddress", "1.1.1.1");
 
 // don't allow websites to highjack rightclick context menu
-user_pref("dom.event.contextmenu.enabled", false);
+// user_pref("dom.event.contextmenu.enabled", false);
