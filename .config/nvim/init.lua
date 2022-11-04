@@ -41,13 +41,12 @@ require('packer').startup(function(use)
   use 'norcalli/nvim-colorizer.lua'
   use 'leafOfTree/vim-matchtag'
   use 'phaazon/hop.nvim'
+  use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]() end}
+  use {"folke/todo-comments.nvim"}
 
   -- git
   use {'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim'}
   use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
-
-  -- undo tree
-  use 'simnalamburt/vim-mundo'
 
   -- visual
   use 'olimorris/onedarkpro.nvim'
@@ -55,7 +54,6 @@ require('packer').startup(function(use)
   use {'noib3/nvim-cokeline', requires = 'kyazdani42/nvim-web-devicons'}
   use {'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons'}
   use 'karb94/neoscroll.nvim'
-  use 'beauwilliams/focus.nvim'
 
   -- telescope
   use {'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim'}
@@ -147,7 +145,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 
 -- textwidth
--- vim.o.textwidth = 120
+vim.o.textwidth = 80
 local textwidth_settings = {}
 local textwidth = vim.api.nvim_create_augroup('textwidth', {clear=true})
 vim.api.nvim_create_autocmd('filetype', {
@@ -224,8 +222,11 @@ vim.keymap.set('n', '<a-c>', ':execute "set colorcolumn=" . (&colorcolumn == "" 
 vim.keymap.set('n', '<s-a-c>', ':execute "set colorcolumn=" . (&colorcolumn == "" ? "120" : "")<cr>',
 {silent = true})
 
--- format buffer w/ lsp
+-- format buffer w/ formatter.nvim
 vim.keymap.set('n', '<leader>ff', ':Format<cr>')
+
+-- preview git hunk
+vim.keymap.set('n', '<leader>gh', ':Gitsigns preview_hunk<cr>')
 
 -- vimux
 vim.keymap.set('n', '<leader>tt', ':VimuxTogglePane<cr>', {silent = true})
@@ -503,7 +504,7 @@ require('hop').setup{}
 vim.keymap.set('n', 'H', ':HopWord <cr>', {})
 vim.keymap.set('n', 'L', ':HopLine <cr>', {})
 
--- lsp client configuration - coc.nvim)
+-- lsp client configuration
 -- diagnostic keymaps
 vim.keymap.set('n', '[e', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']e', vim.diagnostic.goto_next)
@@ -534,22 +535,20 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- setup mason so it can manage installing lsps for us
 require('mason').setup()
 
--- enable the following language servers
-local servers = {
-  'pyright',
-  'tsserver',
-  'intelephense',
-  'cssls',
-  'html',
-  'emmet_ls'
-}
-
 local nvim_lsp = require('lspconfig')
 local lspconfig = require('mason-lspconfig')
 
 -- ensure the servers above are installed
 lspconfig.setup {
-  ensure_installed = servers,
+  ensure_installed = {
+    'pyright',
+    'tsserver',
+    'intelephense',
+    'cssls',
+    'html',
+    'emmet_ls',
+    'vuels'
+  }
 }
 
 -- this configures all language servers installed via mason
@@ -617,6 +616,20 @@ lspconfig.setup_handlers{
         }
       end,
     }
+  end,
+  -- html language server settings
+  ['html'] = function()
+    nvim_lsp.pyright.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        css = {
+          lint = {
+            validProperties = {},
+          }
+        }
+      }
+    }
   end
 }
 
@@ -632,7 +645,6 @@ cmp.setup {
       menu = ({
         nvim_lsp = '[LSP]',
         luasnip = '[LuaSnip]',
-        nvim_lua = '[Lua]'
       })
     }),
   },
@@ -647,15 +659,15 @@ cmp.setup {
     ['<c-space>'] = cmp.mapping.complete({reason = cmp.ContextReason.Auto}),
     ['<cr>'] = cmp.mapping.confirm {behavior = cmp.ConfirmBehavior.Replace, select = false},
     ['<tab>'] = cmp.mapping(
-    function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, {'i', 's'}),
+      function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        else
+          fallback()
+        end
+      end, {'i', 's'}),
     ['<s-tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -682,8 +694,8 @@ require('nvim-autopairs').setup{
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on(
-'confirm_done',
-cmp_autopairs.on_confirm_done()
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
 )
 
 -- code formatter
@@ -695,3 +707,5 @@ require("formatter").setup{
   }
 }
 
+-- todo highlighter
+require("todo-comments").setup{}
