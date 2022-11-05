@@ -4,10 +4,12 @@
   font-family: 'Hack Nerd Font Mono';
   font-size: 12px;
   min-height: 0;
+  color: #ffffff;
 }
 
 window#waybar {
   background-color: #1D2330;
+  opacity: 0.8;
   color: #ffffff;
   transition-property: background-color;
   transition-duration: .5s;
@@ -23,38 +25,19 @@ window#waybar.hidden {
   color: #ffffff;
 }
 
-#workspaces button:hover {
-  background: rgba(0, 0, 0, 0.2);
-}
-
 #workspaces button.focused {
   box-shadow: inset 0 -2px #98c379;
 }
-
-/* #workspaces button.urgent {
-  background-color: #eb4d4b;
-} */
 
 #mode {
   background-color: #eb4d4b;
 }
 
 #clock,
-#battery,
-#cpu,
-#memory,
-#disk,
 #temperature,
-#backlight,
-#network,
 #pulseaudio,
-#custom-media,
 #tray,
 #mode,
-#idle_inhibitor,
-#custom-vpn,
-#custom-cmus,
-#custom-weather
 #mpd {
   padding: 0 10px;
   margin: 0 0px;
@@ -72,228 +55,5 @@ window#waybar.hidden {
 
 .modules-right > widget:last-child > #workspaces {
   margin-right: 0;
-}
-
-#clock {
-  background-color: #1D2330;
-}
-
-#battery {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-#battery.charging, #battery.plugged {
-  color: #ffffff;
-  background-color: #26A65B;
-}
-
-@keyframes blink {
-  to {
-    background-color: #ffffff;
-    color: #000000;
-  }
-}
-
-#battery.critical:not(.charging) {
-  background-color: #f53c3c;
-  color: #ffffff;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-label:focus {
-  background-color: #000000;
-}
-
-#cpu {
-  background-color: #2ecc71;
-  color: #000000;
-}
-
-#memory {
-  background-color: #98c379;
-  color: #3e4452;
-}
-
-#custom-vpn {
-  background-color: #98c379;
-  color: #3e4452;
-}
-
-#disk {
-  background-color: #964B00;
-}
-
-#backlight {
-  background-color: #90b1b1;
-}
-
-#vpn {
-  background-color: #9b59b6;
-}
-
-#network {
-  background-color: #3e4452;
-}
-
-#custom-cmus {
-  background-color: #ad69af;
-  color: #222;
-  font-size:1.1em;
-}
-
-#custom-arrow1 {
-  font-size:1.5em;
-  background-color: #3e4452;
-  color: #1D2330;
-}
-
-#custom-arrow2 {
-  font-size:1.5em;
-  color: #3e4452;
-  background-color: #98c379;
-}
-
-#custom-arrow3 {
-  font-size:1.5em;
-  color: #98c379;
-  background-color: #d19a66;
-}
-
-#custom-arrow4 {
-  font-size:1.5em;
-  color: #d19a66;
-  background-color: #ad69af;
-}
-
-#custom-arrow5 {
-  font-size:1.5em;
-  background-color: #73b8f1;
-  color: #ad69af;
-}
-
-#custom-arrow6 {
-  font-size:1.5em;
-  background-color: #1D2330;
-  color: #73b8f1;
-}
-
-#network.disconnected {
-  background-color: #3e4452;
-}
-
-#pulseaudio {
-  background-color: #d19a66;
-  color: #000000;
-}
-
-#pulseaudio.muted {
-  background-color: #d19a66;
-  color: #2a5c45;
-}
-
-#custom-media {
-  background-color: #66cc99;
-  color: #2a5c45;
-  min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-  background-color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-  background-color: #ffa000;
-}
-
-#temperature {
-  background-color: #73b8f1;
-  color: #333;
-}
-
-#temperature.critical {
-  background-color: #be5046;
-}
-
-#custom-weather {
-  background-color: #73b8f1;
-  color: #333;
-}
-
-#tray {
-  background-color: #2980b9;
-}
-
-#tray > .passive {
-  -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-  background-color: #eb4d4b;
-}
-
-#idle_inhibitor {
-  background-color: #2d3436;
-}
-
-#idle_inhibitor.activated {
-  background-color: #ecf0f1;
-  color: #2d3436;
-}
-
-#mpd {
-  background-color: #ad69af;
-  color: #222;
-  font-size:1.1em;
-}
-
-#mpd.disconnected {
-  background-color: #ad69af;
-}
-
-#mpd.stopped {
-  background-color: #ad69af;
-}
-
-#mpd.paused {
-  background-color: #ad69af;
-}
-
-#language {
-  background: #1D2330;
-  padding: 0 5px;
-  margin: 0 5px;
-  min-width: 16px;
-}
-
-#keyboard-state {
-  background: #97e1ad;
-  color: #000000;
-  padding: 0 0px;
-  margin: 0 5px;
-  min-width: 16px;
-}
-
-#keyboard-state > label {
-  padding: 0 5px;
-}
-
-#keyboard-state > label.locked {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-#custom-recorder {
-  font-size: 20px;
-  margin: 2px 7px 0px 7px;
-  color:#c9545d;
-}
-
-#idle_inhibitor {
-  background:#1D2330;
 }
 

@@ -3,38 +3,24 @@
     "layer": "top",
     "modules-left": [
         "sway/workspaces",
-        "sway/mode"
+        "sway/mode",
     ],
     "modules-center": [
         "sway/window"
     ],
     "modules-right": [
         "custom/recorder",
-        "sway/language",
-        "custom/arrow1",
-        "network",
-        "custom/arrow2",
-        "custom/vpn",
-        "custom/arrow3",
-        "pulseaudio",
-        "custom/arrow4",
         "mpd",
-        "custom/arrow5",
+        "pulseaudio",
         "temperature",
-        "custom/arrow6",
-        "custom/worldclock",
         "clock#utc",
-        "clock#china",
-        "clock#nyc",
-        "clock#la",
-        "clock#sk",
         "clock"
     ],
     "sway/window": {
         "format": "{}",
-        "max-length": 200,
+        "max-length": 100,
         "rewrite": {
-            "(.*) — Mozilla Firefox": "$1 - firefox",
+            "(.*) — Mozilla Firefox": "firefox: $1",
         }
     },
     "clock": {
@@ -164,4 +150,3 @@
         "tooltip": false
     }
 }
-
