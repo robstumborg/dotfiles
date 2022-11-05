@@ -1,7 +1,7 @@
 config.load_autoconfig()
 config.source('redirect.py')
 
-c.tabs.position = 'right'
+c.tabs.position = 'top'
 c.tabs.width = '15%'
 c.fonts.default_family = "Hack Nerd Font Mono"
 c.fonts.web.family.standard = "Hack Nerd Font Mono"
