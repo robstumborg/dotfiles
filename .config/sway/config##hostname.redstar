@@ -20,9 +20,7 @@ input "type:keyboard" {
 }
 
 # mouse settings
-seat seat0 xcursor_theme Borealis
 seat seat0 hide_cursor 1500
-exec_always gsettings set org.gnome.desktop.interface cursor-theme 'Borealis'
 
 # theme
 set $font Hack Nerd Font Mono
