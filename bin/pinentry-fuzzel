@@ -1,0 +1,87 @@
+#!/bin/sh
+
+FUZZEL="fuzzel --dmenu --password"
+DESC=""
+ERROR=""
+PROMPT=""
+
+echo "OK Please go ahead"
+while read cmd rest; do
+
+  if [ -z "$cmd" ]; then
+    continue;
+  fi
+
+  case "$cmd" in
+    \#*)
+      echo "OK"
+          ;;
+
+        GETINFO)
+          case "$rest" in
+            flavor)
+              echo "D rofi"
+              echo "OK"
+              ;;
+            version)
+              echo "D 0.1"
+              echo "OK"
+              ;;
+            ttyinfo)
+              echo "D - - -"
+              echo "OK"
+              ;;
+            pid)
+              echo "D $$"
+              echo "OK"
+              ;;
+          esac
+          ;;
+
+        SETDESC)
+          DESC=$rest
+          echo "OK"
+          ;;
+
+        SETERROR)
+          ERROR=$( echo _ERO_${rest}_ERC_ )
+          echo "OK"
+          ;;
+
+        SETPROMPT)
+          PROMPT=$(echo $rest | tr -d ':')
+          echo "OK"
+          ;;
+
+        GETPIN)
+          MESSAGE=$( echo "$ERROR$DESC" | sed -e "s|%0A||g"                \
+            -e "s|%22||g"                            \
+            -e "s|key:|key:\n|g"                     \
+            -e "s|>|>\n|g"                           \
+            -e "s|<|\&lt;|g"                         \
+            -e "s|>|\&gt;|g"                         \
+            -e "s|,created|,\ncreated|g"             \
+            -e "s|_ERO_|<span fgcolor='#ab4642'>|g"  \
+            -e "s|_ERC_|</span>\n|g"                 )
+
+            # display gpg messages lowercase
+            # MESSAGE=$( echo $MESSAGE | tr '[:upper:]' '[:lower:]')
+
+            _PP=$($FUZZEL)
+
+            if [ -n "$_PP" ]; then
+              echo "D $_PP"
+            fi
+            echo "OK"
+            ;;
+
+          BYE)
+            echo "OK closing connection"
+            exit 0
+            ;;
+
+          *)
+            echo "OK"
+            ;;
+        esac
+      done

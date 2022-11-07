@@ -71,7 +71,7 @@ bindsym $mod+return exec bash -c '$XDG_CONFIG_HOME/sway/scripts/alacritty.sh'
 bindsym $mod+shift+q kill
 
 # rofi
-bindsym $mod+space exec rofi -show run
+bindsym $mod+space exec fuzzel
 
 # rofi+pass
 bindsym $mod+p exec bash -c $HOME/bin/tessen
