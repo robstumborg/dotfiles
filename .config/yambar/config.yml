@@ -1,0 +1,117 @@
+std_underline: &std_underline {underline: { size: 5, color: 98c379ff}}
+
+bar:
+  height: 26
+  location: bottom
+  spacing: 5
+  margin: 5
+  background: 1d2330c0
+  font: Hack Nerd Font Mono:pixelsize=22
+
+  right:
+    - mpd:
+        host: /tmp/mpd
+        content:
+          string: {text: "{artist} - {title} |"}
+
+    - alsa:
+        card: default
+        mixer: Master
+        content:
+          map:
+            on-click:
+              left: pavucontrol
+              wheel-up: pamixer -ui 2
+              wheel-down: pamixer -ud 2
+            tag: muted
+            values:
+              true: {string: {text: ' |'}}
+              false:
+                list:
+                  spacing: 4
+                  items:
+                    - map:
+                        tag: percent
+                        default: {string: {text: ''}}
+                        values:
+                          0: {string: {text: ''}}
+                    - string: {text: '{percent}% |'}
+
+    - clock:
+        time-format: "%H:%M UTC |"
+        content:
+          - string: {text: "{time}"}
+
+    - clock:
+        time-format: "%H:%M:%S %Z"
+        content:
+          - string: {text: "{time}", right-margin: 10}
+
+  left:
+    - i3:
+        sort: ascending
+        anchors:
+          - string: &i3_common {margin: 5, on-click: "swaymsg --quiet workspace {name}"}
+          - string: &default {<<: *i3_common, text: " {name} "}
+          - focused: &focused
+              deco: {stack: [ *std_underline]}
+          - invisible: &invisible {foreground: ffffffff}
+          - urgent: &urgent
+              foreground: 000000ff
+              deco: {stack: [background: {color: bc2b3fff}, <<: *std_underline]}
+          - map: &i3_mode
+              tag: mode
+              default:
+                - string:
+                    margin: 5
+                    text: "{mode}"
+                    deco: {background: {color: cc421dff}}
+                - empty: {right-margin: 7}
+              values:
+                default: {empty: {}}
+        content:
+          "":
+            map:
+              tag: state
+              values:
+                focused:   {string: {<<: [*default, *focused]}}
+                unfocused: {string: {<<: *default}}
+                invisible: {string: {<<: [*default, *invisible]}}
+                urgent:    {string: {<<: [*default, *urgent]}}
+
+          current:
+            map:
+              left-margin: 7
+              tag: application
+              values:
+                "":
+                  - map: {<<: *i3_mode}
+                  - string: {text: "{title}"}
+              default:
+                list:
+                  spacing: 0
+                  items:
+                    - map: {<<: *i3_mode}
+
+  center:
+    - i3:
+        content:
+          "":
+            map:
+              tag: title
+              values:
+                focused:   {string: {<<: [*default, *focused]}}
+          current:
+            map:
+              left-margin: 7
+              tag: title
+              values:
+                "":
+                  - string: {text: "{title}"}
+              default:
+                list:
+                  spacing: 0
+                  items:
+                    - string: {text: "{application}", max: 10}
+                    - string: {text: ": "}
+                    - string: {text: "{title}", max: 35}
