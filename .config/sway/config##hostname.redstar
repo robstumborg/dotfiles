@@ -4,9 +4,6 @@ output HDMI-A-1 pos 0 0 res 3840x2160 scale 1.75
 # dynamic wallpaper
 exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wallpaper.sh'
 
-# bar
-exec yambar
-
 # winkey
 set $mod mod4
 set $left h
@@ -64,6 +61,12 @@ exec swayidle timeout 180 $sleep \
 
 
 bindsym ctrl+alt+delete exec $sleep
+
+# bar
+exec yambar
+
+# restart bar
+bindsym $mod+shift+y exec "killall yambar; yambar"
 
 # switch keyboard layout
 bindsym $mod+shift+e input "12815:20484:SONiX_USB_DEVICE" xkb_switch_layout next
@@ -124,11 +127,11 @@ bindsym $mod+0 exec pamixer --toggle-mute \
     || pamixer --get-volume > $WOBSOCK
 
 # media control
-bindsym $mod+slash exec mpc --host=/tmp/mpd toggle
-bindsym $mod+period exec mpc --host=/tmp/mpd next
-bindsym $mod+comma exec mpc --host=/tmp/mpd prev
-bindsym $mod+shift+comma exec mpc --host=/tmp/mpd seek -5
-bindsym $mod+shift+period exec mpc --host=/tmp/mpd seek +5
+bindsym $mod+slash exec mpc toggle
+bindsym $mod+period exec mpc next
+bindsym $mod+comma exec mpc prev
+bindsym $mod+shift+comma exec mpc seek -5
+bindsym $mod+shift+period exec mpc seek +5
 
 # reload sway
 bindsym $mod+shift+r reload
@@ -194,8 +197,6 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-    
 
 # wlsunset
 exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wlsunset.sh'
