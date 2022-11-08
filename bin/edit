@@ -32,7 +32,7 @@ if tmux_session is None:
     window = tmux_session.find_where({"window_name": vim_session_name})
     pane = window.attached_pane
     pane.send_keys('nvim --listen /tmp/nvim-' + vim_session_name, enter=True)
-    pane.send_keys(':Prosession ' + vim_session_dir, enter=True)
+    pane.send_keys(':PossessionLoad ' + vim_session_dir, enter=True)
 
     if os.getenv('TMUX'):
         print('tmux session"' + tmux_session_name + '" is ready')
