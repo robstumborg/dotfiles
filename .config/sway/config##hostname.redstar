@@ -120,11 +120,9 @@ exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --anchor bottom
         --margin 400
 
 # volume control
-bindsym $mod+equal exec pamixer -ui 2 && pamixer --get-volume > $WOBSOCK
-bindsym $mod+minus exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
-bindsym $mod+0 exec pamixer --toggle-mute \
-    && ( pamixer --get-mute && echo 0 > $WOBSOCK ) \
-    || pamixer --get-volume > $WOBSOCK
+bindsym $mod+equal exec amixer sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym $mod+minus exec amixer sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym $mod+0 exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
 
 # media control
 bindsym $mod+slash exec mpc toggle
