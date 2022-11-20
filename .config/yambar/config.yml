@@ -13,7 +13,14 @@ bar:
         host: localhost
         port: 6600
         content:
-          string: {text: "{artist} - {title} |"}
+          map:
+            on-click:
+              left: mpc toggle
+            tag: state
+            values:
+              playing: {string: {text: "▶ {artist} - {title} |"}}
+              paused: {string: {text: " {artist} - {title} |"}}
+              stopped: {string: {text: "■ {artist} - {title} |"}}
 
     - alsa:
         card: default
@@ -22,8 +29,9 @@ bar:
           map:
             on-click:
               left: pavucontrol
-              wheel-up: pamixer -ui 2
-              wheel-down: pamixer -ud 2
+              wheel-up: amixer sset Master 2%+
+              wheel-down: amixer sset Master 2%-
+
             tag: muted
             values:
               true: {string: {text: ' |'}}
@@ -45,7 +53,7 @@ bar:
           - string: {text: "{time}"}
 
     - clock:
-        time-format: "%H:%M:%S %Z"
+        time-format: "%a, %b %e %r"
         content:
           - string: {text: "{time}", right-margin: 10}
 
@@ -59,8 +67,7 @@ bar:
               deco: {stack: [ *std_underline]}
           - invisible: &invisible {foreground: ffffffff}
           - urgent: &urgent
-              foreground: 000000ff
-              deco: {stack: [background: {color: bc2b3fff}, <<: *std_underline]}
+              deco: {stack: [background: {color: eb6e67ff}, <<: *std_underline]}
           - map: &i3_mode
               tag: mode
               default:
@@ -112,8 +119,5 @@ bar:
                   - string: {text: "{title}"}
               default:
                 list:
-                  spacing: 0
                   items:
-                    - string: {text: "{application}", max: 10}
-                    - string: {text: ": "}
                     - string: {text: "{title}", max: 35}
