@@ -32,17 +32,19 @@ require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter'
   use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
   use 'mhartington/formatter.nvim'
+  use 'Vimjas/vim-python-pep8-indent'
 
   -- editing
   use 'windwp/nvim-ts-autotag'
   use 'windwp/nvim-autopairs'
   use 'b3nj5m1n/kommentary'
   use 'kylechui/nvim-surround'
-  use 'norcalli/nvim-colorizer.lua'
+  use 'uga-rosa/ccc.nvim'
   use 'leafOfTree/vim-matchtag'
   use 'phaazon/hop.nvim'
   use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]() end}
   use {"folke/todo-comments.nvim"}
+  use 'tversteeg/registers.nvim'
 
   -- git
   use {'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim'}
@@ -64,6 +66,9 @@ require('packer').startup(function(use)
 
   -- tmux integration
   use 'preservim/vimux'
+
+  -- upload text
+  use 'rktjmp/paperplanes.nvim'
 
   if is_bootstrap then
     require('packer').sync()
@@ -145,7 +150,7 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 
 -- textwidth
-vim.o.textwidth = 80
+-- vim.o.textwidth = 80
 local textwidth_settings = {}
 local textwidth = vim.api.nvim_create_augroup('textwidth', {clear=true})
 vim.api.nvim_create_autocmd('filetype', {
@@ -466,11 +471,9 @@ require('nvim-treesitter.configs').setup {
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.tsx.filetype_to_parsername = {"javascript", "typescript.tsx"}
 
--- colorizer
-require('colorizer').setup{
-  '*',
-  css = {
-    rgb_fn = true
+require('ccc').setup{
+  highlighter = {
+    auto_enable = true
   }
 }
 
@@ -709,3 +712,14 @@ require("formatter").setup{
 
 -- todo highlighter
 require("todo-comments").setup{}
+
+-- text upload
+require("paperplanes").setup{
+  register = "+",
+  provider = "0x0.st",
+  provider_options = {},
+  notifier = vim.notify or print,
+}
+
+-- registers preview popup
+require("registers").setup{}
