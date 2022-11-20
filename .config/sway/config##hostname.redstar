@@ -1,5 +1,6 @@
 # display settings
 output HDMI-A-1 pos 0 0 res 3840x2160 scale 1.75
+output DP-1 disable
 
 # dynamic wallpaper
 exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wallpaper.sh'
@@ -89,6 +90,13 @@ bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
 # screencast
 bindsym $mod+shift+s exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh'
 
+# color picker
+bindsym $mod+c exec grim -g "$(slurp -p)" -t ppm - | \
+  convert - -format '%[pixel:p{0,0}]' txt:- | \
+  awk 'FNR == 2 {print $3}' | \
+  tr -d '\n' | \
+  wl-copy
+
 # toggle horizontal/vertical
 bindsym $mod+d layout toggle split
 bindsym $mod+apostrophe splitv
@@ -125,6 +133,7 @@ bindsym $mod+minus exec amixer sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1
 bindsym $mod+0 exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
 
 # media control
+bindsym $mod+m exec ~/bin/choose-music -a
 bindsym $mod+slash exec mpc toggle
 bindsym $mod+period exec mpc next
 bindsym $mod+comma exec mpc prev
