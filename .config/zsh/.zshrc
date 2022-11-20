@@ -1,6 +1,10 @@
 export TERM=xterm-256color
 eval "$(dircolors)"
 
+# zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+source "${ZINIT_HOME}/zinit.zsh"
+
 autoload -U url-quote-magic bracketed-paste-magic
 zle -N self-insert url-quote-magic
 zle -N bracketed-paste bracketed-paste-magic
@@ -8,9 +12,8 @@ zle -N bracketed-paste bracketed-paste-magic
 source $XDG_CONFIG_HOME/zsh/vi.zsh
 source $XDG_CONFIG_HOME/zsh/completion.zsh
 source $XDG_CONFIG_HOME/zsh/history.zsh
-source $XDG_CONFIG_HOME/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+zinit load "zsh-users/zsh-autosuggestions"
 source $XDG_CONFIG_HOME/zsh/aliases.zsh
-source $XDG_CONFIG_HOME/zsh/zsh-artisan/artisan.plugin.zsh
 
 # settings
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -36,4 +39,4 @@ fpath+=$XDG_CONFIG_HOME/zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
-source $XDG_CONFIG_HOME/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+zinit load "zsh-users/zsh-syntax-highlighting"
