@@ -34,6 +34,7 @@ alias password="</dev/urandom tr -dc '123450!@#$%6789qwertQWERTasdfgASDFGzxcvbZX
 alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias diff="nvim -d"
+alias d="sudo docker"
 
 urlencode() {
     php -r "echo urlencode('$1');"
