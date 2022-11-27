@@ -347,7 +347,7 @@ local colors = require("onedarkpro").get_colors(vim.g.onedarkpro_theme)
 require('cokeline').setup{
   default_hl = {
     fg = function(buffer)
-      return buffer.is_focused and colors.purple or colors.gray
+      return buffer.is_focused and colors.purple or colors.white
     end,
     bg = colors.black,
     style = function(buffer)
