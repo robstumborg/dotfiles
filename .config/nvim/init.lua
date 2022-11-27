@@ -45,6 +45,7 @@ require('packer').startup(function(use)
   use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]() end}
   use {"folke/todo-comments.nvim"}
   use 'tversteeg/registers.nvim'
+  use 'gpanders/editorconfig.nvim'
 
   -- git
   use {'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim'}
