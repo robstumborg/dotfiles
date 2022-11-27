@@ -3,7 +3,7 @@ output HDMI-A-1 pos 0 0 res 3840x2160 scale 1.75
 output DP-1 disable
 
 # dynamic wallpaper
-exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wallpaper.sh'
+exec $XDG_CONFIG_HOME/sway/scripts/wallpaper.sh
 
 # winkey
 set $mod mod4
@@ -20,13 +20,22 @@ input "type:keyboard" {
     xkb_options caps:escape
 }
 
-# mouse settings
+# sway theme
+set $font 'Hack Nerd Font Mono'
+set $cursor_theme 'Neutral'
+set $cursor_size 16
 seat seat0 hide_cursor 1500
+seat seat0 xcursor_theme $cursor_theme $cursor_size
 
-# theme
-set $font Hack Nerd Font Mono
+exec_always {
+    gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
+    gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+    gsettings set org.gnome.desktop.interface font-name $font
+}
+
 font pango:$font
 default_border pixel 1
+gaps inner 5
 
 # class                 border  bg      text    indicator child_border
 client.focused          #98c379 #98c379 #666666 #98c379   #98c379
@@ -73,7 +82,7 @@ bindsym $mod+shift+y exec "killall yambar; yambar"
 bindsym $mod+shift+e input "12815:20484:SONiX_USB_DEVICE" xkb_switch_layout next
 
 # terminal
-bindsym $mod+return exec bash -c '$XDG_CONFIG_HOME/sway/scripts/alacritty.sh'
+bindsym $mod+return exec $XDG_CONFIG_HOME/sway/scripts/alacritty.sh
 
 # kill focused window
 bindsym $mod+shift+q kill
@@ -82,13 +91,13 @@ bindsym $mod+shift+q kill
 bindsym $mod+space exec fuzzel
 
 # rofi+pass
-bindsym $mod+p exec bash -c $HOME/bin/tessen
+bindsym $mod+p exec $HOME/bin/tessen
 
 # sshot
 bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
 
 # screencast
-bindsym $mod+shift+s exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh'
+bindsym $mod+shift+s exec $XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh
 
 # color picker
 bindsym $mod+c exec grim -g "$(slurp -p)" -t ppm - | \
@@ -187,9 +196,6 @@ bindsym $mod+shift+7 move container to workspace number 7
 bindsym $mod+shift+8 move container to workspace number 8
 bindsym $mod+shift+9 move container to workspace number 9
 
-# assign [class="Chromium-browser"] "goog"
-# assign [app_id="chromium"] "goog"
-
 # resize mode
 mode "resize" {
     bindsym $left resize shrink width 10px
@@ -206,4 +212,4 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # wlsunset
-exec bash -c '$XDG_CONFIG_HOME/sway/scripts/wlsunset.sh'
+exec $XDG_CONFIG_HOME/sway/scripts/wlsunset.sh
