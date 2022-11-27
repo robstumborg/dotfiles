@@ -614,6 +614,13 @@ lspconfig.setup_handlers{
     nvim_lsp.pyright.setup {
       on_attach = on_attach,
       capabilities = capabilities,
+      settings = {
+        python = {
+          analysis = {
+            typeCheckingMode = 'off'
+          }
+        }
+      },
       before_init = function(_, config)
         config.settings.python.analysis.stubPath = path.concat {
           vim.fn.stdpath 'data',
