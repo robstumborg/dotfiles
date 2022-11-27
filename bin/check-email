@@ -20,6 +20,8 @@ fi
 # add mail to notmuch db
 /usr/bin/notmuch new
 
+source ~/.config/email/filter.sh
+
 # do some tagging
 /usr/bin/notmuch tag +inbox -- tag:new
 /usr/bin/notmuch tag +notify -- tag:new
