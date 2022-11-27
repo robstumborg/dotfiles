@@ -71,6 +71,9 @@ require('packer').startup(function(use)
   -- upload text
   use 'rktjmp/paperplanes.nvim'
 
+  -- wiki
+  use{'jakewvincent/mkdnflow.nvim', rocks = 'luautf8'}
+
   if is_bootstrap then
     require('packer').sync()
   end
@@ -724,3 +727,15 @@ require("paperplanes").setup{
 
 -- registers preview popup
 require("registers").setup{}
+
+-- wiki
+require('mkdnflow').setup{
+  links = {
+    implicit_extension = 'wiki.md',
+    transform_explicit = function(text)
+      text = text:gsub(' ', '-')
+      text = text:lower()
+      return(text)
+    end
+  }
+}
