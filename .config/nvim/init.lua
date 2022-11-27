@@ -510,6 +510,8 @@ require('neoscroll').setup{
 require('hop').setup{}
 vim.keymap.set('n', 'H', ':HopWord <cr>', {})
 vim.keymap.set('n', 'L', ':HopLine <cr>', {})
+vim.keymap.set('n', 'f', ':HopWordCurrentLine <cr>', {})
+vim.keymap.set('n', 'F', ':HopWordCurrentLineBC <cr>', {})
 
 -- lsp client configuration
 -- diagnostic keymaps
