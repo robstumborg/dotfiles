@@ -74,6 +74,9 @@ require('packer').startup(function(use)
   -- wiki
   use{'jakewvincent/mkdnflow.nvim', rocks = 'luautf8'}
 
+  -- Rename/Delete/Chmod/etc
+  use 'tpope/vim-eunuch'
+
   if is_bootstrap then
     require('packer').sync()
   end
