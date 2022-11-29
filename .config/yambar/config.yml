@@ -46,6 +46,11 @@ bar:
                           0: {string: {text: ''}}
                     - string: {text: '{percent}% |'}
 
+    - script:
+        path: /home/rj1/.config/yambar/mail.sh
+        poll-interval: 30
+        content: {string: {text: "inbox: {mail} |"}}
+
     - clock:
         time-format: "%H:%M UTC |"
         utc: true
