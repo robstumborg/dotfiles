@@ -229,9 +229,9 @@ vim.keymap.set('n', '<c-h>', ':Telescope buffers<cr>')
 vim.keymap.set('n', '<leader>s', ':Telescope possession list<cr>')
 
 -- colorcolumn toggle
-vim.keymap.set('n', '<a-c>', ':execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>',
+vim.keymap.set('n', '<a-c>', ':execute "set cc=" . (&cc== "" ? "80" : "")<cr>',
 {silent = true})
-vim.keymap.set('n', '<s-a-c>', ':execute "set colorcolumn=" . (&colorcolumn == "" ? "120" : "")<cr>',
+vim.keymap.set('n', '<s-a-c>', ':execute "set cc=" . (&cc== "" ? "120" : "")<cr>',
 {silent = true})
 
 -- format buffer w/ formatter.nvim
@@ -722,7 +722,8 @@ require("formatter").setup{
   filetype = {
     html = {require('formatter.filetypes.html').prettier},
     css = {require('formatter.filetypes.css').prettier},
-    javascript = {require('formatter.filetypes.javascript').prettier}
+    javascript = {require('formatter.filetypes.javascript').prettier},
+    python = {require('formatter.filetypes.python').black}
   }
 }
 
