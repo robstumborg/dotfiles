@@ -1,0 +1,2 @@
+directory: ~/storage/beets
+library: ~/.local/share/beets/beets.db
