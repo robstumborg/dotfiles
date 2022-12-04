@@ -1,0 +1,79 @@
+#!/bin/sh
+
+#TODO:
+# - create playlists
+# - add track/album/artist to current playlist
+
+launcher() {
+  rofi -mesg "$current" -i -dmenu -p "$1"
+}
+
+# sed for pango markup
+current=$(mpc current | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
+if [[ -z "$current" ]]; then
+  current="mpd isn't playing anything right now"
+else
+  current="current track: ${current}"
+fi
+
+modes="current playlist\nplaylists\nshuffle\ntracks\nalbums\nartists"
+mode=$(echo -e "$modes" | launcher "mpd: ")
+
+# tracks in current playlist
+if [[ "$mode" == "current playlist" ]]; then
+  playlist=$(mpc playlist)
+  track=0
+  tlist=""
+  while read -r line; do
+    track=$((track + 1))
+    tlist="$tlist[$track] $line\n"
+  done <<< "$playlist"
+  track=$(echo -e "$tlist" | launcher "playlist: ")
+  track=$(expr "$track" : "\[\([^]]*\)\]")
+  mpc play "$track"
+
+# list of playlists
+elif [[ "$mode" == "playlists" ]]; then
+  playlist=$(mpc lsplaylists | launcher "choose a playlist" )
+  [ ! ${playlist} ] && exit
+  mpc clear
+  mpc load "$playlist"
+  mpc play
+
+# shuffle mode
+elif [[ "$mode" == "shuffle" ]]; then
+  mpc clear
+  mpc listall | shuf -n 1000 | mpc add
+  mpc play
+
+# list of tracks
+elif [[ "$mode" == "tracks" ]]; then
+  track=$(mpc list title | sort -f | launcher "choose a track: " )
+  [ ! ${track} ] && exit
+  mpc clear
+  mpc search "(title==\"${track}\")" | mpc add
+  mpc play
+
+# list of albums
+elif [[ "$mode" == "albums" ]]; then
+  album="$(mpc list album | sort -f | launcher "choose an album: ")"
+  [ ! ${album} ] && exit
+  mpc clear
+  mpc find album "${album}" | mpc add
+  mpc play
+
+# list of artists
+elif [[ "$mode" == "artists" ]]; then
+
+  # list artists
+  artist="$(mpc list artist | sort -f | launcher "choose an artist: ")"
+  [ ! ${artist} ] && exit
+
+  # list albums from chosen artist
+  album="$(mpc list album artist "${artist}" | launcher "choose album: ")"
+  [ ! ${album} ] && exit
+
+  mpc clear
+  mpc find artist "$artist" album "$album" | mpc add
+  mpc play
+fi
