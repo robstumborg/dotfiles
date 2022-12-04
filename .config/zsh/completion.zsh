@@ -7,3 +7,8 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 autoload -Uz compinit
 compinit
 
+# dstask completions
+_dstask() {
+    compadd -- $(dstask _completions "${words[@]}")
+}
+compdef _dstask dstask
