@@ -252,7 +252,7 @@ local vimuxtable = {
   ['go'] = 'go run',
   ['sh'] = 'bash -c',
   ['javascript'] = 'node',
-  ['typescript'] = 'node'
+  ['typescript'] = 'node',
 }
 for ft, exec in pairs(vimuxtable) do
   vim.api.nvim_create_autocmd('filetype', {
@@ -649,7 +649,14 @@ lspconfig.setup_handlers{
         }
       }
     }
-  end
+  end,
+  -- rust language server settings
+  ['rust_analyzer'] = function()
+    nvim_lsp.rust_analyzer.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+end
 }
 
 -- completion plugin
@@ -723,7 +730,8 @@ require("formatter").setup{
     html = {require('formatter.filetypes.html').prettier},
     css = {require('formatter.filetypes.css').prettier},
     javascript = {require('formatter.filetypes.javascript').prettier},
-    python = {require('formatter.filetypes.python').black}
+    python = {require('formatter.filetypes.python').black},
+    rust = {require('formatter.filetypes.rust').rustfmt}
   }
 }
 
