@@ -133,7 +133,7 @@ bindsym $mod+minus exec amixer sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1
 bindsym $mod+0 exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
 
 # media control
-bindsym $mod+m exec ~/bin/choose-music -a
+bindsym $mod+m exec rofimpd
 bindsym $mod+slash exec mpc toggle
 bindsym $mod+period exec mpc next
 bindsym $mod+comma exec mpc prev
