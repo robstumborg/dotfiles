@@ -35,6 +35,8 @@ alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias diff="nvim -d"
 alias d="sudo docker"
+alias sctl='systemctl'
+alias uctl='systemctl --user'
 
 urlencode() {
     php -r "echo urlencode('$1');"
@@ -78,6 +80,13 @@ upload() {
 }
 alias up=upload
 
+cpsshot() {
+    file="$HOME/img/sshot/$(/usr/bin/ls -Art $HOME/img/sshot | tail -n 1)"
+    cp -f ${file} $1
+    rm -rf ${file}
+    echo "cp'd & rm'd ${file}"
+}
+
 androidproxy() {
     if [ $# -lt 1 ]; then
         echo "parameter required: on/off"
@@ -95,9 +104,21 @@ androidproxy() {
 alias ap=androidproxy
 
 function calc() {
-    echo "$@" | bc -l
+  echo "$@" | bc -l
 }
 
 function cur() {
-    php $HOME/scripts/cur.php $1 $2 $3 $4
+  python ~/scripts/cur.py $1 $2 $3
+}
+
+function wgetsite() {
+  wget \
+    --recursive \
+    --page-requisites \
+    --html-extension \
+    --convert-links \
+    --restrict-file-names=windows \
+    --domains $1 \
+    --no-parent \
+    https://$1
 }

@@ -13,6 +13,7 @@ source $XDG_CONFIG_HOME/zsh/vi.zsh
 source $XDG_CONFIG_HOME/zsh/completion.zsh
 source $XDG_CONFIG_HOME/zsh/history.zsh
 zinit load "zsh-users/zsh-autosuggestions"
+bindkey '^l' autosuggest-accept
 source $XDG_CONFIG_HOME/zsh/aliases.zsh
 
 # settings
