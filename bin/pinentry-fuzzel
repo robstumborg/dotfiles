@@ -65,7 +65,7 @@ while read cmd rest; do
             -e "s|_ERC_|</span>\n|g"                 )
 
             # display gpg messages lowercase
-            # MESSAGE=$( echo $MESSAGE | tr '[:upper:]' '[:lower:]')
+            MESSAGE=$( echo $MESSAGE | tr '[:upper:]' '[:lower:]')
 
             _PP=$($FUZZEL)
 
