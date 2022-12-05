@@ -12,9 +12,9 @@ here's a list of some software I use:
 | ----                                                  | -----------
 | [sway](https://swaywm.org/)                           | compositor/wm
 | [yambar](https://codeberg.org/dnkl/yambar)            | status bar
-| [fuzzel](https://codeberg.org/dnkl/fuzzel)            | app launcher
+| [rofi](https://github.com/lbonn/rofi)                 | app launcher / dynamic menu
 | [pass](https://www.passwordstore.org/)                | password manager
-| [tessen](https://github.com/ayushnix/tessen)          | get password data via fuzzel
+| [tessen](https://github.com/ayushnix/tessen)          | get password data via rofi
 | [yadm](https://yadm.io/)                              | dotfiles manager
 | [alacritty](https://alacritty.org/)                   | terminal emulator
 | [foot](https://codeberg.org/dnkl/foot)                | terminal emulator
