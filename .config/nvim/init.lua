@@ -253,6 +253,7 @@ local vimuxtable = {
   ['sh'] = 'bash -c',
   ['javascript'] = 'node',
   ['typescript'] = 'node',
+  ['rust'] = 'rust-script'
 }
 for ft, exec in pairs(vimuxtable) do
   vim.api.nvim_create_autocmd('filetype', {
@@ -416,7 +417,8 @@ require('gitsigns').setup{
 require('telescope').setup{
   pickers = {
     find_files = {
-      previewer = false
+      previewer = false,
+      hidden = true
     },
     buffers = {
       previewer = false
