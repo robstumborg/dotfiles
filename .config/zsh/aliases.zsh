@@ -75,7 +75,7 @@ upload() {
 
     filename=$(basename $file)
 
-    curl -fsSL -F "file=@${file}" -F "url_len=5" https://filehole.org/
+    curl -fsSL -F "file=@\"${file}\"" -F "url_len=5" https://filehole.org/
     # curl -fsSL -F "file=@${file}" http://0x0.st
 }
 alias up=upload
@@ -122,3 +122,15 @@ function wgetsite() {
     --no-parent \
     https://$1
 }
+
+function wavs2mp3() {
+  for i in *.wav; do
+    ffmpeg -i "$i" -ab 320k -ac 2 -ar 44100 -joint_stereo 0 "${i%.*}.mp3";
+  done
+}
+
+function blurborder() {
+  convert $1 -bordercolor black -fill white \
+    \( -clone 0 -colorize 100 -shave 10x10 -border 10x10 -blur 0x10 \) \
+    -compose copyopacity -composite $2
+  }
