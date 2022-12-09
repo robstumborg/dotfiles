@@ -58,7 +58,7 @@ bar:
           - string: {text: "{time}"}
 
     - clock:
-        time-format: "%a, %b %e %r"
+        time-format: "%a, %b %d %r"
         content:
           - string: {text: "{time}", right-margin: 10}
 
