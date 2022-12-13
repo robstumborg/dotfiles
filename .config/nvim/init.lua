@@ -58,6 +58,7 @@ require('packer').startup(function(use)
   use {'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons'}
   use 'karb94/neoscroll.nvim'
   use 'unblevable/quick-scope'
+  use 'lukas-reineke/indent-blankline.nvim'
 
   -- telescope
   use {'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim'}
