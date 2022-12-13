@@ -39,11 +39,8 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'b3nj5m1n/kommentary'
   use 'kylechui/nvim-surround'
-  use 'uga-rosa/ccc.nvim'
   use 'leafOfTree/vim-matchtag'
-  use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]() end}
   use {"folke/todo-comments.nvim"}
-  use 'tversteeg/registers.nvim'
   use 'gpanders/editorconfig.nvim'
   use 'junegunn/vim-easy-align'
 
@@ -57,6 +54,9 @@ require('packer').startup(function(use)
   use {'noib3/nvim-cokeline', requires = 'kyazdani42/nvim-web-devicons'}
   use {'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons'}
   use 'karb94/neoscroll.nvim'
+  use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]() end}
+  use 'uga-rosa/ccc.nvim'
+  use 'tversteeg/registers.nvim'
   use 'unblevable/quick-scope'
   use 'lukas-reineke/indent-blankline.nvim'
 
