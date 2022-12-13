@@ -15,7 +15,7 @@ c.colors.webpage.darkmode.enabled = False
 c.content.javascript.enabled = True
 c.content.blocking.method = 'both'
 c.auto_save.session = True
-c.zoom.default = '150%'
+c.zoom.default = '100%'
 
 c.url.start_pages = 'https://paulgo.io'
 c.url.default_page = 'https://paulgo.io'
@@ -44,7 +44,7 @@ c.bindings.commands['normal'] = {
     '<shift-k'     : 'tab-previous',
     '<alt-shift-j>': 'zoom-out',
     '<alt-shift-k>': 'zoom-in',
-    '<alt-shift-h>': 'zoom 150%',
+    '<alt-shift-h>': 'zoom 100%',
     'd'            : 'scroll-page 0 0.5',
     'u'            : 'scroll-page 0 -0.5',
     '<alt-v>'      : 'spawn mpv {url}',
