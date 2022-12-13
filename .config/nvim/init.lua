@@ -46,6 +46,7 @@ require('packer').startup(function(use)
   use {"folke/todo-comments.nvim"}
   use 'tversteeg/registers.nvim'
   use 'gpanders/editorconfig.nvim'
+  use 'junegunn/vim-easy-align'
 
   -- git
   use {'lewis6991/gitsigns.nvim', requires = 'nvim-lua/plenary.nvim'}
