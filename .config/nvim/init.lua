@@ -41,7 +41,6 @@ require('packer').startup(function(use)
   use 'kylechui/nvim-surround'
   use 'uga-rosa/ccc.nvim'
   use 'leafOfTree/vim-matchtag'
-  use 'phaazon/hop.nvim'
   use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]() end}
   use {"folke/todo-comments.nvim"}
   use 'tversteeg/registers.nvim'
@@ -516,11 +515,6 @@ require('neoscroll').setup{
     '<C-u>', '<C-d>'
   }
 }
-
--- hop
-require('hop').setup{}
-vim.keymap.set('n', 'H', ':HopWord <cr>', {})
-vim.keymap.set('n', 'L', ':HopLine <cr>', {})
 
 -- lsp client configuration
 -- diagnostic keymaps
