@@ -115,6 +115,9 @@ require('onedarkpro').setup{
 vim.o.termguicolors = true
 vim.cmd('colorscheme onedarkpro')
 
+-- disable start message
+vim.o.shortmess = "I"
+
 -- highlight on search
 vim.o.hlsearch = false
 
