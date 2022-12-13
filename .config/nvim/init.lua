@@ -233,10 +233,12 @@ vim.keymap.set('n', '<c-h>', ':Telescope buffers<cr>')
 vim.keymap.set('n', '<leader>s', ':Telescope possession list<cr>')
 
 -- colorcolumn toggle
-vim.keymap.set('n', '<a-c>', ':execute "set cc=" . (&cc== "" ? "80" : "")<cr>',
-{silent = true})
-vim.keymap.set('n', '<s-a-c>', ':execute "set cc=" . (&cc== "" ? "120" : "")<cr>',
-{silent = true})
+vim.keymap.set('n', '<a-c>',
+  function()
+    if vim.o.colorcolumn == "" then vim.o.colorcolumn = "80"
+    elseif vim.o.colorcolumn == "80" then vim.o.colorcolumn = "120"
+    else vim.o.colorcolumn = "" end
+  end)
 
 -- format buffer w/ formatter.nvim
 vim.keymap.set('n', '<leader>ff', ':Format<cr>')
