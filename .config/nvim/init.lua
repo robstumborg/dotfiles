@@ -57,6 +57,7 @@ require('packer').startup(function(use)
   use {'noib3/nvim-cokeline', requires = 'kyazdani42/nvim-web-devicons'}
   use {'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons'}
   use 'karb94/neoscroll.nvim'
+  use 'unblevable/quick-scope'
 
   -- telescope
   use {'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim'}
@@ -179,6 +180,9 @@ vim.api.nvim_create_autocmd({'bufreadpre', 'filereadpre'}, {
   pattern = {'*.wiki.md'},
   command = 'setl noswapfile noundofile nobackup viminfo='
 })
+
+-- quickscope
+vim.cmd("let g:qs_highlight_on_keys = ['f', 'F']")
 
 --
 -- keymaps (these should be set before plugins are initialized)
