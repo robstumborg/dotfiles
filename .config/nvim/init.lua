@@ -114,7 +114,7 @@ require('onedarkpro').setup{
   }
 }
 vim.o.termguicolors = true
-vim.cmd('colorscheme onedarkpro')
+vim.cmd('colorscheme onedark')
 
 -- disable start message
 vim.o.shortmess = "I"
@@ -260,7 +260,7 @@ local vimuxtable = {
   ['php'] = 'php',
   ['python'] = 'python',
   ['go'] = 'go run',
-  ['sh'] = 'bash -c',
+  ['sh'] = 'bash',
   ['javascript'] = 'node',
   ['typescript'] = 'node',
   ['rust'] = 'rust-script'
