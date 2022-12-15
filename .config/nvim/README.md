@@ -11,12 +11,11 @@
 | ctrl+w      | close buffer                              |                    |
 | ctrl+n      | new buffer                                |                    |
 | ctrl+s      | save buffer                               |                    |
-| ctrl+b      | toggle file explorer                      | telescope.nvim     |
+| ctrl+b      | toggle file explorer                      | nvim-tree          |
 | ctrl+p      | fuzzy find files                          | telescope.nvim     |
 | ctrl+f      | grep in files                             | telescope.nvim     |
 | ctrl+h      | fuzzy find buffers                        | telescope.nvim     |
 | alt+h       | toggle search highlight                   |                    |
-| alt+z       | toggle word wrap                          |                    |
 | alt+z       | toggle word wrap                          |                    |
 | alt+c       | switch color column (none, 80, 120)       |                    |
 | "           | display contents of registers             | registers.nvim     |
