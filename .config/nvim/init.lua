@@ -736,7 +736,8 @@ require("formatter").setup{
     javascript = {require('formatter.filetypes.javascript').prettier},
     python = {require('formatter.filetypes.python').black},
     rust = {require('formatter.filetypes.rust').rustfmt},
-    sh = {require('formatter.filetypes.sh').shfmt}
+    sh = {require('formatter.filetypes.sh').shfmt},
+    go = {require('formatter.filetypes.go').gofmt}
   }
 }
 
