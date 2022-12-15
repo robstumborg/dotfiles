@@ -55,7 +55,7 @@ require('packer').startup(function(use)
   use {'noib3/nvim-cokeline', requires = 'kyazdani42/nvim-web-devicons'}
   use {'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons'}
   use 'karb94/neoscroll.nvim'
-  use {"iamcco/markdown-preview.nvim", run = function() vim.fn["mkdp#util#install"]() end}
+  use {"iamcco/markdown-preview.nvim", run = "cd app && npm install"}
   use 'uga-rosa/ccc.nvim'
   use 'tversteeg/registers.nvim'
   use 'unblevable/quick-scope'
