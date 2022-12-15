@@ -526,29 +526,23 @@ require('neoscroll').setup{
   }
 }
 
--- lsp client configuration
--- diagnostic keymaps
-vim.keymap.set('n', '[e', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']e', vim.diagnostic.goto_next)
-
--- disable inline error messages
-vim.diagnostic.config({virtual_text = false})
-
 --
 -- lsp settings
 --
--- this runs when an lsp connects to a particular buffer
-local on_attach = function(_, bufnr)
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
+-- this runs when a buffer is using an lsp
+local on_attach = function(_, buffer)
+  -- goto definition
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {buffer = buffer})
 
-    vim.keymap.set('n', keys, func, {buffer = bufnr, desc = desc })
-  end
+  -- hover code signature
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer = buffer})
 
-  nmap('gd', vim.lsp.buf.definition)
-  nmap('K', vim.lsp.buf.hover)
+  -- diagnostic keymaps
+  vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, {buffer = buffer})
+  vim.keymap.set('n', ']e', vim.diagnostic.goto_next, {buffer = buffer})
+
+  -- disable inline error messages
+  vim.diagnostic.config({virtual_text = false})
 end
 
 -- nvim-cmp supports additional completion capabilities
