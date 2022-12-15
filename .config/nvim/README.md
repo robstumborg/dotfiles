@@ -2,7 +2,7 @@
 
 ## custom keybindings
 
-| description | keybind                                   | plugin          |
+| keybind     | description                               | plugin          |
 | ----------- | ----------------------------------------- | --------------- |
 | [leader]    | spacebar                                  |                 |
 | [leader]+s  | switch session/project                    | possession.nvim |
@@ -22,6 +22,8 @@
 | "           | display contents of registers             | registers.nvim  |
 | ]e          | next error                                |                 |
 | [e          | previous error                            |                 |
+| ]t          | next todo                                | todo-comments.nvim |
+| [t          | previous todo                            | todo-comments.nvim |
 | gd          | go to definition                          |                 |
 | shift+k     | hover code signature                      |                 |
 | [leader]+ff | format buffer                             | formatter.nvim  |

@@ -307,6 +307,10 @@ let lines[0] = lines[0][column_start - 1:]
 return join(lines, "\n")
 endfunction]])
 
+-- todo
+vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end)
+vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end)
+
 -- 
 -- command aliases
 --
