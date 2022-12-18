@@ -18,7 +18,8 @@ alias task="dstask"
 alias fd="fd --color=auto"
 alias tomb="tomb -f"
 alias campv="mpv av://v4l2:/dev/video0"
-alias tb="nc termbin.com 9999"
+alias bin="curl -F 'paste=<-' https://paste.rj1.su/"
+alias tb=bin
 alias cl="curl -F 'clbin=<-' https://clbin.com"
 alias ip='ip -color=auto'
 alias busy="cat /dev/urandom | hexdump -C | grep '1a cc'"
@@ -75,8 +76,8 @@ upload() {
 
     filename=$(basename $file)
 
-    curl -fsSL -F "file=@\"${file}\"" -F "url_len=5" https://filehole.org/
-    # curl -fsSL -F "file=@${file}" http://0x0.st
+    # curl -fsSL -F "file=@\"${file}\"" -F "url_len=5" https://filehole.org/
+    curl -fsSL -F "file=@${file}" http://0x0.st
 }
 alias up=upload
 
@@ -133,4 +134,8 @@ function blurborder() {
   convert $1 -bordercolor black -fill white \
     \( -clone 0 -colorize 100 -shave 10x10 -border 10x10 -blur 0x10 \) \
     -compose copyopacity -composite $2
-  }
+} 
+
+function send2kindle() {
+    scp "${1}" kindle:/mnt/us/documents/
+}
