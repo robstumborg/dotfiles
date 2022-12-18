@@ -33,6 +33,7 @@ require('packer').startup(function(use)
   use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
   use 'mhartington/formatter.nvim'
   use 'Vimjas/vim-python-pep8-indent'
+  use 'rj1/vim-dbml'
 
   -- editing
   use 'windwp/nvim-ts-autotag'
@@ -311,6 +312,10 @@ endfunction]])
 vim.keymap.set("n", "]t", function() require("todo-comments").jump_next() end)
 vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end)
 
+-- find digit
+
+vim.keymap.set("n", "<leader>fd", function() vim.fn.search("\\d\\+") end)
+
 -- 
 -- command aliases
 --
@@ -534,6 +539,9 @@ local on_attach = function(_, buffer)
   -- goto definition
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {buffer = buffer})
 
+  -- references
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+
   -- hover code signature
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer = buffer})
 
@@ -642,7 +650,7 @@ lspconfig.setup_handlers{
   end,
   -- html language server settings
   ['html'] = function()
-    nvim_lsp.pyright.setup {
+    nvim_lsp.html.setup {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
@@ -660,7 +668,7 @@ lspconfig.setup_handlers{
       on_attach = on_attach,
       capabilities = capabilities,
     }
-end
+  end,
 }
 
 -- completion plugin
