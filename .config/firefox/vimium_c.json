@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "11/4/2022, 1:55:42 AM",
-	"time": 1667548542389,
+	"@time": "12/18/2022, 7:52:38 PM",
+	"time": 1671414758070,
 	"environment": {
-		"extension": "1.99.3",
+		"extension": "1.99.96",
 		"platform": "linux",
-		"chromium": "107"
+		"firefox": 108
 	},
 	"clipSub": [
 		"p=^git@([^/:]+):=https://$1/=",
@@ -22,19 +22,20 @@
 		"map <a-s-j> zoomOut",
 		"map <a-s-h> zoomReset",
 		"map U LinkHints.activateCopyLinkUrl",
+		"map H Vomnibar.activateInNewTab",
 		""
 	],
 	"nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
 	"previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
 	"searchEngines": [
-		":qw|https://lite.qwant.com/?q=$s",
-		":g|https://google.com/search?q=$s",
-		":gi|https://www.google.com/search?q=$s&source=lnms&tbm=isch",
-		":yi|https://images.search.yahoo.com/search/images?p=$s",
-		":w|https://en.wikipedia.org/?search=$s",
-		":gh|https://github.com/search?q=$s",
-		":yt|https://www.youtube.com/results?search_query=$s",
-		":man|http://man.he.net/?topic=$s&section=all",
+		":sx|searx: https://paulgo.io/search?q=$s",
+		":qw|qwant: https://lite.qwant.com/?q=$s",
+		":g|google: https://google.com/search?q=$s",
+		":gi|google img: https://www.google.com/search?q=$s&source=lnms&tbm=isch",
+		":yi|yahoo img: https://images.search.yahoo.com/search/images?p=$s",
+		":w|wikpedia: https://en.wikipedia.org/?search=$s",
+		":gh|github: https://github.com/search?q=$s",
+		":yt|youtube: https://www.youtube.com/results?search_query=$s",
 		""
 	],
 	"searchUrl": "https://paulgo.io/search?q=$s paulgo",
