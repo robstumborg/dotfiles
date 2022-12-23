@@ -41,4 +41,4 @@ here's a list of some software I use:
 
 ## screenshot
 
-![](https://rj1.localghost.org/img/dotfiles-sshot.png)
+![](https://rj1.su/img/dotfiles-sshot.png)
