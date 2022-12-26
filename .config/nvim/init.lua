@@ -482,7 +482,8 @@ require('nvim-treesitter.configs').setup {
     'php',
     'html',
     'css',
-    'javascript'
+    'javascript',
+    'dart'
   },
   highlight = {
     enable = true,
@@ -562,7 +563,13 @@ require('mason').setup()
 local nvim_lsp = require('lspconfig')
 local lspconfig = require('mason-lspconfig')
 
--- ensure the servers above are installed
+-- manual lsp configuration (not available via mason)
+nvim_lsp['dartls'].setup{
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
+-- tell mason to ensure these language servers are installed
 lspconfig.setup {
   ensure_installed = {
     'pyright',
