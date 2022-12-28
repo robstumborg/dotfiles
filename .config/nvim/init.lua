@@ -782,3 +782,8 @@ require('mkdnflow').setup{
   }
 }
 
+-- hotreload flutter on save
+vim.api.nvim_create_autocmd('bufwritepost', {
+  pattern = '*.dart',
+  command = 'silent execute \'!kill -SIGUSR1 $(pgrep -f "[f]lutter_tool.*run")\''
+})
