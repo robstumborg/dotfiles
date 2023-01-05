@@ -1,0 +1,208 @@
+# display settings
+output LVDS-1 disable
+
+# dynamic wallpaper
+exec $XDG_CONFIG_HOME/sway/scripts/wallpaper.sh
+
+# winkey
+set $mod mod4
+set $left h
+set $down j
+set $up k
+set $right l
+
+# keeb settings
+input "type:keyboard" {
+    xkb_layout us,es
+    repeat_delay 250
+    repeat_rate 60
+    xkb_options caps:escape
+}
+
+# sway theme
+set $font 'Hack Nerd Font Mono'
+set $cursor_theme 'Neutral'
+set $cursor_size 16
+seat seat0 hide_cursor 1500
+seat seat0 xcursor_theme $cursor_theme $cursor_size
+
+exec_always {
+    gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
+    gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+    gsettings set org.gnome.desktop.interface font-name $font
+}
+
+font pango:$font
+default_border pixel 2
+gaps inner 5
+
+# class                 border  bg      text    indicator child_border
+client.focused          #98c379 #98c379 #666666 #98c379   #98c379
+client.focused_inactive #333333 #222222 #ffffff #484e50   #3e4452
+client.unfocused        #333333 #222222 #888888 #292d2e   #3e4452
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+# lock settings
+set $sleep "swaylock \
+    --font '$font' \
+    --screenshots \
+    --clock \
+    --indicator \
+    --indicator-radius 100 \
+    --indicator-thickness 7 \
+    --effect-blur 7x5 \
+    --effect-vignette 0.5:0.5 \
+    --ring-color c678dd \
+    --key-hl-color 6eaafb \
+    --text-color abb2bf \
+    --ring-ver-color 98c379 \
+    --inside-ver-color 98c379 \
+    --line-color 00000000 \
+    --inside-color 282c34 \
+    --separator-color 00000000 \
+    --grace 5"
+
+exec swayidle timeout 180 $sleep \
+    timeout 300 'swaymsg "output * dpms off"' \
+    timeout 60 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
+    resume 'swaymsg "output * dpms on"'
+
+
+bindsym ctrl+alt+delete exec $sleep
+
+# bar
+exec yambar
+
+# restart bar
+bindsym $mod+shift+y exec "killall yambar; yambar"
+
+# switch keyboard layout
+bindsym $mod+shift+e input "12815:20484:SONiX_USB_DEVICE" xkb_switch_layout next
+
+# terminal
+bindsym $mod+return exec $XDG_CONFIG_HOME/sway/scripts/alacritty.sh
+
+# kill focused window
+bindsym $mod+shift+q kill
+
+# rofi
+bindsym $mod+space exec rofi -show run
+
+# rofi+pass
+bindsym $mod+p exec $HOME/bin/tessen
+
+# sshot
+bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
+
+# screencast
+bindsym $mod+shift+s exec $XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh
+
+# color picker
+bindsym $mod+c exec grim -g "$(slurp -p)" -t ppm - | \
+  convert - -format '%[pixel:p{0,0}]' txt:- | \
+  awk 'FNR == 2 {print $3}' | \
+  tr -d '\n' | \
+  wl-copy
+
+# toggle horizontal/vertical
+bindsym $mod+d layout toggle split
+bindsym $mod+apostrophe splitv
+bindsym $mod+semicolon splith
+
+# fullscreen
+bindsym $mod+f fullscreen
+
+# floating/tiled toggle
+bindsym $mod+shift+f floating toggle
+
+# drag floating windows
+floating_modifier $mod normal
+
+# notifications
+exec mako
+
+# audio
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
+
+# volume control
+bindsym $mod+equal exec amixer sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym $mod+minus exec amixer sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym $mod+0 exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
+bindsym XF86AudioRaiseVolume exec amixer sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym XF86AudioLowerVolume exec amixer sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+bindsym XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
+
+# media control
+bindsym $mod+m exec rofimpd
+bindsym $mod+slash exec mpc toggle
+bindsym $mod+period exec mpc next
+bindsym $mod+comma exec mpc prev
+bindsym $mod+shift+comma exec mpc seek -5
+bindsym $mod+shift+period exec mpc seek +5
+
+# reload sway
+bindsym $mod+shift+r reload
+
+# quit sway
+bindsym $mod+shift+x exec swaynag -t warning \
+    -m 'is you finished or is you done?' -b 'ye' 'swaymsg exit'
+
+# switch windows
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# move windows
+bindsym $mod+shift+$left move left
+bindsym $mod+shift+$down move down
+bindsym $mod+shift+$up move up
+bindsym $mod+shift+$right move right
+
+# switch workspaces
+bindsym $mod+b workspace "main"
+bindsym $mod+g workspace "goog"
+bindsym $mod+t workspace "term"
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+
+# move windows to workspaces
+bindsym $mod+shift+b move container to workspace "main"
+bindsym $mod+shift+g move container to workspace "goog"
+bindsym $mod+shift+t move container to workspace "term"
+bindsym $mod+shift+1 move container to workspace number 1
+bindsym $mod+shift+2 move container to workspace number 2
+bindsym $mod+shift+3 move container to workspace number 3
+bindsym $mod+shift+4 move container to workspace number 4
+bindsym $mod+shift+5 move container to workspace number 5
+bindsym $mod+shift+6 move container to workspace number 6
+bindsym $mod+shift+7 move container to workspace number 7
+bindsym $mod+shift+8 move container to workspace number 8
+bindsym $mod+shift+9 move container to workspace number 9
+
+# resize mode
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # return to default mode
+    bindsym return mode "default"
+    bindsym escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# wlsunset
+exec $XDG_CONFIG_HOME/sway/scripts/wlsunset.sh
