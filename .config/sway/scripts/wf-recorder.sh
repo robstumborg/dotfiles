@@ -2,7 +2,8 @@
 
 if [ $(pgrep wf-recorder) != 0 ]; then
     dimensions=$(slurp)
-    audio=$(echo -e "desktop\nmicrophone\nnone\ncancel" | fuzzel -dmenu -p 'screencast audio')
+    audio=$(echo -e "none\ndesktop\nmicrophone" | rofi -dmenu -p 'screencast audio')
+    [ ! ${audio} ] && exit
     file="$HOME/vid/screencast/screencast-$(date +%F-%H-%M-%S).mp4"
     cmd="wf-recorder -f \"${file}\" -g \"${dimensions}\" -c h264_vaapi -d /dev/dri/renderD128"
 
@@ -26,4 +27,3 @@ else
     pkill --signal SIGINT wf-recorder
     notify-send "wf-recorder" "screencast saved!"
 fi
-
