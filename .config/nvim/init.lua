@@ -367,7 +367,7 @@ require('lualine').setup{
 }
 
 -- cokeline
-local colors = require("onedarkpro").get_colors(vim.g.onedarkpro_theme)
+local colors = require('onedarkpro.helpers').get_colors()
 require('cokeline').setup{
   default_hl = {
     fg = function(buffer)
@@ -680,6 +680,7 @@ lspconfig.setup_handlers{
 
 -- completion plugin
 require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip').filetype_extend("javascript", { "javascriptreact" })
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local lspkind = require('lspkind')
@@ -752,7 +753,9 @@ require("formatter").setup{
     python = {require('formatter.filetypes.python').black},
     rust = {require('formatter.filetypes.rust').rustfmt},
     sh = {require('formatter.filetypes.sh').shfmt},
-    go = {require('formatter.filetypes.go').gofmt}
+    go = {require('formatter.filetypes.go').gofmt},
+    json = {require('formatter.filetypes.json').jq},
+    php = {require('formatter.filetypes.php').phpcbf}
   }
 }
 
