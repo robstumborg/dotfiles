@@ -24,7 +24,7 @@ input "type:keyboard" {
 set $font 'Hack Nerd Font Mono'
 set $cursor_theme 'Neutral'
 set $cursor_size 16
-seat seat0 hide_cursor 1500
+seat seat0 hide_cursor 5000
 seat seat0 xcursor_theme $cursor_theme $cursor_size
 
 exec_always {
@@ -33,7 +33,7 @@ exec_always {
     gsettings set org.gnome.desktop.interface font-name $font
 }
 
-font pango:$font
+font pango:$font 11
 default_border pixel 2
 gaps inner 5
 
@@ -46,7 +46,7 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 # lock settings
 set $sleep "swaylock \
-    --font '$font' \
+    --font 'Hack Nerd Font Mono' \
     --screenshots \
     --clock \
     --indicator \
