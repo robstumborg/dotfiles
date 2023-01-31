@@ -11,8 +11,8 @@ c.completion.height = '20%'
 c.downloads.location.directory = '~/dl'
 c.downloads.prevent_mixed_content = False
 c.editor.command = ['foot', 'nvim', '{file}']
-c.colors.webpage.darkmode.enabled = False
-c.content.javascript.enabled = True
+c.colors.webpage.darkmode.enabled = True
+c.content.javascript.enabled = False
 c.content.blocking.method = 'both'
 c.auto_save.session = True
 c.zoom.default = '100%'
@@ -40,8 +40,8 @@ c.aliases = {
 }
 
 c.bindings.commands['normal'] = {
-    '<shift-j>'    : 'tab-next',
-    '<shift-k'     : 'tab-previous',
+    '<shift-k>'    : 'tab-next',
+    '<shift-j>'    : 'tab-prev',
     '<alt-shift-j>': 'zoom-out',
     '<alt-shift-k>': 'zoom-in',
     '<alt-shift-h>': 'zoom 100%',
