@@ -16,11 +16,15 @@ zinit load "zsh-users/zsh-autosuggestions"
 bindkey '^l' autosuggest-accept
 source $XDG_CONFIG_HOME/zsh/aliases.zsh
 
+
 # settings
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{node_modules,.git,vendor}"'
 export BAT_THEME="OneHalfDark"
 export MANPAGER="nvim +Man!"
+
+# nvm
+source /usr/share/nvm/init-nvm.sh
 
 # don't let url-quote-magic & autosuggestions conflict
 pasteinit() {
@@ -40,4 +44,5 @@ fpath+=$XDG_CONFIG_HOME/zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
+source ~/.config/zsh/zsh-artisan/artisan.plugin.zsh
 zinit load "zsh-users/zsh-syntax-highlighting"

@@ -57,17 +57,24 @@ export PATH=$PATH:$HOME/.local/bin
 export CARGO_HOME=$XDG_DATA_HOME/cargo
 export PATH=$PATH:$CARGO_HOME/bin
 
+# php
+export PATH=$PATH:$XDG_CONFIG_HOME/composer/vendor/bin
+
 # android-tools
-export ANDROID_HOME=$XDG_DATA_HOME/android
+# export ANDROID_HOME=$XDG_DATA_HOME/android
+# export PATH=$PATH:$ANDROID_HOME/emulator
+# export PATH=$PATH:$ANDROID_HOME/platform-tools
+# export ANDROID_SDK_ROOT=/opt/android-sdk
+# export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin/
+# export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
 
 # nvm
 export NVM_DIR=$XDG_DATA_HOME/nvm
 
 # ruby
-export PATH=$PATH:$XDG_DATA_HOME/gem/ruby/3.1.0/bin
+export PATH=$PATH:$XDG_DATA_HOME/gem/ruby/3.0.0/bin
 
 # js
 export NPM_PACKAGES=$XDG_DATA_HOME/npm
 export PATH=$PATH:$NPM_PACKAGES/bin
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/config
-
