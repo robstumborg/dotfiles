@@ -3,7 +3,7 @@
 [user]
     useConfigOnly = true
 [pretty]
-    better-oneline = "format:%C(auto)%h%d %s %Cblue[%cn]"
+    better-oneline = "format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %Cblue[%cn]"
 [alias]
     id = "!f() { \
             git config user.name \"$(git config user.$1.name)\"; \
@@ -37,7 +37,10 @@
     sl      = stash list --name-status --pretty='format:%gd [%ar]: %s'
     leaderboard = shortlog -s -n
     c = commit
+    p = add --patch
 [sendemail]
     smtpserver = /usr/bin/msmtp
 [include]
     path = ~/.config/git/identities
+[safe]
+	directory = /opt/flutter
