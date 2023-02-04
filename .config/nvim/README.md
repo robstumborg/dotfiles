@@ -24,6 +24,7 @@
 | ]t          | next todo                                 | todo-comments.nvim |
 | [t          | previous todo                             | todo-comments.nvim |
 | gd          | go to definition                          |                    |
+| gr          | see references                            |                    |
 | shift+k     | hover code signature                      |                    |
 | [leader]+ff | format buffer                             | formatter.nvim     |
 | [leader]+gh | preview changed hunk (git)                | gitsigns.nvim      |
