@@ -1,7 +1,7 @@
 # rj1's dotfiles
 
 this repo contains my configuration files, used with [arch
-linux](https://voidlinux.org/), [void linux](https://voidlinux.org/), and
+linux](https://archlinux.org/), [void linux](https://voidlinux.org/), and
 [freebsd](https://www.freebsd.org/)
 
 I use [yadm](https://yadm.io/) to manage my dotfiles in this repository
