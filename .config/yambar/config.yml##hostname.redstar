@@ -9,18 +9,10 @@ bar:
   font: Hack Nerd Font Mono:pixelsize=22
 
   right:
-    - mpd:
-        host: localhost
-        port: 6600
-        content:
-          map:
-            on-click:
-              left: mpc toggle
-            tag: state
-            values:
-              playing: {string: {text: "▶ {artist} - {title} |"}}
-              paused: {string: {text: " {artist} - {title} |"}}
-              stopped: {string: {text: "■ {artist} - {title} |"}}
+    - script:
+        path: /home/rj1/.config/yambar/task.sh
+        poll-interval: 30
+        content: {string: { text: "task: {task} |"}}
 
     - alsa:
         card: default
