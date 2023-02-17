@@ -9,10 +9,18 @@ bar:
   font: Hack Nerd Font Mono:pixelsize=22
 
   right:
-    - script:
-        path: /home/rj1/.config/yambar/task.sh
-        poll-interval: 30
-        content: {string: { text: "task: {task} |"}}
+    - mpd:
+        host: localhost
+        port: 6600
+        content:
+          map:
+            on-click:
+              left: mpc toggle
+            tag: state
+            values:
+              playing: {string: {text: "▶ {artist} - {title} |"}}
+              paused: {string: {text: " {artist} - {title} |"}}
+              stopped: {string: {text: "■ {artist} - {title} |"}}
 
     - alsa:
         card: default
@@ -37,6 +45,11 @@ bar:
                         values:
                           0: {string: {text: ''}}
                     - string: {text: '{percent}% |'}
+
+    - script:
+        path: /home/rj1/.config/yambar/temp.sh
+        poll-interval: 5
+        content: {string: { text: "cpu: {cpu} gpu: {gpu} |"}}
 
     - script:
         path: /home/rj1/.config/yambar/mail.sh
@@ -98,8 +111,6 @@ bar:
                   spacing: 0
                   items:
                     - map: {<<: *i3_mode}
-
-  center:
     - i3:
         content:
           "":
@@ -118,3 +129,9 @@ bar:
                 list:
                   items:
                     - string: {text: "{title}", max: 35}
+
+  center:
+    - script:
+        path: /home/rj1/.config/yambar/task.sh
+        poll-interval: 30
+        content: {string: { text: "task: {task}"}}
