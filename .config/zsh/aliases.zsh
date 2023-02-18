@@ -36,7 +36,7 @@ alias passgen="pass generate -c"
 alias sc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 alias diff="nvim -d"
 alias d="sudo docker"
-alias sctl='systemctl'
+alias sctl='sudo systemctl'
 alias uctl='systemctl --user'
 alias a=artisan
 
