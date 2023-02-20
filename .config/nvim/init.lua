@@ -574,6 +574,7 @@ lspconfig.setup {
   ensure_installed = {
     'pyright',
     'tsserver',
+    'eslint',
     'intelephense',
     'cssls',
     'html',
