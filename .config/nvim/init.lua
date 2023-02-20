@@ -33,7 +33,7 @@ require('packer').startup(function(use)
   use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
   use 'mhartington/formatter.nvim'
   use 'Vimjas/vim-python-pep8-indent'
-  use 'rj1/vim-dbml'
+  use 'jidn/vim-dbml'
 
   -- editing
   use 'windwp/nvim-ts-autotag'
