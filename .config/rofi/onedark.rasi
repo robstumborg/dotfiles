@@ -16,8 +16,8 @@
 
 window {
   background-color: #282c34ee;
-  width: 650px;
-  height: 700px;
+  width: 1000px;
+  height: 1000px;
   border: 1px;
   border-color: #98c379;
 }

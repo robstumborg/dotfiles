@@ -8,8 +8,7 @@ border-size=1
 border-color=#98c379
 icons=0
 max-icon-size=64
-default-timeout=4000
-font=Hack Nerd Font Mono 10
+default-timeout=5000
+font=Hack Nerd Font Mono 16
 output=HDMI-A-1
 on-notify=exec mpv ~/.config/mako/notify.ogg
-

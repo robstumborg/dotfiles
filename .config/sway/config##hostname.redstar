@@ -1,5 +1,5 @@
 # display settings
-output HDMI-A-1 pos 0 0 res 3840x2160 scale 1.75
+output HDMI-A-1 pos 0 0 res 3840x2160 scale 1
 output DP-1 disable
 
 # dynamic wallpaper
@@ -14,7 +14,7 @@ set $right l
 
 # keeb settings
 input "type:keyboard" {
-    xkb_layout us,es
+    xkb_layout us
     repeat_delay 250
     repeat_rate 60
     xkb_options caps:escape
@@ -50,7 +50,6 @@ set $sleep $XDG_CONFIG_HOME/sway/scripts/lock.sh
 
 exec swayidle timeout 60 $sleep \
     timeout 120 'swaymsg "output * dpms off"' \
-    timeout 30 'if pgrep -x swaylock; then swaymsg "output * dpms off"; fi' \
     resume 'swaymsg "output * dpms on"'
 
 bindsym ctrl+alt+delete exec $sleep
@@ -61,11 +60,8 @@ exec yambar
 # restart bar
 bindsym $mod+shift+y exec "killall yambar; yambar"
 
-# switch keyboard layout
-bindsym $mod+shift+e input "12815:20484:SONiX_USB_DEVICE" xkb_switch_layout next
-
 # terminal
-bindsym $mod+return exec $XDG_CONFIG_HOME/sway/scripts/alacritty.sh
+bindsym $mod+return exec $XDG_CONFIG_HOME/sway/scripts/foot.sh
 
 # kill focused window
 bindsym $mod+shift+q kill

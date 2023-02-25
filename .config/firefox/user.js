@@ -5,6 +5,9 @@ user_pref('extensions.webextensions.restrictedDomains', '');
 // load userChrome.css customizations
 user_pref('toolkit.legacyUserProfileCustomizations.stylesheets', true);
 
+// scaling
+user_pref('layout.css.devPixelsPerPx', 1.5);
+
 // hardware acceleration
 user_pref('media.ffmpeg.vaapi.enabled', true);
 user_pref('media.ffvpx.enabled', false);

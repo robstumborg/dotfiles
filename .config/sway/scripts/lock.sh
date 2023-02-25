@@ -5,6 +5,7 @@ grim $sshot && \
   ffmpeg -i $sshot -filter_complex boxblur=lr=8:lp=2 -y $blurred && \
   swaylock -i $blurred \
     --font "Hack Nerd Font Mono" \
+    --font-size=25 \
     --text-color ffffffff \
     --ring-color c678dd \
     --key-hl-color 6eaafb \
@@ -14,5 +15,6 @@ grim $sshot && \
     --line-color 00000000 \
     --inside-color 282c34 \
     --separator-color 00000000 \
+    --indicator-radius=100 \
 
 rm -rf $image $blurred

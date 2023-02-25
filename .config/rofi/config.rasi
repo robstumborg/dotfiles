@@ -1,6 +1,6 @@
 configuration {
     display: "HDMI-A-1";
-    font: "Hack Nerd Font Mono 10";
+    font: "Hack Nerd Font Mono 15";
     modi: "run,ssh,combi";
     terminal: "/usr/bin/alacritty";
     display-run: "> ";

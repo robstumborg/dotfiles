@@ -6,7 +6,7 @@ bar:
   spacing: 5
   margin: 5
   background: 1d2330c0
-  font: Hack Nerd Font Mono:pixelsize=22
+  font: Hack Nerd Font Mono:pixelsize=18
 
   right:
     - mpd:
@@ -18,9 +18,9 @@ bar:
               left: mpc toggle
             tag: state
             values:
-              playing: {string: {text: "▶ {artist} - {title} |"}}
-              paused: {string: {text: " {artist} - {title} |"}}
-              stopped: {string: {text: "■ {artist} - {title} |"}}
+              playing: {string: {text: "▶ {artist} - {title} |", max: 50}}
+              paused: {string: {text: " {artist} - {title} |", max: 50}}
+              stopped: {string: {text: "■ {artist} - {title} |", max: 50}}
 
     - alsa:
         card: default
@@ -128,7 +128,7 @@ bar:
               default:
                 list:
                   items:
-                    - string: {text: "{title}", max: 35}
+                    - string: {text: "{title}", max: 50}
 
   center:
     - script:
