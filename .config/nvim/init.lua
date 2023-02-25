@@ -28,6 +28,9 @@ require('packer').startup(function(use)
   use 'rafamadriz/friendly-snippets'
   use 'onsails/lspkind.nvim'
 
+  -- copilot
+  use 'zbirenbaum/copilot.lua'
+
   -- syntax
   use 'nvim-treesitter/nvim-treesitter'
   use {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
@@ -61,6 +64,7 @@ require('packer').startup(function(use)
   use 'tversteeg/registers.nvim'
   use 'unblevable/quick-scope'
   use 'lukas-reineke/indent-blankline.nvim'
+  use 'https://github.com/folke/trouble.nvim'
 
   -- telescope
   use {'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim'}
@@ -315,6 +319,9 @@ vim.keymap.set("n", "[t", function() require("todo-comments").jump_prev() end)
 -- find digit
 
 vim.keymap.set("n", "<leader>fd", function() vim.fn.search("\\d\\+") end)
+
+-- trouble.nvim
+vim.keymap.set("n", "<leader>dw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
 
 -- 
 -- command aliases
@@ -791,3 +798,22 @@ vim.api.nvim_create_autocmd('bufwritepost', {
   pattern = '*.dart',
   command = 'silent execute \'!kill -SIGUSR1 $(pgrep -f "[f]lutter_tool.*run")\''
 })
+
+-- copilot
+require('copilot').setup{
+suggestion = {
+    auto_trigger = true
+  },
+filetypes = {
+  mail = false,
+  yaml = false,
+  markdown = false,
+  help = false,
+  gitcommit = false,
+  gitrebase = false,
+  hgcommit = false,
+  svn = false,
+  cvs = false,
+  ["."] = false,
+ },
+}
