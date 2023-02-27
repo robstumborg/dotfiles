@@ -793,6 +793,21 @@ require('mkdnflow').setup{
   }
 }
 
+function create_daily_file()
+  local date_string = os.date("%Y-%m-%d")
+  local file_path = "~/wiki/daily/" .. date_string .. ".wiki.md"
+  local f = io.open(file_path, "r")
+  if f ~= nil then
+    io.close(f)
+  else
+    -- create file
+    f = io.open(file_path, "w")
+  end
+  vim.cmd("edit " .. file_path)
+end
+
+vim.cmd('command! Daily lua create_daily_file()')
+
 -- hotreload flutter on save
 vim.api.nvim_create_autocmd('bufwritepost', {
   pattern = '*.dart',
