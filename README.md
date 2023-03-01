@@ -21,6 +21,7 @@ here's a list of some software I use:
 | ----                                                  | -----------
 | [sway](https://swaywm.org/)                           | compositor/wm
 | [yambar](https://codeberg.org/dnkl/yambar)            | status bar
+| [dstask](https://github.com/naggie/dstask)            | todo manager
 | [rofi](https://github.com/lbonn/rofi)                 | app launcher / dynamic menu
 | [pass](https://www.passwordstore.org/)                | password manager
 | [tessen](https://github.com/ayushnix/tessen)          | get password data via rofi
