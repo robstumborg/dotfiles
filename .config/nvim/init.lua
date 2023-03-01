@@ -24,6 +24,7 @@ require("packer").startup(function(use)
 	use({ "hrsh7th/cmp-buffer", requires = "hrsh7th/nvim-cmp" })
 	use({ "hrsh7th/cmp-nvim-lsp-signature-help", requires = "hrsh7th/nvim-cmp" })
 	use({ "L3MON4D3/LuaSnip", requires = "saadparwaiz1/cmp_luasnip" })
+	use("andersevenrud/cmp-tmux")
 	use("microsoft/python-type-stubs")
 	use("rafamadriz/friendly-snippets")
 	use("onsails/lspkind.nvim")
@@ -809,6 +810,7 @@ cmp.setup({
 			menu = {
 				nvim_lsp = "[LSP]",
 				luasnip = "[LuaSnip]",
+        tmux = "[tmux]",
 			},
 		}),
 	},
@@ -847,6 +849,7 @@ cmp.setup({
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "path" },
 		{ name = "buffer" },
+    { name = "tmux" },
 	},
 	window = {
 		completion = {
