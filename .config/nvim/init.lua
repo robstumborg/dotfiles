@@ -347,7 +347,8 @@ require('possession').setup{
   },
   silent = true,
   commands = {
-    save = 'SaveSession'
+    save = 'SaveSession',
+    load = 'LoadSession'
   },
   hooks = {
     -- rename the tmux window to the name of the session we're loading
