@@ -16,11 +16,10 @@ bar:
           map:
             on-click:
               left: mpc toggle
-            tag: state
-            values:
-              playing: {string: {text: "▶ {artist} - {title} |", max: 50}}
-              paused: {string: {text: " {artist} - {title} |", max: 50}}
-              stopped: {string: {text: "■ {artist} - {title} |", max: 50}}
+            conditions:
+              state == playing: {string: {text: "▶ {artist} - {title} |"}}
+              state == paused: {string: {text: " {artist} - {title} |"}}
+              state == stopped: {string: {text: "■ {artist} - {title} |"}}
 
     - alsa:
         card: default
@@ -32,18 +31,16 @@ bar:
               wheel-up: amixer sset Master 2%+
               wheel-down: amixer sset Master 2%-
 
-            tag: muted
-            values:
-              true: {string: {text: ' |'}}
-              false:
+            conditions:
+              muted: {string: {text: ' |'}}
+              ~muted:
                 list:
                   spacing: 4
                   items:
                     - map:
-                        tag: percent
                         default: {string: {text: ''}}
-                        values:
-                          0: {string: {text: ''}}
+                        conditions:
+                         percent == 0: {string: {text: ''}}
                     - string: {text: '{percent}% |'}
 
     - script:
@@ -67,6 +64,12 @@ bar:
         content:
           - string: {text: "{time}", right-margin: 10}
 
+  center:
+    - script:
+        path: /home/rj1/.config/yambar/task.sh
+        poll-interval: 30
+        content: {string: { text: "task: {task}"}}
+
   left:
     - i3:
         sort: ascending
@@ -79,59 +82,23 @@ bar:
           - urgent: &urgent
               deco: {stack: [background: {color: eb6e67ff}, <<: *std_underline]}
           - map: &i3_mode
-              tag: mode
-              default:
-                - string:
-                    margin: 5
-                    text: "{mode}"
-                    deco: {background: {color: cc421dff}}
-                - empty: {right-margin: 7}
-              values:
-                default: {empty: {}}
+              conditions:
+                default:
+                  - string:
+                      margin: 5
+                      text: "{mode}"
+                      deco: {background: {color: cc421dff}}
+                  - empty: {right-margin: 7}
+                values:
+                  default: {empty: {}}
         content:
           "":
             map:
-              tag: state
-              values:
-                focused:   {string: {<<: [*default, *focused]}}
-                unfocused: {string: {<<: *default}}
-                invisible: {string: {<<: [*default, *invisible]}}
-                urgent:    {string: {<<: [*default, *urgent]}}
+              conditions:
+                state == focused:   {string: {<<: [*default, *focused]}}
+                state == unfocused: {string: {<<: *default}}
+                state == invisible: {string: {<<: [*default, *invisible]}}
+                state == urgent:    {string: {<<: [*default, *urgent]}}
 
           current:
-            map:
-              left-margin: 7
-              tag: application
-              values:
-                "":
-                  - map: {<<: *i3_mode}
-                  - string: {text: "{title}"}
-              default:
-                list:
-                  spacing: 0
-                  items:
-                    - map: {<<: *i3_mode}
-    - i3:
-        content:
-          "":
-            map:
-              tag: title
-              values:
-                focused:   {string: {<<: [*default, *focused]}}
-          current:
-            map:
-              left-margin: 7
-              tag: title
-              values:
-                "":
-                  - string: {text: "{title}"}
-              default:
-                list:
-                  items:
-                    - string: {text: "{title}", max: 50}
-
-  center:
-    - script:
-        path: /home/rj1/.config/yambar/task.sh
-        poll-interval: 30
-        content: {string: { text: "task: {task}"}}
+            - string: {text: "{title}"}
