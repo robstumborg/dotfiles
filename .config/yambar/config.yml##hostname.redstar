@@ -17,9 +17,9 @@ bar:
             on-click:
               left: mpc toggle
             conditions:
-              state == playing: {string: {text: "▶ {artist} - {title} |"}}
-              state == paused: {string: {text: " {artist} - {title} |"}}
-              state == stopped: {string: {text: "■ {artist} - {title} |"}}
+              state == playing: {string: {text: "▶ {artist} - {title} |", max: 50}}
+              state == paused: {string: {text: " {artist} - {title} |", max: 50}}
+              state == stopped: {string: {text: "■ {artist} - {title} |", max: 50}}
 
     - alsa:
         card: default
@@ -75,22 +75,21 @@ bar:
         sort: ascending
         anchors:
           - string: &i3_common {margin: 5, on-click: "swaymsg --quiet workspace {name}"}
-          - string: &default {<<: *i3_common, text: " {name} "}
+          - string: &default {<<: *i3_common, text: "{name}", margin: 10}
           - focused: &focused
               deco: {stack: [ *std_underline]}
           - invisible: &invisible {foreground: ffffffff}
           - urgent: &urgent
               deco: {stack: [background: {color: eb6e67ff}, <<: *std_underline]}
           - map: &i3_mode
+              default:
+                - string:
+                    margin: 5
+                    text: "{mode}"
+                    deco: {background: {color: cc421dff}}
+                - empty: {right-margin: 7}
               conditions:
-                default:
-                  - string:
-                      margin: 5
-                      text: "{mode}"
-                      deco: {background: {color: cc421dff}}
-                  - empty: {right-margin: 7}
-                values:
-                  default: {empty: {}}
+                mode == default: {empty: {}}
         content:
           "":
             map:
@@ -101,4 +100,31 @@ bar:
                 state == urgent:    {string: {<<: [*default, *urgent]}}
 
           current:
-            - string: {text: "{title}"}
+            map:
+              left-margin: 7
+              conditions:
+                application == "":
+                  - map: {<<: *i3_mode}
+                  - string: {text: "{title}"}
+              default:
+                list:
+                  spacing: 0
+                  items:
+                    - map: {<<: *i3_mode}
+
+    - i3:
+        content:
+          "":
+            map:
+              conditions:
+                title == focused:   {string: {<<: [*default, *focused]}}
+          current:
+            map:
+              margin: 7
+              conditions:
+                title == "":
+                  - string: {text: "{title}"}
+              default:
+                list:
+                  items:
+                    - string: {text: "{title}", max: 100}
