@@ -689,6 +689,19 @@ lspconfig.setup_handlers{
 }
 
 -- completion plugin
+local function cmp_border(hl_name)
+    return {
+        { "┌", hl_name },
+        { "─", hl_name },
+        { "┐", hl_name },
+        { "│", hl_name },
+        { "┘", hl_name },
+        { "─", hl_name },
+        { "└", hl_name },
+        { "│", hl_name }
+    }
+end
+
 require('luasnip.loaders.from_vscode').lazy_load()
 require('luasnip').filetype_extend("javascript", { "javascriptreact" })
 local cmp = require('cmp')
@@ -740,8 +753,19 @@ cmp.setup {
     {name = 'nvim_lsp_signature_help'},
     {name = 'path'},
     {name = 'buffer'},
+  },
+  window = {
+    completion = {
+      border = cmp_border("CmpBorder"),
+      winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None"
+    },
+    documentation = {
+      border = cmp_border("CmpBorder"),
+      winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None"
+    },
+    }
   }
-}
+
 
 -- autopairs
 require('nvim-autopairs').setup{
