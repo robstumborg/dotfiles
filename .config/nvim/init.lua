@@ -514,6 +514,7 @@ require('ccc').setup{
     auto_enable = true
   }
 }
+vim.cmd 'command! Color CccPick'
 
 -- nvim-surround
 require('nvim-surround').setup{}
