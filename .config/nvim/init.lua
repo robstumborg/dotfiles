@@ -789,7 +789,8 @@ require("formatter").setup{
     sh = {require('formatter.filetypes.sh').shfmt},
     go = {require('formatter.filetypes.go').gofmt},
     json = {require('formatter.filetypes.json').jq},
-    php = {require('formatter.filetypes.php').phpcbf}
+    php = {require('formatter.filetypes.php').phpcbf},
+    lua = {require('formatter.filetypes.lua').stylua}
   }
 }
 
