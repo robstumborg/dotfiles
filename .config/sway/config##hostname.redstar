@@ -35,7 +35,7 @@ exec_always {
 
 font $font 8
 titlebar_padding 2
-default_border pixel 2
+default_border pixel 5
 gaps inner 5
 
 # class                 border  bg      text    indicator child_border
@@ -48,8 +48,8 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 # lock settings
 set $sleep $XDG_CONFIG_HOME/sway/scripts/lock.sh
 
-exec swayidle timeout 60 $sleep \
-    timeout 120 'swaymsg "output * dpms off"' \
+exec swayidle timeout 180 $sleep \
+    timeout 210 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"'
 
 bindsym ctrl+alt+delete exec $sleep
@@ -61,7 +61,7 @@ exec yambar
 bindsym $mod+shift+y exec "killall yambar; yambar"
 
 # terminal
-bindsym $mod+return exec $XDG_CONFIG_HOME/sway/scripts/foot.sh
+bindsym $mod+return exec $XDG_CONFIG_HOME/sway/scripts/term.sh
 
 # kill focused window
 bindsym $mod+shift+q kill
