@@ -829,7 +829,7 @@ cmp.setup({
 			menu = {
 				nvim_lsp = "[LSP]",
 				luasnip = "[LuaSnip]",
-        tmux = "[tmux]",
+				tmux = "[tmux]",
 			},
 		}),
 	},
@@ -868,7 +868,7 @@ cmp.setup({
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "path" },
 		{ name = "buffer" },
-    { name = "tmux" },
+		{ name = "tmux" },
 	},
 	window = {
 		completion = {
