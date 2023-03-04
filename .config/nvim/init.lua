@@ -371,21 +371,95 @@ require("possession").setup({
 	},
 })
 
+local colors = require("onedarkpro.helpers").get_colors()
+
+local function diff_source()
+	local gitsigns = vim.b.gitsigns_status_dict
+	if gitsigns then
+		return {
+			added = gitsigns.added,
+			modified = gitsigns.changed,
+			removed = gitsigns.removed,
+		}
+	end
+end
+
+local function random_icon()
+	local symbols = { "", "", "", "", "", "" }
+	local randomIndex = math.random(1, #symbols)
+	return symbols[randomIndex]
+end
+
 -- lualine
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
 		theme = "onedark",
-		component_separators = "•",
 		section_separators = { left = "", right = "" },
+		disabled_filetypes = { "NvimTree" },
 	},
 	sections = {
-		lualine_c = { session_name },
+		lualine_a = {
+			{
+				"mode",
+				-- 
+				icon = random_icon(),
+				color = { gui = "bold" },
+				fmt = string.lower,
+			},
+		},
+		lualine_c = {
+			{
+				"branch",
+				color = { fg = colors.fg },
+				separator = "",
+			},
+			{
+				"diff",
+				source = diff_source,
+				diff_color = {
+					added = { fg = colors.green },
+					modified = { fg = colors.yellow },
+					removed = { fg = colors.red },
+				},
+				symbols = { added = " ", modified = "柳", removed = " " },
+				separator = "",
+			},
+			{
+				"diagnostics",
+				symbols = {
+					error = " ",
+					warn = " ",
+					info = " ",
+					hint = " ",
+				},
+			},
+		},
+		lualine_b = {
+			{
+				session_name,
+				icon = "",
+				color = { fg = colors.fg },
+			},
+		},
+		lualine_x = {
+			{
+				"encoding",
+				separator = "",
+			},
+			{
+				"fileformat",
+				separator = "",
+			},
+			{
+				"filetype",
+			},
+		},
+		lualine_y = { { "progress", color = { fg = colors.fg }, fmt = string.lower } },
 	},
 })
 
 -- cokeline
-local colors = require("onedarkpro.helpers").get_colors()
 require("cokeline").setup({
 	default_hl = {
 		fg = function(buffer)
