@@ -646,6 +646,14 @@ require("neoscroll").setup({
 --
 -- lsp settings
 --
+
+-- set lsp diagnostic icons for gutter
+local signs = { Error = " ", Warn = " ", Information = " ", Hint = " " }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
 -- this runs when a buffer is using an lsp
 local on_attach = function(_, buffer)
 	-- goto definition
