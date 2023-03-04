@@ -547,6 +547,7 @@ require("telescope").setup({
 		find_files = {
 			previewer = false,
 			hidden = true,
+			file_ignore_patterns = { ".git/" },
 		},
 		buffers = {
 			previewer = false,
