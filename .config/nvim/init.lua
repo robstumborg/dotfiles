@@ -616,6 +616,7 @@ lspconfig.setup({
 		"html",
 		"emmet_ls",
 		"vuels",
+		"lua_ls",
 	},
 })
 
@@ -626,6 +627,29 @@ lspconfig.setup_handlers({
 		nvim_lsp[server_name].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+		})
+	end,
+	-- lua language server settings
+	["lua_ls"] = function()
+		nvim_lsp.lua_ls.setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			root_dir = function()
+				return vim.loop.cwd()
+			end,
+			settings = {
+				Lua = {
+					runtime = {
+						version = "LuaJIT",
+					},
+					diagnostics = {
+						globals = { "vim" },
+					},
+					telemetry = {
+						enable = false,
+					},
+				},
+			},
 		})
 	end,
 	-- javascript language server settings
