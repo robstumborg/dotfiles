@@ -80,9 +80,6 @@ require("packer").startup(function(use)
 	-- upload text
 	use("rktjmp/paperplanes.nvim")
 
-	-- wiki
-	use({ "jakewvincent/mkdnflow.nvim", rocks = "luautf8" })
-
 	-- Rename/Delete/Chmod/etc
 	use("tpope/vim-eunuch")
 
@@ -184,12 +181,10 @@ vim.api.nvim_create_autocmd("filetype", {
 vim.g.vimuxheight = 32
 
 -- wiki
-local wiki = vim.api.nvim_create_augroup("wiki", { clear = true })
-vim.api.nvim_create_autocmd({ "bufreadpre", "filereadpre" }, {
-	group = wiki,
-	pattern = { "*.wiki.md" },
+--[[ vim.api.nvim_create_autocmd({ "bufenter", "bufleave", "focusgained", "focuslost" }, {
+	pattern = { "~/wiki/*" },
 	command = "setl noswapfile noundofile nobackup viminfo=",
-})
+}) ]]
 
 -- quickscope
 vim.cmd("let g:qs_highlight_on_keys = ['f', 'F']")
@@ -900,33 +895,6 @@ require("paperplanes").setup({
 
 -- registers preview popup
 require("registers").setup({})
-
--- wiki
-require("mkdnflow").setup({
-	links = {
-		implicit_extension = "wiki.md",
-		transform_explicit = function(text)
-			text = text:gsub(" ", "-")
-			text = text:lower()
-			return text
-		end,
-	},
-})
-
-function create_daily_file()
-	local date_string = os.date("%Y-%m-%d")
-	local file_path = "~/wiki/daily/" .. date_string .. ".wiki.md"
-	local f = io.open(file_path, "r")
-	if f ~= nil then
-		io.close(f)
-	else
-		-- create file
-		f = io.open(file_path, "w")
-	end
-	vim.cmd("edit " .. file_path)
-end
-
-vim.cmd("command! Daily lua create_daily_file()")
 
 -- hotreload flutter on save
 vim.api.nvim_create_autocmd("bufwritepost", {
