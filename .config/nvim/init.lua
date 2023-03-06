@@ -139,7 +139,7 @@ vim.o.breakindent = true
 
 -- undo history
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath("data") .. "/undo"
+vim.o.undodir = vim.fn.stdpath("state") .. "/undo"
 
 -- case insensitive searching unless /c or capital in search
 vim.o.ignorecase = true
@@ -351,6 +351,7 @@ local function session_name()
 end
 
 require("possession").setup({
+  session_dir = vim.fn.stdpath('state') .. '/session',
 	plugins = {
 		delete_hidden_buffers = false,
 	},
