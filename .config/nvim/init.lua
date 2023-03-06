@@ -496,7 +496,11 @@ require("lualine").setup({
 require("cokeline").setup({
 	default_hl = {
 		fg = function(buffer)
-			return buffer.is_focused and colors.purple or colors.white
+			if buffer.is_modified then
+				return colors.blue
+			else
+				return buffer.is_focused and colors.purple or colors.white
+			end
 		end,
 		bg = colors.black,
 		style = function(buffer)
@@ -516,6 +520,7 @@ require("cokeline").setup({
 	},
 
 	components = {
+		{ text = " " },
 		{
 			text = function(buffer)
 				return (buffer.index ~= 1) and "" or ""
@@ -547,14 +552,16 @@ require("cokeline").setup({
 			end,
 		},
 		{
-			text = "",
-			fg = colors.black,
-			bg = function(buffer)
-				return buffer.is_modified and colors.green or colors.fg_gutter
+			text = function(buffer)
+				-- don't show separator on the last tab
+				if buffer.index < #vim.fn.getbufinfo({ buflisted = 1 }) then
+					return ""
+				else
+					return ""
+				end
 			end,
-		},
-		{
-			text = "",
+			fg = colors.white,
+			style = "bold",
 		},
 	},
 })
