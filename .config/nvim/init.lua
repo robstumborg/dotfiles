@@ -29,6 +29,8 @@ require("packer").startup(function(use)
 	use("rafamadriz/friendly-snippets")
 	use("onsails/lspkind.nvim")
 
+	use("WhoIsSethDaniel/lualine-lsp-progress.nvim")
+
 	-- copilot
 	use("zbirenbaum/copilot.lua")
 
@@ -426,6 +428,36 @@ require("lualine").setup({
 				separator = "",
 			},
 			{
+				"lsp_progress",
+				colors = {
+					percentage = colors.purple,
+					message = colors.purple,
+					spinner = colors.green,
+					lsp_client_name = colors.purple,
+          title = colors.purple,
+					use = true,
+				},
+				separators = {
+					component = " ",
+					progress = " | ",
+					message = { pre = "[", post = "]" },
+					percentage = { pre = "", post = "%%⦘" },
+					title = { pre = "⦗", post = " " },
+					lsp_client_name = { pre = "⦗", post = "⦘" },
+					spinner = { pre = "", post = "" },
+				},
+				-- only_show_attached = true,
+				display_components = { "spinner", "lsp_client_name", { "title", "percentage",  } },
+				spinner_symbols = { "⣾", "⣷", "⣯", "⣟", "⡿", "⢿", "⣻", "⣽" },
+				timer = {
+					progress_enddelay = 1000,
+					spinner = 40,
+					lsp_client_name_enddelay = 3000,
+					attached_delay = 0,
+				},
+				separator = "",
+			},
+			{
 				"diagnostics",
 				symbols = {
 					error = " ",
@@ -433,12 +465,13 @@ require("lualine").setup({
 					info = " ",
 					hint = " ",
 				},
+				separator = "",
 			},
 		},
 		lualine_b = {
 			{
 				session_name,
-				icon = "",
+				icon = "ⵢ",
 				color = { fg = colors.fg },
 			},
 		},
