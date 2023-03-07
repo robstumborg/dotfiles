@@ -1,110 +1,101 @@
---
--- install packer
---
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	is_bootstrap = true
-	vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-	vim.cmd([[packadd packer.nvim]])
+-- leader
+vim.g.mapleader = " "
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
---
--- define our plugins
---
-require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-
+require("lazy").setup({
+	"olimorris/onedarkpro.nvim",
 	-- lsp
-	use("neovim/nvim-lspconfig")
-	use("williamboman/mason.nvim")
-	use("williamboman/mason-lspconfig.nvim")
-	use({ "hrsh7th/nvim-cmp", requires = "hrsh7th/cmp-nvim-lsp" })
-	use({ "hrsh7th/cmp-path", requires = "hrsh7th/nvim-cmp" })
-	use({ "hrsh7th/cmp-buffer", requires = "hrsh7th/nvim-cmp" })
-	use({ "hrsh7th/cmp-nvim-lsp-signature-help", requires = "hrsh7th/nvim-cmp" })
-	use({ "L3MON4D3/LuaSnip", requires = "saadparwaiz1/cmp_luasnip" })
-	use("andersevenrud/cmp-tmux")
-	use("microsoft/python-type-stubs")
-	use("rafamadriz/friendly-snippets")
-	use("onsails/lspkind.nvim")
-
-	use("WhoIsSethDaniel/lualine-lsp-progress.nvim")
+	"neovim/nvim-lspconfig",
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	{ "hrsh7th/nvim-cmp", dependencies = "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/cmp-path", dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-buffer", dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp-signature-help", dependencies = "hrsh7th/nvim-cmp" },
+	{ "L3MON4D3/LuaSnip", dependencies = "saadparwaiz1/cmp_luasnip" },
+	"andersevenrud/cmp-tmux",
+	"microsoft/python-type-stubs",
+	"rafamadriz/friendly-snippets",
+	"onsails/lspkind.nvim",
+	"WhoIsSethDaniel/lualine-lsp-progress.nvim",
 
 	-- copilot
-	use("zbirenbaum/copilot.lua")
+	"zbirenbaum/copilot.lua",
 
 	-- syntax
-	use("nvim-treesitter/nvim-treesitter")
-	use({ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" })
-	use("mhartington/formatter.nvim")
-	use("Vimjas/vim-python-pep8-indent")
-	use("jidn/vim-dbml")
+	"nvim-treesitter/nvim-treesitter",
+	{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
+	"mhartington/formatter.nvim",
+	"Vimjas/vim-python-pep8-indent",
+	"jidn/vim-dbml",
 
 	-- editing
-	use("windwp/nvim-ts-autotag")
-	use("windwp/nvim-autopairs")
-	use("b3nj5m1n/kommentary")
-	use("kylechui/nvim-surround")
-	use("leafOfTree/vim-matchtag")
-	use({ "folke/todo-comments.nvim" })
-	use("gpanders/editorconfig.nvim")
-	use("junegunn/vim-easy-align")
-	use("mbbill/undotree")
+	"windwp/nvim-ts-autotag",
+	"windwp/nvim-autopairs",
+	"b3nj5m1n/kommentary",
+	"kylechui/nvim-surround",
+	"leafOfTree/vim-matchtag",
+	{ "folke/todo-comments.nvim" },
+	"gpanders/editorconfig.nvim",
+	"junegunn/vim-easy-align",
+	"mbbill/undotree",
 
 	-- git
-	use({ "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" })
-	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
+	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
 	-- visual
-	use("olimorris/onedarkpro.nvim")
-	use({ "nvim-lualine/lualine.nvim", requires = "kyazdani42/nvim-web-devicons" })
-	use({ "noib3/nvim-cokeline", requires = "kyazdani42/nvim-web-devicons" })
-	use({ "nvim-tree/nvim-tree.lua", requires = "nvim-tree/nvim-web-devicons" })
-	use("karb94/neoscroll.nvim")
-	use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
-	use("uga-rosa/ccc.nvim")
-	use("tversteeg/registers.nvim")
-	use("unblevable/quick-scope")
-	use("lukas-reineke/indent-blankline.nvim")
-	use("https://github.com/folke/trouble.nvim")
+	"olimorris/onedarkpro.nvim",
+	{ "nvim-lualine/lualine.nvim", dependencies = "kyazdani42/nvim-web-devicons" },
+	{ "noib3/nvim-cokeline", dependencies = "kyazdani42/nvim-web-devicons" },
+	{ "nvim-tree/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons" },
+	"karb94/neoscroll.nvim",
+	{ "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
+	"uga-rosa/ccc.nvim",
+	"tversteeg/registers.nvim",
+	{
+		"gregorias/quick-scope",
+		init = function()
+			vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
+		end,
+	},
+	"lukas-reineke/indent-blankline.nvim",
+	"https://github.com/folke/trouble.nvim",
+
+	"https://github.com/bytesnake/vim-graphical-preview",
 
 	-- telescope
-	use({ "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" })
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		},
+	},
 
 	-- session management
-	use({ "jedrzejboczar/possession.nvim", requires = "nvim-lua/plenary.nvim" })
+	{ "jedrzejboczar/possession.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
 	-- tmux integration
-	use("preservim/vimux")
+	"preservim/vimux",
 
 	-- upload text
-	use("rktjmp/paperplanes.nvim")
+	"rktjmp/paperplanes.nvim",
 
 	-- Rename/Delete/Chmod/etc
-	use("tpope/vim-eunuch")
-
-	if is_bootstrap then
-		require("packer").sync()
-	end
-end)
-
-if is_bootstrap then
-	print("==================================")
-	print("    plugins are being installed")
-	print("    wait until packer completes,")
-	print("       then restart nvim")
-	print("==================================")
-	return
-end
-
--- automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup("Packer", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-	command = "source <afile> | PackerCompile",
-	group = packer_group,
-	pattern = vim.fn.expand("$MYVIMRC"),
+	"tpope/vim-eunuch",
 })
 
 --
@@ -169,7 +160,6 @@ vim.opt.writebackup = false
 
 -- textwidth
 -- vim.o.textwidth = 80
-local textwidth_settings = {}
 local textwidth = vim.api.nvim_create_augroup("textwidth", { clear = true })
 vim.api.nvim_create_autocmd("filetype", {
 	group = textwidth,
@@ -189,7 +179,7 @@ vim.g.vimuxheight = 32
 }) ]]
 
 -- quickscope
-vim.cmd("let g:qs_highlight_on_keys = ['f', 'F']")
+-- vim.cmd("let g:qs_highlight_on_keys = ['f', 'F']")
 
 --
 -- keymaps (these should be set before plugins are initialized)
@@ -266,7 +256,7 @@ vim.api.nvim_create_augroup("vimux", { clear = true })
 local vimuxtable = {
 	["php"] = "php",
 	["python"] = "python",
-	["go"] = "go run",
+	["go"] = "go build",
 	["sh"] = "bash",
 	["javascript"] = "node",
 	["typescript"] = "node",
@@ -281,7 +271,7 @@ for ft, exec in pairs(vimuxtable) do
 				0,
 				"n",
 				"<leader>tr",
-				':VimuxRunCommand "' .. exec .. " " .. vim.fn.expand("%:p") .. '"<cr>',
+				':VimuxbuildCommand "' .. exec .. " " .. vim.fn.expand("%:p") .. '"<cr>',
 				{ noremap = true }
 			)
 		end,
@@ -301,11 +291,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- send visual selections as commands to execute in tmux pane
 -- todo: turn this into lua, C-U wouldn't work w/ keymap.set for some reason
 -- You can add range = true in the options argument of nvim_create_user_command, it will avoid an error if the user leaves the range in the command.
--- vim.api.nvim_create_user_command('SendSelectionToVimux', 'VimuxRunCommand "'..getv()..'"', {range=true})
+-- vim.api.nvim_create_user_command('SendSelectionToVimux', 'VimuxbuildCommand "'..getv()..'"', {range=true})
 --
 
 vim.cmd([[
-vn <silent> <leader>ts :<C-U>VimuxRunCommand(VisualSelection())<cr>
+vn <silent> <leader>ts :<C-U>VimuxbuildCommand(VisualSelection())<cr>
 function! VisualSelection()
 let [line_start, column_start] = getpos("'<")[1:2]
 let [line_end, column_end] = getpos("'>")[1:2]
@@ -351,7 +341,7 @@ local function session_name()
 end
 
 require("possession").setup({
-  session_dir = vim.fn.stdpath('state') .. '/session',
+	session_dir = vim.fn.stdpath("state") .. "/session",
 	plugins = {
 		delete_hidden_buffers = false,
 	},
@@ -435,7 +425,7 @@ require("lualine").setup({
 					message = colors.purple,
 					spinner = colors.green,
 					lsp_client_name = colors.purple,
-          title = colors.purple,
+					title = colors.purple,
 					use = true,
 				},
 				separators = {
@@ -448,7 +438,7 @@ require("lualine").setup({
 					spinner = { pre = "", post = "" },
 				},
 				-- only_show_attached = true,
-				display_components = { "spinner", "lsp_client_name", { "title", "percentage",  } },
+				display_components = { "spinner", "lsp_client_name", { "title", "percentage" } },
 				spinner_symbols = { "⣾", "⣷", "⣯", "⣟", "⡿", "⢿", "⣻", "⣽" },
 				timer = {
 					progress_enddelay = 1000,
@@ -657,6 +647,7 @@ require("ccc").setup({
 	},
 })
 vim.cmd("command! Color CccPick")
+vim.keymap.set("n", "<leader>cc", ":Color<CR>", { silent = true })
 
 -- nvim-surround
 require("nvim-surround").setup({})
@@ -695,7 +686,7 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
--- this runs when a buffer is using an lsp
+-- this builds when a buffer is using an lsp
 local on_attach = function(_, buffer)
 	-- goto definition
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer })
@@ -763,7 +754,7 @@ lspconfig.setup_handlers({
 			end,
 			settings = {
 				Lua = {
-					runtime = {
+					buildtime = {
 						version = "LuaJIT",
 					},
 					diagnostics = {
@@ -895,10 +886,7 @@ lspconfig.setup_handlers({
 			before_init = function(_, config)
 				config.settings.python.analysis.stubPath = path.concat({
 					vim.fn.stdpath("data"),
-					"site",
-					"pack",
-					"packer",
-					"start",
+					"lazy",
 					"python-type-stubs",
 				})
 			end,
@@ -1025,7 +1013,7 @@ require("formatter").setup({
 		sh = { require("formatter.filetypes.sh").shfmt },
 		go = { require("formatter.filetypes.go").gofmt },
 		json = { require("formatter.filetypes.json").jq },
-		php = { require("formatter.filetypes.php").phpcbf },
+		php = { require("formatter.filetypes.php").php_cs_fixer },
 		lua = { require("formatter.filetypes.lua").stylua },
 	},
 })
@@ -1047,13 +1035,13 @@ require("registers").setup({})
 -- hotreload flutter on save
 vim.api.nvim_create_autocmd("bufwritepost", {
 	pattern = "*.dart",
-	command = "silent execute '!kill -SIGUSR1 $(pgrep -f \"[f]lutter_tool.*run\")'",
+	command = "silent execute '!kill -SIGUSR1 $(pgrep -f \"[f]lutter_tool.*build\")'",
 })
 
 -- copilot
 require("copilot").setup({
 	suggestion = {
-		enabled = false,
+		enabled = true,
 		auto_trigger = true,
 	},
 	filetypes = {
