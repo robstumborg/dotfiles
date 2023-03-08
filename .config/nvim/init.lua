@@ -172,9 +172,6 @@ vim.g.vimuxheight = 32
 	command = "setl noswapfile noundofile nobackup viminfo=",
 }) ]]
 
--- quickscope
--- vim.cmd("let g:qs_highlight_on_keys = ['f', 'F']")
-
 --
 -- keymaps (these should be set before plugins are initialized)
 --
@@ -319,11 +316,32 @@ end)
 -- trouble.nvim
 vim.keymap.set("n", "<leader>dw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
 
---
--- command aliases
---
-
-vim.cmd("command! Diff DiffviewOpen")
+-- create daily journal entry command
+vim.api.nvim_create_user_command("Daily", function()
+	local date_string = os.date("%Y-%m-%d")
+	local dir = vim.fn.expand("$HOME/wiki/daily/")
+	local file_path = dir .. date_string .. ".md"
+	local f = io.open(file_path, "r")
+	if f ~= nil then
+		f:close()
+	else
+		local template = io.open(dir .. "template.md", "r")
+		if template == nil then
+			vim.cmd("echo 'no daily template found in " .. dir .. "'")
+			return
+		end
+		local template_content = template:read("*all")
+		template:close()
+		file_path = dir .. date_string .. ".md"
+		local new_file = io.open(file_path, "w")
+		if new_file ~= nil then
+			new_file:write("# " .. date_string .. "\n\n")
+			new_file:write(template_content)
+			new_file:close()
+		end
+	end
+	vim.cmd("edit " .. file_path)
+end, {})
 
 --
 -- load plugins
@@ -659,6 +677,7 @@ require("nvim-tree").setup({
 		},
 	},
 })
+vim.cmd("command! Diff DiffviewOpen")
 
 -- smooth scrolling
 require("neoscroll").setup({
