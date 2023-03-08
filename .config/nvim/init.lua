@@ -34,20 +34,17 @@ require("lazy").setup({
 	-- copilot
 	"zbirenbaum/copilot.lua",
 
-	-- syntax
-	"nvim-treesitter/nvim-treesitter",
-	{ "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
+	-- syntax / editing
+	{ "nvim-treesitter/nvim-treesitter-textobjects", dependencies = "nvim-treesitter/nvim-treesitter" },
+	"windwp/nvim-ts-autotag",
+	"windwp/nvim-autopairs",
 	"mhartington/formatter.nvim",
 	"Vimjas/vim-python-pep8-indent",
 	"jidn/vim-dbml",
-
-	-- editing
-	"windwp/nvim-ts-autotag",
-	"windwp/nvim-autopairs",
 	"b3nj5m1n/kommentary",
 	"kylechui/nvim-surround",
 	"leafOfTree/vim-matchtag",
-	{ "folke/todo-comments.nvim" },
+	"folke/todo-comments.nvim",
 	"gpanders/editorconfig.nvim",
 	"junegunn/vim-easy-align",
 	"mbbill/undotree",
@@ -90,9 +87,6 @@ require("lazy").setup({
 
 	-- tmux integration
 	"preservim/vimux",
-
-	-- upload text
-	"rktjmp/paperplanes.nvim",
 
 	-- Rename/Delete/Chmod/etc
 	"tpope/vim-eunuch",
@@ -256,7 +250,7 @@ vim.api.nvim_create_augroup("vimux", { clear = true })
 local vimuxtable = {
 	["php"] = "php",
 	["python"] = "python",
-	["go"] = "go build",
+	["go"] = "go run",
 	["sh"] = "bash",
 	["javascript"] = "node",
 	["typescript"] = "node",
@@ -271,7 +265,7 @@ for ft, exec in pairs(vimuxtable) do
 				0,
 				"n",
 				"<leader>tr",
-				':VimuxbuildCommand "' .. exec .. " " .. vim.fn.expand("%:p") .. '"<cr>',
+				':VimuxRunCommand "' .. exec .. " " .. vim.fn.expand("%:p") .. '"<cr>',
 				{ noremap = true }
 			)
 		end,
@@ -291,11 +285,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- send visual selections as commands to execute in tmux pane
 -- todo: turn this into lua, C-U wouldn't work w/ keymap.set for some reason
 -- You can add range = true in the options argument of nvim_create_user_command, it will avoid an error if the user leaves the range in the command.
--- vim.api.nvim_create_user_command('SendSelectionToVimux', 'VimuxbuildCommand "'..getv()..'"', {range=true})
+-- vim.api.nvim_create_user_command('SendSelectionToVimux', 'VimuxRunCommand "'..getv()..'"', {range=true})
 --
 
 vim.cmd([[
-vn <silent> <leader>ts :<C-U>VimuxbuildCommand(VisualSelection())<cr>
+vn <silent> <leader>ts :<C-U>VimuxRunCommand(VisualSelection())<cr>
 function! VisualSelection()
 let [line_start, column_start] = getpos("'<")[1:2]
 let [line_end, column_end] = getpos("'>")[1:2]
@@ -686,7 +680,7 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
--- this builds when a buffer is using an lsp
+-- this runs when a buffer is using an lsp
 local on_attach = function(_, buffer)
 	-- goto definition
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer })
@@ -754,7 +748,7 @@ lspconfig.setup_handlers({
 			end,
 			settings = {
 				Lua = {
-					buildtime = {
+					runtime = {
 						version = "LuaJIT",
 					},
 					diagnostics = {
@@ -1021,21 +1015,13 @@ require("formatter").setup({
 -- todo highlighter
 require("todo-comments").setup({})
 
--- text upload
-require("paperplanes").setup({
-	register = "+",
-	provider = "0x0.st",
-	provider_options = {},
-	notifier = vim.notify or print,
-})
-
 -- registers preview popup
 require("registers").setup({})
 
 -- hotreload flutter on save
 vim.api.nvim_create_autocmd("bufwritepost", {
 	pattern = "*.dart",
-	command = "silent execute '!kill -SIGUSR1 $(pgrep -f \"[f]lutter_tool.*build\")'",
+	command = "silent execute '!kill -SIGUSR1 $(pgrep -f \"[f]lutter_tool.*run\")'",
 })
 
 -- copilot
