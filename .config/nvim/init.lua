@@ -167,10 +167,10 @@ vim.api.nvim_create_autocmd("filetype", {
 vim.g.vimuxheight = 32
 
 -- wiki
---[[ vim.api.nvim_create_autocmd({ "bufenter", "bufleave", "focusgained", "focuslost" }, {
-	pattern = { "~/wiki/*" },
+vim.api.nvim_create_autocmd({ "bufenter", "bufleave" }, {
+	pattern = { vim.fn.expand("$HOME") .. "/wiki/**/*.md" },
 	command = "setl noswapfile noundofile nobackup viminfo=",
-}) ]]
+})
 
 --
 -- keymaps (these should be set before plugins are initialized)
@@ -395,6 +395,15 @@ local function random_icon()
 	return symbols[randomIndex]
 end
 
+local function copilot_status()
+	local client = require("copilot.client").get()
+	if client == nil then
+		return "disabled"
+	else
+		return "enabled"
+	end
+end
+
 -- lualine
 require("lualine").setup({
 	options = {
@@ -479,6 +488,12 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {
+			{
+				copilot_status,
+				icon = "",
+				separator = "",
+				color = { fg = colors.fg },
+			},
 			{
 				"encoding",
 				separator = "",
@@ -705,7 +720,7 @@ local on_attach = function(_, buffer)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer })
 
 	-- references
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+	vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = buffer })
 
 	-- hover code signature
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buffer })
@@ -897,11 +912,8 @@ lspconfig.setup_handlers({
 				},
 			},
 			before_init = function(_, config)
-				config.settings.python.analysis.stubPath = path.concat({
-					vim.fn.stdpath("data"),
-					"lazy",
-					"python-type-stubs",
-				})
+				local stubPath = vim.fn.stdpath("data") .. "lazy" .. "python-type-stubs"
+				config.settings.python.analysis.stubPath = stubPath
 			end,
 		})
 	end,
@@ -1044,21 +1056,26 @@ vim.api.nvim_create_autocmd("bufwritepost", {
 })
 
 -- copilot
-require("copilot").setup({
-	suggestion = {
-		enabled = true,
-		auto_trigger = true,
-	},
-	filetypes = {
-		mail = false,
-		yaml = false,
-		markdown = false,
-		help = false,
-		gitcommit = false,
-		gitrebase = false,
-		hgcommit = false,
-		svn = false,
-		cvs = false,
-		["."] = false,
-	},
-})
+vim.api.nvim_create_user_command("CopilotToggle", function()
+	require("copilot").setup({
+		suggestion = {
+			enabled = true,
+			auto_trigger = true,
+		},
+		filetypes = {
+			mail = false,
+			yaml = false,
+			markdown = false,
+			help = false,
+			gitcommit = false,
+			gitrebase = false,
+			hgcommit = false,
+			svn = false,
+			cvs = false,
+			["."] = false,
+		},
+	})
+end, {})
+
+-- enable copilot with <leader>cp
+vim.api.nvim_set_keymap("n", "<leader>cp", ":CopilotToggle<CR>", { noremap = true, silent = true })
