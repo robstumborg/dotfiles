@@ -71,7 +71,7 @@ require("lazy").setup({
 	"lukas-reineke/indent-blankline.nvim",
 	"https://github.com/folke/trouble.nvim",
 
-	"https://github.com/bytesnake/vim-graphical-preview",
+	{ "jakewvincent/mkdnflow.nvim", rocks = "luautf8" },
 
 	-- telescope
 	{
@@ -167,10 +167,63 @@ vim.api.nvim_create_autocmd("filetype", {
 vim.g.vimuxheight = 32
 
 -- wiki
+local wiki_dir = vim.fn.expand("$HOME/wiki")
 vim.api.nvim_create_autocmd({ "bufenter", "bufleave" }, {
-	pattern = { vim.fn.expand("$HOME") .. "/wiki/**/*.md" },
+	pattern = { wiki_dir .. "/**/*.md" },
 	command = "setl noswapfile noundofile nobackup viminfo=",
 })
+
+require("mkdnflow").setup({
+	perspective = {
+		priority = "current",
+	},
+	links = {
+		transform_explicit = function(text)
+			text = text:gsub(" ", "-")
+			text = text:lower()
+			return text
+		end,
+	},
+})
+
+local function daily_file()
+	local date_string = os.date("%Y-%m-%d")
+	local dir = vim.fn.expand(wiki_dir .. "/daily/")
+	return dir .. date_string .. ".md"
+end
+
+-- create daily journal entry command
+vim.api.nvim_create_user_command("Daily", function()
+	local file_path = daily_file()
+	local f = io.open(file_path, "r")
+	if f ~= nil then
+		f:close()
+	else
+		local dir = vim.fn.expand(wiki_dir .. "/daily/")
+		local template = io.open(dir .. "template.md", "r")
+		if template == nil then
+			vim.cmd("echo 'no daily template found in " .. dir .. "'")
+			return
+		end
+		local template_content = template:read("*all")
+		template:close()
+		local new_file = io.open(file_path, "w")
+		if new_file ~= nil then
+			new_file:write("# " .. os.date("%Y-%m-%d") .. "\n\n")
+			new_file:write(template_content)
+			new_file:close()
+		end
+	end
+	vim.cmd("edit " .. file_path)
+end, {})
+
+local function daily_status()
+	if vim.fn.filereadable(daily_file()) == 1 then
+		return ""
+	else
+		return "pending"
+	end
+end
 
 --
 -- keymaps (these should be set before plugins are initialized)
@@ -315,33 +368,6 @@ end)
 
 -- trouble.nvim
 vim.keymap.set("n", "<leader>dw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-
--- create daily journal entry command
-vim.api.nvim_create_user_command("Daily", function()
-	local date_string = os.date("%Y-%m-%d")
-	local dir = vim.fn.expand("$HOME/wiki/daily/")
-	local file_path = dir .. date_string .. ".md"
-	local f = io.open(file_path, "r")
-	if f ~= nil then
-		f:close()
-	else
-		local template = io.open(dir .. "template.md", "r")
-		if template == nil then
-			vim.cmd("echo 'no daily template found in " .. dir .. "'")
-			return
-		end
-		local template_content = template:read("*all")
-		template:close()
-		file_path = dir .. date_string .. ".md"
-		local new_file = io.open(file_path, "w")
-		if new_file ~= nil then
-			new_file:write("# " .. date_string .. "\n\n")
-			new_file:write(template_content)
-			new_file:close()
-		end
-	end
-	vim.cmd("edit " .. file_path)
-end, {})
 
 --
 -- load plugins
@@ -493,6 +519,11 @@ require("lualine").setup({
 				icon = "",
 				separator = "",
 				color = { fg = colors.fg },
+			},
+			{
+				daily_status,
+				icon = "daily:",
+				separator = "",
 			},
 			{
 				"encoding",
@@ -685,6 +716,7 @@ require("diffview").setup({})
 -- nvim-tree
 require("nvim-tree").setup({
 	view = {
+		relativenumber = true,
 		mappings = {
 			list = {
 				{ key = "s", action = "" },
