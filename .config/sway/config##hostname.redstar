@@ -50,7 +50,7 @@ set $sleep $XDG_CONFIG_HOME/sway/scripts/lock.sh
 
 exec swayidle timeout 180 $sleep \
     timeout 210 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"'
+    resume 'swaymsg "output * dpms on"; killall yambar; yambar'
 
 bindsym ctrl+alt+delete exec $sleep
 
@@ -79,11 +79,7 @@ bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
 bindsym $mod+shift+s exec $XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh
 
 # color picker
-bindsym $mod+c exec grim -g "$(slurp -p)" -t ppm - | \
-  convert - -format '%[pixel:p{0,0}]' txt:- | \
-  awk 'FNR == 2 {print $3}' | \
-  tr -d '\n' | \
-  wl-copy
+bindsym $mod+c exec hyprpicker --autocopy 
 
 # toggle horizontal/vertical
 bindsym $mod+d layout toggle split
