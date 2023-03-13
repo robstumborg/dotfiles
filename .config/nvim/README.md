@@ -19,18 +19,20 @@
 | alt+z       | toggle word wrap                          |                    |
 | alt+c       | switch color column (none, 80, 120)       |                    |
 | "           | display contents of registers             | registers.nvim     |
-| ]e          | next error                                |                    |
-| [e          | previous error                            |                    |
+| ]e          | next error                                | lsp                |
+| [e          | previous error                            | lsp                |
 | ]t          | next todo                                 | todo-comments.nvim |
 | [t          | previous todo                             | todo-comments.nvim |
-| gd          | go to definition                          |                    |
-| gr          | see references                            |                    |
-| shift+k     | hover code signature                      |                    |
+| gd          | go to definition                          | lsp                |
+| gr          | see references                            | lsp                |
+| shift+k     | hover code signature                      | lsp                |
 | [leader]+ff | format buffer                             | formatter.nvim     |
 | [leader]+gh | preview changed hunk (git)                | gitsigns.nvim      |
 | [leader]+tt | toggle tmux pane                          | vimux              |
 | [leader]+tr | run current buffer as script in tmux pane | vimux              |
 | [leader]+tr | run current selection in tmux pane (bash) | vimux              |
+| [leader]+cc | open color picker dialog                  | ccc.nvim           |
+| [leader]+cp | enable copilot                            | copilot.lua        |
 | ss          | new split                                 |                    |
 | sv          | new vertical split                        |                    |
 | sc          | close split                               |                    |
