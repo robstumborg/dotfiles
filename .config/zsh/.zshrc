@@ -23,9 +23,6 @@ export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{node_modules,.git
 export BAT_THEME="OneHalfDark"
 export MANPAGER="nvim +Man!"
 
-# nvm
-source /usr/share/nvm/init-nvm.sh
-
 # don't let url-quote-magic & autosuggestions conflict
 pasteinit() {
   OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}

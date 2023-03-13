@@ -57,7 +57,6 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "${method}"="curl -X '${method}'"
 done
 
-
 ipi() {
     curl -s https://ipinfo.io/$1
 }
@@ -78,8 +77,7 @@ upload() {
 
     filename=$(basename $file)
 
-    curl -fsSL -F "file=@\"${file}\"" -F "url_len=5" https://filehole.org/
-    # curl -fsSL -F "file=@${file}" http://0x0.st
+    curl -fsSL  -F "files[]=@\"${file}\"" https://uguu.se/upload.php | jq -r ".files[0].url"
 }
 alias up=upload
 
