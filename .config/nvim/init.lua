@@ -29,7 +29,6 @@ require("lazy").setup({
 	"microsoft/python-type-stubs",
 	"rafamadriz/friendly-snippets",
 	"onsails/lspkind.nvim",
-	"WhoIsSethDaniel/lualine-lsp-progress.nvim",
 
 	-- copilot
 	"zbirenbaum/copilot.lua",
@@ -421,13 +420,12 @@ local function random_icon()
 	return symbols[randomIndex]
 end
 
-local function copilot_status()
-	local client = require("copilot.client").get()
-	if client == nil then
-		return "disabled"
-	else
-		return "enabled"
+local function lsp_servers()
+	local servers = {}
+	for _, server in pairs(vim.lsp.buf_get_clients()) do
+		table.insert(servers, server.name)
 	end
+	return table.concat(servers, ", ")
 end
 
 -- lualine
@@ -466,36 +464,6 @@ require("lualine").setup({
 				separator = "",
 			},
 			{
-				"lsp_progress",
-				colors = {
-					percentage = colors.purple,
-					message = colors.purple,
-					spinner = colors.green,
-					lsp_client_name = colors.purple,
-					title = colors.purple,
-					use = true,
-				},
-				separators = {
-					component = " ",
-					progress = " | ",
-					message = { pre = "[", post = "]" },
-					percentage = { pre = "", post = "%%⦘" },
-					title = { pre = "⦗", post = " " },
-					lsp_client_name = { pre = "⦗", post = "⦘" },
-					spinner = { pre = "", post = "" },
-				},
-				-- only_show_attached = true,
-				display_components = { "spinner", "lsp_client_name", { "title", "percentage" } },
-				spinner_symbols = { "⣾", "⣷", "⣯", "⣟", "⡿", "⢿", "⣻", "⣽" },
-				timer = {
-					progress_enddelay = 1000,
-					spinner = 40,
-					lsp_client_name_enddelay = 3000,
-					attached_delay = 0,
-				},
-				separator = "",
-			},
-			{
 				"diagnostics",
 				symbols = {
 					error = " ",
@@ -504,6 +472,12 @@ require("lualine").setup({
 					hint = " ",
 				},
 				separator = "",
+			},
+			{
+				lsp_servers,
+				icon = "",
+				separator = "",
+				color = { fg = colors.purple },
 			},
 		},
 		lualine_b = {
@@ -514,12 +488,6 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {
-			{
-				copilot_status,
-				icon = "",
-				separator = "",
-				color = { fg = colors.fg },
-			},
 			{
 				daily_status,
 				icon = "daily:",
