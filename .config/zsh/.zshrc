@@ -3,6 +3,8 @@ eval "$(dircolors)"
 
 # zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
 autoload -U url-quote-magic bracketed-paste-magic
@@ -41,5 +43,5 @@ fpath+=$XDG_CONFIG_HOME/zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
-source ~/.config/zsh/zsh-artisan/artisan.plugin.zsh
+zinit load "jessarcher/zsh-artisan"
 zinit load "zsh-users/zsh-syntax-highlighting"
