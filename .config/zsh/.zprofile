@@ -67,6 +67,7 @@ export PATH=$PATH:$XDG_CONFIG_HOME/composer/vendor/bin
 # export ANDROID_SDK_ROOT=/opt/android-sdk
 # export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin/
 # export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 
 # nvm
 export NVM_DIR=$XDG_DATA_HOME/nvm
