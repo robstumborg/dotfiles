@@ -40,6 +40,7 @@ alias sctl='sudo systemctl'
 alias uctl='systemctl --user'
 alias a=artisan
 alias nvimdiff="nvim -d"
+alias c=clear
 
 urlencode() {
     php -r "echo urlencode('$1');"
