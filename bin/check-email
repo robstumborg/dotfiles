@@ -9,18 +9,17 @@ for gmail in "${gmails[@]}"
 do
   cd ~/mail/$gmail
   echo "checking ${gmail}"
-  /home/rj1/.local/bin/gmi sync
+  /usr/bin/gmi sync
 done
 
 # sync smtp mail if there's a parameter
-if ! [ -z "$1" ]; then
-  /usr/bin/mbsync -c /home/rj1/.config/mbsync/config -aV
-fi
+/usr/bin/mbsync -c /home/rj1/.config/mbsync/config -aV
 
 # add mail to notmuch db
 /usr/bin/notmuch new
 
-source ~/.config/email/filter.sh
+# do some filtering
+# source ~/.config/email/filter.sh
 
 # do some tagging
 /usr/bin/notmuch tag +inbox -- tag:new
