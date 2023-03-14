@@ -22,14 +22,14 @@ bar:
               state == stopped: {string: {text: "■ {artist} - {title} |", max: 50}}
 
     - alsa:
-        card: default
+        card: pipewire
         mixer: Master
         content:
           map:
             on-click:
               left: pavucontrol
-              wheel-up: amixer sset Master 2%+
-              wheel-down: amixer sset Master 2%-
+              wheel-up: amixer -D "pipewire" sset Master 2%+
+              wheel-down: amixer -D "pipewire" sset Master 2%-
 
             conditions:
               muted: {string: {text: ' |'}}
