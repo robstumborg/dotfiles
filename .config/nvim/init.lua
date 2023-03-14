@@ -62,7 +62,7 @@ require("lazy").setup({
 	"uga-rosa/ccc.nvim",
 	"tversteeg/registers.nvim",
 	{
-		"gregorias/quick-scope",
+		"unblevable/quick-scope",
 		init = function()
 			vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
 		end,
