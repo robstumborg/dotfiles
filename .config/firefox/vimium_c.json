@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "12/18/2022, 7:52:38 PM",
-	"time": 1671414758070,
+	"@time": "3/13/2023, 2:27:18 PM",
+	"time": 1678739238268,
 	"environment": {
-		"extension": "1.99.96",
+		"extension": "1.99.97",
 		"platform": "linux",
-		"firefox": 108
+		"firefox": 110
 	},
 	"clipSub": [
 		"p=^git@([^/:]+):=https://$1/=",
@@ -22,7 +22,6 @@
 		"map <a-s-j> zoomOut",
 		"map <a-s-h> zoomReset",
 		"map U LinkHints.activateCopyLinkUrl",
-		"map H Vomnibar.activateInNewTab",
 		""
 	],
 	"nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
