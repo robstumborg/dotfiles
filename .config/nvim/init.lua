@@ -629,8 +629,13 @@ require("telescope").setup({
 		},
 	},
 	defaults = {
+		borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+		prompt_prefix = "  ",
+		entry_prefix = "   ",
+		selection_caret = "  ",
 		layout_config = {
-			vertical = { width = 0.5 },
+			width = 0.8,
+			height = 0.5,
 		},
 		mappings = {
 			i = {
