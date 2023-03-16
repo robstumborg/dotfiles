@@ -444,6 +444,7 @@ require("lualine").setup({
 		icons_enabled = true,
 		theme = "onedark",
 		section_separators = { left = "", right = "" },
+		component_separators = { left = "", right = "" },
 		disabled_filetypes = { "NvimTree" },
 	},
 	sections = {
@@ -460,7 +461,6 @@ require("lualine").setup({
 			{
 				"branch",
 				color = { fg = colors.fg },
-				separator = "",
 			},
 			{
 				"diff",
@@ -471,7 +471,6 @@ require("lualine").setup({
 					removed = { fg = colors.red },
 				},
 				symbols = { added = " ", modified = "柳", removed = " " },
-				separator = "",
 			},
 			{
 				"diagnostics",
@@ -481,12 +480,10 @@ require("lualine").setup({
 					info = " ",
 					hint = " ",
 				},
-				separator = "",
 			},
 			{
 				lsp_servers,
 				icon = "",
-				separator = "",
 				color = { fg = colors.purple },
 			},
 		},
@@ -501,15 +498,12 @@ require("lualine").setup({
 			{
 				daily_status,
 				icon = "daily:",
-				separator = "",
 			},
 			{
 				"encoding",
-				separator = "",
 			},
 			{
 				"fileformat",
-				separator = "",
 			},
 			{
 				"filetype",
