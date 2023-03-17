@@ -623,7 +623,7 @@ require("telescope").setup({
 		},
 	},
 	defaults = {
-		borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    borderchars = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
 		prompt_prefix = "  ",
 		entry_prefix = "   ",
 		selection_caret = "  ",
@@ -724,6 +724,16 @@ for type, icon in pairs(signs) do
 end
 
 -- this runs when a buffer is using an lsp
+local border = {
+	{ "🭽", "FloatBorder" },
+	{ "▔", "FloatBorder" },
+	{ "🭾", "FloatBorder" },
+	{ "▕", "FloatBorder" },
+	{ "🭿", "FloatBorder" },
+	{ "▁", "FloatBorder" },
+	{ "🭼", "FloatBorder" },
+	{ "▏", "FloatBorder" },
+}
 local on_attach = function(_, buffer)
 	-- goto definition
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = buffer })
@@ -740,6 +750,13 @@ local on_attach = function(_, buffer)
 
 	-- disable inline error messages
 	vim.diagnostic.config({ virtual_text = false })
+end
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -952,16 +969,17 @@ lspconfig.setup_handlers({
 -- completion plugin
 local function cmp_border(hl_name)
 	return {
-		{ "┌", hl_name },
-		{ "─", hl_name },
-		{ "┐", hl_name },
-		{ "│", hl_name },
-		{ "┘", hl_name },
-		{ "─", hl_name },
-		{ "└", hl_name },
-		{ "│", hl_name },
+		{ "🭽", hl_name },
+		{ "▔", hl_name },
+		{ "🭾", hl_name },
+		{ "▕", hl_name },
+		{ "🭿", hl_name },
+		{ "▁", hl_name },
+		{ "🭼", hl_name },
+		{ "▏", hl_name },
 	}
 end
+
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip").filetype_extend("javascript", { "javascriptreact" })
