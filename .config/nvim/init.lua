@@ -623,7 +623,7 @@ require("telescope").setup({
 		},
 	},
 	defaults = {
-    borderchars = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
+		borderchars = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
 		prompt_prefix = "  ",
 		entry_prefix = "   ",
 		selection_caret = "  ",
@@ -676,9 +676,28 @@ require("nvim-treesitter.configs").setup({
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
 
+local function cmp_border(hl_name)
+	return {
+		{ "🭽", hl_name },
+		{ "▔", hl_name },
+		{ "🭾", hl_name },
+		{ "▕", hl_name },
+		{ "🭿", hl_name },
+		{ "▁", hl_name },
+		{ "🭼", hl_name },
+		{ "▏", hl_name },
+	}
+end
+
 require("ccc").setup({
+	bar_char = "",
+	point_char = "",
+	bar_len = 50,
 	highlighter = {
 		auto_enable = true,
+	},
+	win_opts = {
+		border = cmp_border("CccBorder"),
 	},
 })
 vim.cmd("command! Color CccPick")
@@ -754,9 +773,9 @@ end
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+	opts = opts or {}
+	opts.border = opts.border or border
+	return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
 -- nvim-cmp supports additional completion capabilities
@@ -966,21 +985,6 @@ lspconfig.setup_handlers({
 	end,
 })
 
--- completion plugin
-local function cmp_border(hl_name)
-	return {
-		{ "🭽", hl_name },
-		{ "▔", hl_name },
-		{ "🭾", hl_name },
-		{ "▕", hl_name },
-		{ "🭿", hl_name },
-		{ "▁", hl_name },
-		{ "🭼", hl_name },
-		{ "▏", hl_name },
-	}
-end
-
-
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip").filetype_extend("javascript", { "javascriptreact" })
 local cmp = require("cmp")
@@ -1065,7 +1069,7 @@ require("formatter").setup({
 		sh = { require("formatter.filetypes.sh").shfmt },
 		go = { require("formatter.filetypes.go").gofmt },
 		json = { require("formatter.filetypes.json").jq },
-		php = { require("formatter.filetypes.php").php_cs_fixer },
+		php = { require("formatter.filetypes.php").phpcbf },
 		lua = { require("formatter.filetypes.lua").stylua },
 	},
 })
