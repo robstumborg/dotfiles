@@ -8,7 +8,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 source_url = sys.argv[1]
-client = MPDClient()
+mpd = MPDClient()
 
 with YoutubeDL({"format": "bestaudio/audio"}) as youtube:
     info = youtube.extract_info(source_url, download=False)
@@ -16,11 +16,14 @@ with YoutubeDL({"format": "bestaudio/audio"}) as youtube:
     title = info.get("title")
     source = info.get("extractor_key")
 
-    client.connect("localhost", 6600)
-    song_id = client.addid(url)
-    client.addtagid(song_id, "title", title)
-    client.addtagid(song_id, "album", source)
+    mpd.connect("localhost", 6600)
+    song_id = mpd.addid(url)
+    mpd.addtagid(song_id, "title", title)
+    mpd.addtagid(song_id, "album", source)
+
     # cli parameter to play the song immediately
     if len(sys.argv) > 2 and sys.argv[2] == "--play":
-        client.playid(song_id)
-    client.disconnect()
+        mpd.playid(song_id)
+        mpd.play()
+
+    mpd.disconnect()
