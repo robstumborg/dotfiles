@@ -61,12 +61,8 @@ require("lazy").setup({
 	{ "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
 	"uga-rosa/ccc.nvim",
 	"tversteeg/registers.nvim",
-	{
-		"unblevable/quick-scope",
-		init = function()
-			vim.g.qs_highlight_on_keys = { "f", "F", "t", "T" }
-		end,
-	},
+	"jinh0/eyeliner.nvim",
+
 	"lukas-reineke/indent-blankline.nvim",
 	"https://github.com/folke/trouble.nvim",
 
@@ -1071,6 +1067,7 @@ require("formatter").setup({
 		json = { require("formatter.filetypes.json").jq },
 		php = { require("formatter.filetypes.php").phpcbf },
 		lua = { require("formatter.filetypes.lua").stylua },
+		markdown = { require("formatter.filetypes.markdown").prettier },
 	},
 })
 
@@ -1110,3 +1107,8 @@ end, {})
 
 -- enable copilot with <leader>cp
 vim.api.nvim_set_keymap("n", "<leader>cp", ":CopilotToggle<CR>", { noremap = true, silent = true })
+
+-- eyeliner (quick-scope lua replacement)
+require("eyeliner").setup({
+	highlight_on_key = true,
+})
