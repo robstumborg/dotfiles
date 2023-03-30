@@ -58,7 +58,7 @@ require("lazy").setup({
 	{ "noib3/nvim-cokeline", dependencies = "kyazdani42/nvim-web-devicons" },
 	{ "nvim-tree/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons" },
 	"karb94/neoscroll.nvim",
-	{ "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
+	{ "iamcco/markdown-preview.nvim", build = ":call mkdp@util#install()" },
 	"uga-rosa/ccc.nvim",
 	"tversteeg/registers.nvim",
 	"jinh0/eyeliner.nvim",
@@ -278,6 +278,9 @@ vim.keymap.set("n", "<c-h>", ":Telescope buffers<cr>")
 
 -- session switcher
 vim.keymap.set("n", "<leader>s", ":Telescope possession list<cr>")
+
+-- markdown preview
+vim.keymap.set("n", "<leader>mp", ":MarkdownPreview<cr>")
 
 -- colorcolumn toggle
 vim.keymap.set("n", "<a-c>", function()
