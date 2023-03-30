@@ -1102,7 +1102,7 @@ vim.api.nvim_create_user_command("CopilotToggle", function()
 		filetypes = {
 			mail = false,
 			yaml = false,
-			markdown = false,
+			markdown = true,
 			help = false,
 			gitcommit = false,
 			gitrebase = false,
