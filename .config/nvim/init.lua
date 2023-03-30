@@ -343,22 +343,27 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- send visual selections as commands to execute in tmux pane
 -- todo: turn this into lua, C-U wouldn't work w/ keymap.set for some reason
 -- You can add range = true in the options argument of nvim_create_user_command, it will avoid an error if the user leaves the range in the command.
--- vim.api.nvim_create_user_command('SendSelectionToVimux', 'VimuxRunCommand "'..getv()..'"', {range=true})
 --
 
 vim.cmd([[
 vn <silent> <leader>ts :<C-U>VimuxRunCommand(VisualSelection())<cr>
 function! VisualSelection()
-let [line_start, column_start] = getpos("'<")[1:2]
-let [line_end, column_end] = getpos("'>")[1:2]
-let lines = getline(line_start, line_end)
-if len(lines) == 0
-return ''
-endif
-let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
-let lines[0] = lines[0][column_start - 1:]
-return join(lines, "\n")
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
 endfunction]])
+
+-- send entire current line as command to execute in tmux pane, if line ends in \ then send next line too
+vim.keymap.set("n", "<leader>tl", function()
+	local line = vim.fn.getline(".")
+	vim.cmd("VimuxRunCommand '" .. line .. "'")
+end)
 
 -- todo
 vim.keymap.set("n", "]t", function()
