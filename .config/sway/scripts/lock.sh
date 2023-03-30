@@ -1,8 +1,17 @@
 #!/usr/bin/bash
+
+# check if corrupter is installed
+if ! command -v corrupter &> /dev/null
+then
+    notify-send "swaylock" "corrupter could not be found"
+    exit
+fi
+
 sshot="/tmp/swaylockscreen.png"
 blurred="/tmp/swaylockscreen-blurred.png"
 grim $sshot && \
-  ffmpeg -i $sshot -filter_complex boxblur=lr=8:lp=2 -y $blurred && \
+  # ffmpeg -i $sshot -filter_complex boxblur=lr=8:lp=2 -y $blurred && \
+  corrupter -mag 2 -boffset 20 $sshot $blurred && \ 
   swaylock -i $blurred \
     --font "Hack Nerd Font Mono" \
     --font-size=25 \
@@ -17,4 +26,4 @@ grim $sshot && \
     --separator-color 00000000 \
     --indicator-radius=100 \
 
-rm -rf $image $blurred
+rm -f $sshot $blurred
