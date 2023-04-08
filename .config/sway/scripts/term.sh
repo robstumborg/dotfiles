@@ -1,8 +1,0 @@
-#!/bin/bash
-if pgrep foot &> /dev/null; then
-  footclient
-else
-  foot -s &
-  sleep 0.1
-  footclient
-fi
