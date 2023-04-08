@@ -44,6 +44,8 @@ alias c=clear
 alias tr=transmission-remote
 alias ta="transmission-remote -a"
 alias tl="transmission-remote --list"
+alias mpv="mpv --input-ipc-server=/tmp/mpv"
+alias e=edit
 
 urlencode() {
     php -r "echo urlencode('$1');"
@@ -86,7 +88,24 @@ upload() {
 alias up=upload
 
 cpsshot() {
+    if [ $# -lt 1 ]; then
+        echo "filename parameter required"
+        return
+    fi
+
     file="$HOME/img/sshot/$(/usr/bin/ls -Art $HOME/img/sshot | tail -n 1)"
+    cp -f ${file} $1
+    rm -rf ${file}
+    echo "cp'd & rm'd ${file}"
+}
+
+cpvid() {
+    if [ $# -lt 1 ]; then
+        echo "filename parameter required"
+        return
+    fi
+
+    file="$HOME/vid/screencast/$(/usr/bin/ls -Art $HOME/vid/screencast | tail -n 1)"
     cp -f ${file} $1
     rm -rf ${file}
     echo "cp'd & rm'd ${file}"
@@ -113,7 +132,7 @@ function calc() {
 }
 
 function cur() {
-  python ~/scripts/cur.py $1 $2 $3
+  php ~/scripts/cur.php $1 $2 $3
 }
 
 function wgetsite() {
