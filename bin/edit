@@ -1,102 +1,110 @@
 #!/bin/python
 import libtmux
 from pynvim import attach
-from i3ipc import Connection as sway
 import sys
 import os
 import glob
+import json
 import time
+
 
 def in_dir(path, dir):
     return os.path.realpath(path).startswith(os.path.realpath(dir) + os.sep)
+
 
 def abs_filepath(filepath):
     if os.path.isabs(filepath):
         return filepath
     else:
-        return os.getcwd() + '/' + filepath
+        return os.getcwd() + "/" + filepath
 
-tmux_session_name = 'edit'
-vim_session_name = 'scratch'
-vim_session_dir = '/home/rj1/playground/scratch'
 
 server = libtmux.Server()
-tmux_session = server.find_where({"session_name": tmux_session_name})
+
+# default session name is "edit"
+tmux_session = server.sessions.filter(session_name="edit")[0]
 
 # check if 'edit' tmux session is open
 if tmux_session is None:
-    # if we don't have a tmux 'edit' session, create one
-    tmux_session = server.new_session(tmux_session_name,
-        window_name = vim_session_name, attach = False)
-    # open nvim in new session/window w/ a default session
-    window = tmux_session.find_where({"window_name": vim_session_name})
-    pane = window.attached_pane
-    pane.send_keys('nvim --listen /tmp/nvim-' + vim_session_name, enter=True)
-    pane.send_keys(':PossessionLoad ' + vim_session_dir, enter=True)
-
-    if os.getenv('TMUX'):
-        print('tmux session"' + tmux_session_name + '" is ready')
-    else:
-        tmux_session.attach_session()
-
-if len(sys.argv) != 2:
-    print('missing file parameter, e.g. `edit <filename>`')
+    print("you don't have the edit session opened, do this first")
     quit()
 
-# todo: launch a new tmux window when a session file is available
-# but not currently open?
-# get list of windows in our 'edit' tmux session
-windows = tmux_session._list_windows()
+# check if file parameter is passed
+if len(sys.argv) != 2:
+    print("missing file parameter, e.g. `edit <filename>`")
+    quit()
+
+# get list of windows in our tmux session
+windows = tmux_session.windows
+
 open_windows = []
 for window in windows:
-    if window['session_name'] == 'edit':
-        open_windows.append(window['window_name'])
+    open_windows.append(window.name)
 
-# fetch list of all neovim sessions
-session_dir = os.getenv('XDG_DATA_HOME') + '/nvim/session'
-sessions = map(os.path.basename, glob.glob(session_dir + '/*.vim'))
+# get list of all neovim sessions
+session_dir = os.getenv("XDG_STATE_HOME") + "/nvim/session"
+session_files = glob.glob(session_dir + "/*.json")
 
-# deeper dirs go first so we don't end up in e.g. ~/.config session instead of
-# ~/.config/nvim/plugins/some-plugin session
-sessions = sorted(sessions, key=len, reverse=True)
+# create our list of sessions and the data we need to use them
+sessions = {}
+for session in session_files:
+    # open json file
+    with open(session) as f:
+        data = json.load(f)
 
-# create open sessions list
-open_sessions = {}
+    # add sessions
+    basename = os.path.basename(session).replace(".json", "")
+    sessions[basename] = {}
+    sessions[basename]["name"] = basename
+    sessions[basename]["dir"] = data["cwd"]
+    sessions[basename]["open"] = False
+
+# reverse sort by string length of dir, so we can find the deepest dir that contains the file we're trying to open
+# e.g. if we have sessions for ~/.config/nvim and ~/.config/nvim/plugins/some-plugin
+sessions = dict(sorted(sessions.items(), key=lambda x: len(x[1]["dir"]), reverse=True))
+
+# set open flag for sessions that are open in tmux
 for session in sessions:
-    dir = session.replace('%', '/')
-    dir = dir.replace('.vim', '')
-    basename = os.path.basename(dir)
-    if basename in open_windows:
-        open_sessions[basename] = {}
-        open_sessions[basename]['session_file'] = session
-        open_sessions[basename]['dir'] = dir
+    if session in open_windows:
+        sessions[session]["open"] = True
 
 # absolute filepath
 file = abs_filepath(sys.argv[1])
 
-# set default scratchpad session
-use_session = open_sessions[vim_session_name]
+# set default session
+use_session = sessions["config"]
 
-# see if there's an active session we should be using
-for open_session in open_sessions.values():
-    if in_dir(file, open_session['dir']) is True:
-        use_session = open_session
+# see if there's a non-default session available that we should use instead
+for session in sessions.values():
+    if in_dir(file, session["dir"]) is True:
+        use_session = session
         break
 
+if use_session["open"] is False:
+    # create new tmux window
+    window = tmux_session.new_window(window_name=use_session["name"])
+
+    # open neovim in new tmux window
+    pane = window.attached_pane
+    pane.send_keys("nvim")
+    pane.send_keys(":LoadSession " + use_session["name"])
+
+    # wait for socket to be created
+    socket = "/tmp/nvim-" + use_session["name"]
+    while os.path.exists(socket) is False:
+        time.sleep(0.1)
+
 # connect to neovim socket and open file
-# note: this requires the creation of sockets per session in your neovim config
+# NOTE: this requires the creation of sockets per session in your neovim config
 # e.g. au sessionloadpost * call serverstart('/tmp/nvim-' . SessionName())
-socket = '/tmp/nvim-' + os.path.basename(use_session['dir'])
-nvim = attach('socket', path=socket)
-nvim.command('edit ' + file)
+socket = "/tmp/nvim-" + use_session["name"]
+nvim = attach("socket", path=socket)
+nvim.command("edit " + file)
 
 # find tmux window and switch to it
-# normally we could simply call select_window here w/ the basename, but this
-# doesn't work w/ hidden dirs such as .config due to limitations in tmux
-# todo: switch to correct pane?
-switch = os.path.basename(use_session['dir'])
-find_window = tmux_session.find_where({'window_name': switch})
-window = tmux_session.select_window(str(find_window).split(':')[0].split()[1])
+find_window = tmux_session.windows.filter(window_name=use_session["name"])[0]
+window = tmux_session.select_window(str(find_window).split(":")[0].split()[1])
 
-# switch to edit window w/ sway ipc
-sway().get_tree().find_named('edit')[0].command('focus')
+# switch to first pane in session window (this is where i always have neovim)
+pane = window.panes[0]
+pane.select_pane()
