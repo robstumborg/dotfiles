@@ -24,6 +24,7 @@ require("lazy").setup({
 	{ "hrsh7th/cmp-path", dependencies = "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-buffer", dependencies = "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp-signature-help", dependencies = "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-cmdline", dependencies = "hrsh7th/nvim-cmp" },
 	{ "L3MON4D3/LuaSnip", dependencies = "saadparwaiz1/cmp_luasnip" },
 	"andersevenrud/cmp-tmux",
 	"microsoft/python-type-stubs",
@@ -1053,6 +1054,29 @@ cmp.setup({
 			winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
 		},
 	},
+})
+
+-- `/` cmdline setup.
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{
+			name = "cmdline",
+			option = {
+				ignore_cmds = { "Man", "!" },
+			},
+		},
+	}),
 })
 
 -- autopairs
