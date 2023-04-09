@@ -1000,7 +1000,7 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 cmp.setup({
-  preselect = cmp.PreselectMode.None,
+	preselect = cmp.PreselectMode.None,
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol_text",
