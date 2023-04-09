@@ -1150,3 +1150,9 @@ vim.api.nvim_set_keymap("n", "<leader>cp", ":CopilotToggle<CR>", { noremap = tru
 require("eyeliner").setup({
 	highlight_on_key = true,
 })
+
+-- open tmux panes in nvim's cwd
+vim.api.nvim_create_autocmd("dirchanged", {
+	pattern = "*",
+	command = 'call chansend(v:stderr, printf("\\033]7;%s\\033", v:event.cwd))',
+})
