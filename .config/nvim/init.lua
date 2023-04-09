@@ -106,9 +106,6 @@ vim.cmd("colorscheme onedark")
 -- disable start message
 vim.o.shortmess = "I"
 
--- highlight on search
-vim.o.hlsearch = false
-
 -- relative line numbers
 vim.wo.relativenumber = true
 
@@ -122,9 +119,10 @@ vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath("state") .. "/undo"
 
--- case insensitive searching unless /c or capital in search
+-- search settings
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.hlsearch = true
 
 -- quick update time
 vim.o.updatetime = 100
