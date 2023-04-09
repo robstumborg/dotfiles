@@ -487,7 +487,13 @@ require("lualine").setup({
 			{
 				lsp_servers,
 				icon = "",
-				color = { fg = colors.purple },
+
+				color = function()
+					if vim.lsp.util.get_progress_messages()[1] then
+						return { fg = colors.red }
+					end
+					return { fg = colors.purple }
+				end,
 			},
 		},
 		lualine_b = {
