@@ -1097,6 +1097,7 @@ require("formatter").setup({
 		html = { require("formatter.filetypes.html").prettier },
 		css = { require("formatter.filetypes.css").prettier },
 		javascript = { require("formatter.filetypes.javascript").prettier },
+		typescript = { require("formatter.filetypes.typescript").prettier },
 		python = { require("formatter.filetypes.python").black },
 		rust = { require("formatter.filetypes.rust").rustfmt },
 		sh = { require("formatter.filetypes.sh").shfmt },
