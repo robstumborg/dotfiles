@@ -1214,38 +1214,35 @@ vim.api.nvim_create_autocmd("bufwritepost", {
 	command = "silent execute '!kill -SIGUSR1 $(pgrep -f \"[f]lutter_tool.*run\")'",
 })
 
--- copilot
-vim.api.nvim_create_user_command("CopilotToggle", function()
-	require("copilot").setup({
-		suggestion = {
-			enabled = true,
-			auto_trigger = true,
-		},
-		filetypes = {
-			mail = false,
-			yaml = false,
-			markdown = true,
-			help = false,
-			gitcommit = false,
-			gitrebase = false,
-			hgcommit = false,
-			svn = false,
-			cvs = false,
-			["."] = false,
-		},
-	})
-end, {})
-
--- enable copilot with <leader>cp
-vim.api.nvim_set_keymap("n", "<leader>cp", ":CopilotToggle<CR>", { noremap = true, silent = true })
-
 -- eyeliner (quick-scope lua replacement)
 require("eyeliner").setup({
 	highlight_on_key = true,
 })
+vim.api.nvim_set_hl(0, "EyelinerPrimary", { fg = colors.blue })
+vim.api.nvim_set_hl(0, "EyelinerSecondary", { fg = colors.purple })
 
 -- open tmux panes in nvim's cwd
 vim.api.nvim_create_autocmd("dirchanged", {
 	pattern = "*",
 	command = 'call chansend(v:stderr, printf("\\033]7;%s\\033", v:event.cwd))',
+})
+
+-- autodetect react filetype
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*.js",
+	callback = function()
+		-- check if the current buffer is a *.js file.
+		if vim.bo.filetype == "javascript" and vim.bo.filetype ~= "javascriptreact" then
+			-- read the first 20 lines of the buffer.
+			local lines = vim.api.nvim_buf_get_lines(0, 0, 20, false)
+			-- check if any of those lines contain the string "import react".
+			for _, line in ipairs(lines) do
+				if string.match(line, "^%s*import%s+React%s*") then
+					-- if found, change the filetype to "javascriptreact".
+					vim.bo.filetype = "javascriptreact"
+					return
+				end
+			end
+		end
+	end,
 })
