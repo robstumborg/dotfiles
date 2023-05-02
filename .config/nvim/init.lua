@@ -298,7 +298,7 @@ vim.keymap.set("n", "<a-h>", ":set hls!<cr>", { silent = true })
 -- toggle file explorer
 vim.keymap.set("n", "<c-b>", ":NvimTreeToggle<cr>")
 
--- toggle hightlight
+-- toggle highlight
 vim.keymap.set("n", "<a-z>", ":set wrap!<cr>", { silent = true })
 
 -- find files
@@ -318,13 +318,7 @@ vim.keymap.set("n", "<leader>mp", ":MarkdownPreview<cr>")
 
 -- colorcolumn toggle
 vim.keymap.set("n", "<a-c>", function()
-	if vim.o.colorcolumn == "" then
-		vim.o.colorcolumn = "80"
-	elseif vim.o.colorcolumn == "80" then
-		vim.o.colorcolumn = "120"
-	else
-		vim.o.colorcolumn = ""
-	end
+	vim.o.colorcolumn = (vim.o.colorcolumn == "") and "80" or (vim.o.colorcolumn == "80") and "120" or ""
 end)
 
 -- format buffer w/ formatter.nvim
@@ -1093,11 +1087,11 @@ cmp.setup({
 			local display_kind = string.lower(vim_item.kind)
 			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], display_kind)
 			vim_item.menu = ({
-				nvim_lsp = "[lsp]",
-				luasnip = "[luasnip]",
-				path = "[path]",
-				buffer = "[buffer]",
-				tmux = "[tmux]",
+				nvim_lsp = "lsp",
+				luasnip = "luasnip",
+				path = "path",
+				buffer = "buffer",
+				tmux = "tmux",
 			})[entry.source.name]
 			return vim_item
 		end,
