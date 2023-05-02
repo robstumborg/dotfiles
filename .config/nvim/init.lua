@@ -428,7 +428,7 @@ local function diff_source()
 end
 
 local function random_icon()
-	local symbols = { "", "", "", "", "", "" }
+	local symbols = { "󰊠", "󰊮", "󰣐", "󰊓", "󰊔", "󰇥" }
 	local randomIndex = math.random(1, #symbols)
 	return symbols[randomIndex]
 end
@@ -454,7 +454,7 @@ require("lualine").setup({
 		lualine_a = {
 			{
 				"mode",
-				-- 
+				-- 󰊠
 				icon = random_icon(),
 				color = { gui = "bold" },
 				fmt = string.lower,
@@ -473,20 +473,20 @@ require("lualine").setup({
 					modified = { fg = colors.yellow },
 					removed = { fg = colors.red },
 				},
-				symbols = { added = " ", modified = "柳", removed = " " },
+				symbols = { added = " ", modified = "󱋮 ", removed = " " },
 			},
 			{
 				"diagnostics",
 				symbols = {
-					error = " ",
-					warn = " ",
-					info = " ",
-					hint = " ",
+					error = "󰅗 ",
+					warn = "󰅉 ",
+					info = "󰅍 ",
+					hint = "󰌵 ",
 				},
 			},
 			{
 				lsp_servers,
-				icon = "",
+				icon = "",
 
 				color = function()
 					if vim.lsp.util.get_progress_messages()[1] then
@@ -633,9 +633,9 @@ require("telescope").setup({
 	},
 	defaults = {
 		borderchars = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
-		prompt_prefix = "  ",
+		prompt_prefix = " 󰍉 ",
 		entry_prefix = "   ",
-		selection_caret = "  ",
+		selection_caret = " 󰅂 ",
 		layout_config = {
 			width = 0.8,
 			height = 0.5,
@@ -699,8 +699,8 @@ local function cmp_border(hl_name)
 end
 
 require("ccc").setup({
-	bar_char = "",
-	point_char = "",
+	bar_char = "󰋘",
+	point_char = "󰋙",
 	bar_len = 50,
 	highlighter = {
 		auto_enable = true,
@@ -747,7 +747,7 @@ require("neoscroll").setup({
 --
 
 -- set lsp diagnostic icons for gutter
-local signs = { Error = " ", Warn = " ", Information = " ", Hint = " " }
+local signs = { Error = "󰅗 ", Warn = "󰅉 ", Information = "󰅍 ", Hint = "󰌵 " }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
