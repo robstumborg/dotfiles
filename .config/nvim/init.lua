@@ -31,8 +31,24 @@ require("lazy").setup({
 	"rafamadriz/friendly-snippets",
 	"onsails/lspkind.nvim",
 
-	-- copilot
-	"zbirenbaum/copilot.lua",
+	-- codeium
+	{
+		"Exafunction/codeium.vim",
+		config = function()
+			vim.keymap.set("i", "<a-l>", function()
+				return vim.fn["codeium#Accept"]()
+			end, { expr = true })
+			vim.keymap.set("i", "<a-]>", function()
+				return vim.fn["codeium#CycleCompletions"](1)
+			end, { expr = true })
+			vim.keymap.set("i", "<a-[>", function()
+				return vim.fn["codeium#CycleCompletions"](-1)
+			end, { expr = true })
+			vim.keymap.set("i", "<a-x>", function()
+				return vim.fn["codeium#Clear"]()
+			end, { expr = true })
+		end,
+	},
 
 	-- syntax / editing
 	{ "nvim-treesitter/nvim-treesitter-textobjects", dependencies = "nvim-treesitter/nvim-treesitter" },
@@ -159,6 +175,26 @@ vim.api.nvim_create_autocmd("filetype", {
 
 -- vimux
 vim.g.vimuxheight = 32
+
+-- codeium
+vim.g.codeium_enabled = false
+vim.g.codeium_disable_bindings = 1
+
+local function codeium_status()
+	local status = vim.fn["codeium#GetStatusString"]()
+	status = string.gsub(status, "^%s+", "")
+	status = string.lower(status)
+	return status
+end
+
+-- use <leader>ai to toggle codeium
+vim.keymap.set("n", "<leader>ai", function()
+	if codeium_status() == "on" then
+		vim.g.codeium_enabled = false
+	else
+		vim.g.codeium_enabled = true
+	end
+end, { noremap = true })
 
 -- notes
 local notes_dir = vim.fn.expand("$HOME/notes")
@@ -493,6 +529,18 @@ require("lualine").setup({
 						return { fg = colors.red }
 					end
 					return { fg = colors.purple }
+				end,
+			},
+			{
+				codeium_status,
+				icon = "󰧑 ai:",
+
+				color = function()
+					if codeium_status() == "on" then
+						return { fg = colors.green }
+					else
+						return { fg = colors.red }
+					end
 				end,
 			},
 		},
