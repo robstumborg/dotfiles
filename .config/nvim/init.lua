@@ -618,7 +618,15 @@ require("cokeline").setup({
 				return buffer.unique_prefix
 			end,
 			style = "italic",
-			fg = colors.gray,
+			fg = function(buffer)
+				if buffer.is_focused and buffer.is_modified then
+					return colors.blue
+				elseif buffer.is_focused then
+					return colors.purple
+				else
+					return colors.gray
+				end
+			end,
 		},
 		{
 			text = function(buffer)
