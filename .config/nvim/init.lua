@@ -29,7 +29,6 @@ require("lazy").setup({
 	"andersevenrud/cmp-tmux",
 	"microsoft/python-type-stubs",
 	"rafamadriz/friendly-snippets",
-	"onsails/lspkind.nvim",
 
 	-- codeium
 	{
@@ -1047,22 +1046,53 @@ lspconfig.setup_handlers({
 	end,
 })
 
+local kind_icons = {
+	Text = "",
+	Method = "󰆧",
+	Function = "󰊕",
+	Constructor = "",
+	Field = "󰇽",
+	Variable = "󰂡",
+	Class = "󰠱",
+	Interface = "",
+	Module = "",
+	Property = "󰜢",
+	Unit = "",
+	Value = "󰎠",
+	Enum = "",
+	Keyword = "󰌋",
+	Snippet = "",
+	Color = "󰏘",
+	File = "󰈙",
+	Reference = "",
+	Folder = "󰉋",
+	EnumMember = "",
+	Constant = "󰏿",
+	Struct = "",
+	Event = "",
+	Operator = "󰆕",
+	TypeParameter = "󰅲",
+}
+
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip").filetype_extend("javascript", { "javascriptreact" })
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local lspkind = require("lspkind")
 cmp.setup({
 	preselect = cmp.PreselectMode.None,
 	formatting = {
-		format = lspkind.cmp_format({
-			mode = "symbol_text",
-			menu = {
-				nvim_lsp = "[LSP]",
-				luasnip = "[LuaSnip]",
+		format = function(entry, vim_item)
+			local display_kind = string.lower(vim_item.kind)
+			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], display_kind)
+			vim_item.menu = ({
+				nvim_lsp = "[lsp]",
+				luasnip = "[luasnip]",
+				path = "[path]",
+				buffer = "[buffer]",
 				tmux = "[tmux]",
-			},
-		}),
+			})[entry.source.name]
+			return vim_item
+		end,
 	},
 	snippet = {
 		expand = function(args)
