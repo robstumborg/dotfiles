@@ -58,10 +58,10 @@ require("lazy").setup({
 	"Vimjas/vim-python-pep8-indent",
 	"jidn/vim-dbml",
 	"b3nj5m1n/kommentary",
+	"JoosepAlviste/nvim-ts-context-commentstring",
 	"kylechui/nvim-surround",
 	"leafOfTree/vim-matchtag",
 	"folke/todo-comments.nvim",
-	"gpanders/editorconfig.nvim",
 	"junegunn/vim-easy-align",
 	"mbbill/undotree",
 
@@ -726,6 +726,9 @@ require("nvim-treesitter.configs").setup({
 		disable = { "html", "python" },
 	},
 	autotag = {
+		enable = true,
+	},
+	context_commentstring = {
 		enable = true,
 	},
 })
