@@ -1083,16 +1083,24 @@ local luasnip = require("luasnip")
 cmp.setup({
 	preselect = cmp.PreselectMode.None,
 	formatting = {
+		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			local display_kind = string.lower(vim_item.kind)
-			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], display_kind)
-			vim_item.menu = ({
+			local icon = kind_icons[vim_item.kind]
+			local text = vim_item.kind
+			text = text .. string.rep(" ", 10 - #text)
+			text = string.lower(text)
+
+			local source = ({
 				nvim_lsp = "lsp",
 				luasnip = "luasnip",
 				path = "path",
 				buffer = "buffer",
 				tmux = "tmux",
 			})[entry.source.name]
+
+			vim_item.kind = icon
+      vim_item.menu = text ..  (source and " " .. source or "")
+
 			return vim_item
 		end,
 	},
@@ -1147,6 +1155,12 @@ cmp.setup({
 
 -- `/` cmdline setup.
 cmp.setup.cmdline("/", {
+	formatting = {
+		fields = { "abbr" },
+		format = function(entry, vim_item)
+			return vim_item
+		end,
+	},
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = "buffer" },
@@ -1155,6 +1169,12 @@ cmp.setup.cmdline("/", {
 
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
+	formatting = {
+		fields = { "abbr" },
+		format = function(entry, vim_item)
+			return vim_item
+		end,
+	},
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = "path" },
@@ -1212,8 +1232,6 @@ vim.api.nvim_create_autocmd("bufwritepost", {
 require("eyeliner").setup({
 	highlight_on_key = true,
 })
-vim.api.nvim_set_hl(0, "EyelinerPrimary", { fg = colors.blue })
-vim.api.nvim_set_hl(0, "EyelinerSecondary", { fg = colors.purple })
 
 -- open tmux panes in nvim's cwd
 vim.api.nvim_create_autocmd("dirchanged", {
