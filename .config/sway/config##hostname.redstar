@@ -3,7 +3,7 @@ output HDMI-A-1 pos 0 0 res 3840x2160 scale 1
 output DP-1 disable
 
 # dynamic wallpaper
-exec $XDG_CONFIG_HOME/sway/scripts/wallpaper.sh
+exec wallpaper
 
 # winkey
 set $mod mod4
@@ -46,7 +46,7 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 # lock settings
-set $sleep $XDG_CONFIG_HOME/sway/scripts/lock.sh
+set $sleep screen-lock
 
 exec swayidle timeout 180 $sleep \
     timeout 210 'swaymsg "output * dpms off"' \
@@ -61,7 +61,7 @@ exec yambar
 bindsym $mod+shift+y exec "killall yambar; yambar"
 
 # terminal
-bindsym $mod+return exec $XDG_CONFIG_HOME/sway/scripts/term.sh
+bindsym $mod+return exec launch-terminal
 
 # kill focused window
 bindsym $mod+shift+q kill
@@ -70,13 +70,13 @@ bindsym $mod+shift+q kill
 bindsym $mod+space exec rofi -show run
 
 # rofi+pass
-bindsym $mod+p exec $HOME/bin/tessen
+bindsym $mod+p exec tessen
 
 # sshot
 bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
 
 # screencast
-bindsym $mod+shift+s exec $XDG_CONFIG_HOME/sway/scripts/wf-recorder.sh
+bindsym $mod+shift+s exec screen-record
 
 # color picker
 bindsym $mod+c exec hyprpicker --autocopy 
@@ -179,4 +179,4 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # wlsunset
-exec $XDG_CONFIG_HOME/sway/scripts/wlsunset.sh
+exec brightness-adjust
