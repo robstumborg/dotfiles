@@ -6,6 +6,14 @@
       "options": {
         "printWidth": 120
       }
+    },
+    {
+      "files": "*.blade.php",
+      "options": {
+        "parser": "blade",
+        "tabWidth": 2,
+        "printWidth": 120
+      }
     }
   ]
 }

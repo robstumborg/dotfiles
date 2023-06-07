@@ -60,6 +60,7 @@ require("lazy").setup({
 	"folke/todo-comments.nvim",
 	"junegunn/vim-easy-align",
 	"mbbill/undotree",
+	"jwalton512/vim-blade",
 
 	-- git
 	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },

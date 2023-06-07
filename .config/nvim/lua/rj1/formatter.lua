@@ -14,6 +14,6 @@ require("formatter").setup({
 		php = { require("formatter.filetypes.php").phpcbf },
 		lua = { require("formatter.filetypes.lua").stylua },
 		markdown = { require("formatter.filetypes.markdown").prettier },
+		blade = { require("formatter.filetypes.html").prettier },
 	},
 })
-
