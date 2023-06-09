@@ -135,8 +135,14 @@ lspconfig.setup_handlers({
 		nvim_lsp.intelephense.setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+      init_options = {
+        globalStoragePath = os.getenv("HOME") .. "/.local/state/intelephense",
+      },
 			settings = {
 				intelephense = {
+					environment = {
+						phpVersion = 8.1,
+					},
 					stubs = {
 						"apache",
 						"bcmath",
@@ -211,9 +217,6 @@ lspconfig.setup_handlers({
 						"zip",
 						"zlib",
 						"wordpress",
-					},
-					environment = {
-						phpVersion = 8.1,
 					},
 				},
 			},
@@ -311,7 +314,7 @@ cmp.setup({
 			})[entry.source.name]
 
 			vim_item.kind = icon
-      vim_item.menu = text ..  (source and " " .. source or "")
+			vim_item.menu = text .. (source and " " .. source or "")
 
 			return vim_item
 		end,
