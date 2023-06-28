@@ -1,4 +1,4 @@
-# rj1's dotfiles
+# my dotfiles
 
 this repo contains my configuration files, used with [arch
 linux](https://archlinux.org/), [void linux](https://voidlinux.org/), and
@@ -6,12 +6,16 @@ linux](https://archlinux.org/), [void linux](https://voidlinux.org/), and
 
 I use [yadm](https://yadm.io/) to manage my dotfiles in this repository
 
-to use these dotfiles as your own (not recommended), simply install yadm and
-run:
+to use these dotfiles as your own, simply install yadm and run:
 
 ```
-yadm clone https://github.com/rj1/dotfiles
+yadm clone https://github.com/robstumborg/dotfiles
 ```
+
+I wouldn't recommend doing this. I think it makes more sense to take a look at
+configs and pick out pieces you'd like to adopt in your own workstation
+environment
+
 
 ## software
 
@@ -38,8 +42,4 @@ here's a list of some software I use:
 | [zathura](https://pwmt.org/projects/zathura/)         | document viewer
 | [mako](https://github.com/emersion/mako)              | notification daemon
 | [newsboat](https://newsboat.org/)                     | rss reader
-| [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp)         | music player
-
-## screenshot
-
-![](https://rj1.su/img/dotfiles-sshot.png)
+| [rofimpd](https://github.com/robstumborg/rofimpd)     | music player
