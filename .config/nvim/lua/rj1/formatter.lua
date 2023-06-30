@@ -15,5 +15,6 @@ require("formatter").setup({
 		lua = { require("formatter.filetypes.lua").stylua },
 		markdown = { require("formatter.filetypes.markdown").prettier },
 		blade = { require("formatter.filetypes.html").prettier },
+		c = { require("formatter.filetypes.c").clangformat },
 	},
 })
