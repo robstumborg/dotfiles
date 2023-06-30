@@ -17,9 +17,9 @@ bar:
             on-click:
               left: mpc toggle
             conditions:
-              state == playing: {string: {text: "▶ {artist} - {title} |", max: 50}}
-              state == paused: {string: {text: " {artist} - {title} |", max: 50}}
-              state == stopped: {string: {text: "■ {artist} - {title} |", max: 50}}
+              state == playing: {string: {text: "▶ {artist} - {title} ", max: 50}}
+              state == paused: {string: {text: " {artist} - {title} ", max: 50}}
+              state == stopped: {string: {text: "■ {artist} - {title} ", max: 50}}
 
     - alsa:
         card: pipewire
@@ -32,15 +32,16 @@ bar:
               wheel-down: amixer -D "pipewire" sset Master 2%-
 
             conditions:
-              muted: {string: {text: ' |'}}
+              muted: {string: {text: '󰝟 mute |'}}
               ~muted:
                 list:
                   spacing: 4
                   items:
                     - map:
-                        default: {string: {text: ''}}
                         conditions:
-                         percent == 0: {string: {text: ''}}
+                          percent == 0: {string: {text: ''}}
+                          percent > 0 && percent < 50: {string: {text: '󰖀'}}
+                          percent >= 50: {string: {text: ''}}
                     - string: {text: '{percent}% |'}
 
     - script:
