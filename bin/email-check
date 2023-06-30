@@ -26,17 +26,20 @@ done
 /usr/bin/notmuch tag +notify -- tag:new
 /usr/bin/notmuch tag -new -- tag:new
 
-# notify
-SEARCH="tag:notify"
+# notify if there are new mails and notifications aren't muted
+if [ -z "$MUTE_NOTIFICATIONS" ] || [ "$MUTE_NOTIFICATIONS" -eq 0 ]; then
 
-NOTIFY_COUNT=$(/usr/bin/notmuch count "$SEARCH")
+  SEARCH="tag:notify"
 
-if [ "$NOTIFY_COUNT" -gt 0 ]; then
-  RESULTS=$(/usr/bin/notmuch search --format=json --output=summary --limit=3 --sort="newest-first" "$SEARCH" | jq -r '.[] | "\(.authors): \(.subject)"')
-  /usr/bin/notify-send "$NOTIFY_COUNT new mails:" "$RESULTS"
+  NOTIFY_COUNT=$(/usr/bin/notmuch count "$SEARCH")
+
+  if [ "$NOTIFY_COUNT" -gt 0 ]; then
+    RESULTS=$(/usr/bin/notmuch search --format=json --output=summary --limit=3 --sort="newest-first" "$SEARCH" | jq -r '.[] | "\(.authors): \(.subject)"')
+    /usr/bin/notify-send "$NOTIFY_COUNT new mails:" "$RESULTS"
+  fi
+
+  /usr/bin/notmuch tag -notify -- tag:notify
 fi
-
-/usr/bin/notmuch tag -notify -- tag:notify
 
 # refresh alot buffer if it's open
 pkill --signal SIGUSR1 alot
