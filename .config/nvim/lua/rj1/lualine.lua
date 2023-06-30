@@ -57,7 +57,7 @@ require("lualine").setup({
 					modified = { fg = colors.yellow },
 					removed = { fg = colors.red },
 				},
-				symbols = { added = " ", modified = "󱋮 ", removed = " " },
+				symbols = { added = " ", modified = "⊡ ", removed = " " },
 			},
 			{
 				"diagnostics",
@@ -95,7 +95,7 @@ require("lualine").setup({
 		lualine_b = {
 			{
 				Session_name,
-				icon = "ⵢ",
+				icon = "",
 				color = { fg = colors.fg },
 			},
 		},
@@ -103,15 +103,19 @@ require("lualine").setup({
 			{
 				Daily_status,
 				icon = "daily:",
+        color = { fg = colors.red },
 			},
 			{
 				"encoding",
+        color = { fg = colors.purple },
+
 			},
 			{
 				"fileformat",
 			},
 			{
 				"filetype",
+        color = { fg = colors.blue },
 			},
 		},
 		lualine_y = { { "progress", color = { fg = colors.fg }, fmt = string.lower } },
