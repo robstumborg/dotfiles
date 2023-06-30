@@ -61,6 +61,7 @@ require("lazy").setup({
 	"junegunn/vim-easy-align",
 	"mbbill/undotree",
 	"jwalton512/vim-blade",
+	"NMAC427/guess-indent.nvim",
 
 	-- git
 	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
@@ -161,3 +162,5 @@ vim.api.nvim_create_autocmd("bufwritepost", {
 require("eyeliner").setup({
 	highlight_on_key = true,
 })
+
+require("guess-indent").setup({})
