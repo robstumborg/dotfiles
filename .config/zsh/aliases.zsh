@@ -83,7 +83,9 @@ upload() {
 
     filename=$(basename $file)
 
-    curl -fsSL  -F "files[]=@\"${file}\"" https://uguu.se/upload.php | jq -r ".files[0].url"
+    # curl -fsSL  -F "files[]=@\"${file}\"" https://uguu.se/upload.php | jq -r ".files[0].url"
+    curl -fsSL  -F "file=@\"${file}\"" https://0x0.st/
+    # curl -fsSL  -F "file=@\"${file}\"" -F "url_len=5" https://filehole.org/
 }
 alias up=upload
 
