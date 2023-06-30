@@ -18,7 +18,6 @@ zinit load "zsh-users/zsh-autosuggestions"
 bindkey '^l' autosuggest-accept
 source $XDG_CONFIG_HOME/zsh/aliases.zsh
 
-
 # settings
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{node_modules,.git,vendor}"'
@@ -43,5 +42,5 @@ fpath+=$XDG_CONFIG_HOME/zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
-zinit load "jessarcher/zsh-artisan"
+source ~/.config/zsh/zsh-artisan/artisan.plugin.zsh
 zinit load "zsh-users/zsh-syntax-highlighting"
