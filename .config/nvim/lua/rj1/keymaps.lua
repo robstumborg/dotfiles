@@ -16,6 +16,14 @@ vim.keymap.set("n", "sj", "<c-w>j", { silent = true })
 vim.keymap.set("n", "sk", "<c-w>k", { silent = true })
 vim.keymap.set("n", "sl", "<c-w>l", { silent = true })
 
+-- don't let fugitive remap our s key so wo maintain our split navigation
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "fugitive",
+	callback = function()
+		vim.keymap.set("n", "s", "", { buffer = true, silent = true })
+	end,
+})
+
 -- deal w/ word wrap (treat wrapped lines as their own)
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -52,8 +60,15 @@ end)
 -- format buffer w/ formatter.nvim
 vim.keymap.set("n", "<leader>ff", ":Format<cr>")
 
--- preview git hunk
-vim.keymap.set("n", "<leader>gh", ":Gitsigns preview_hunk<cr>")
+-- git
+vim.keymap.set("n", "<leader>gs", ":Telescope git_status<cr>")
+vim.keymap.set("n", "<leader>gS", ":Git<cr>")
+vim.keymap.set("n", "<leader>gaf", ":Gitsigns stage_buffer<cr>")
+vim.keymap.set("n", "<leader>grf", ":Gitsigns reset_buffer<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>gah", ":Gitsigns stage_hunk<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>guh", ":Gitsigns undo_stage_hunk<cr>")
+vim.keymap.set({ "n", "v" }, "<leader>grh", ":Gitsigns reset_hunk<cr>")
+vim.keymap.set("n", "<leader>gph", ":Gitsigns preview_hunk<cr>")
 
 -- vimux
 vim.keymap.set("n", "<leader>tt", ":VimuxTogglePane<cr>", { silent = true })

@@ -65,7 +65,7 @@ require("lazy").setup({
 
 	-- git
 	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
-	{ "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+	{ "tpope/vim-fugitive" },
 
 	-- visual
 	"olimorris/onedarkpro.nvim",
@@ -119,9 +119,6 @@ require("gitsigns").setup({
 
 -- nvim-surround
 require("nvim-surround").setup({})
-
--- diffview
-require("diffview").setup({})
 
 -- nvim-tree
 require("nvim-tree").setup({
