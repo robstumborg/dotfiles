@@ -4,8 +4,8 @@
 
 | keybind     | description                               | plugin             |
 | ----------- | ----------------------------------------- | ------------------ |
-| [leader]    | spacebar                                  |                    |
-| [leader]+s  | switch session/project                    | possession.nvim    |
+| <leader>    | spacebar                                  |                    |
+| <leader>s   | switch session/project                    | possession.nvim    |
 | ctrl+k      | next buffer                               | nvim-cokeline      |
 | ctrl+j      | previous buffer                           | nvim-cokeline      |
 | ctrl+w      | close buffer                              |                    |
@@ -26,13 +26,13 @@
 | gd          | go to definition                          | lsp                |
 | gr          | see references                            | lsp                |
 | shift+k     | hover code signature                      | lsp                |
-| [leader]+ff | format buffer                             | formatter.nvim     |
-| [leader]+gh | preview changed hunk (git)                | gitsigns.nvim      |
-| [leader]+tt | toggle tmux pane                          | vimux              |
-| [leader]+tr | run current buffer as script in tmux pane | vimux              |
-| [leader]+tr | run current selection in tmux pane (bash) | vimux              |
-| [leader]+cc | open color picker dialog                  | ccc.nvim           |
-| [leader]+cp | enable copilot                            | copilot.lua        |
+| <leader>ff  | format buffer                             | formatter.nvim     |
+| <leader>gh  | preview changed hunk (git)                | gitsigns.nvim      |
+| <leader>tt  | toggle tmux pane                          | vimux              |
+| <leader>tr  | run current buffer as script in tmux pane | vimux              |
+| <leader>tr  | run current selection in tmux pane (bash) | vimux              |
+| <leader>cc  | open color picker dialog                  | ccc.nvim           |
+| <leader>cp  | enable copilot                            | copilot.lua        |
 | ss          | new split                                 |                    |
 | sv          | new vertical split                        |                    |
 | sc          | close split                               |                    |
@@ -41,3 +41,11 @@
 | sk          | switch split up                           |                    |
 | sl          | switch split right                        |                    |
 | sl          | switch split right                        |                    |
+| <leader>gs  | git: show status in telescope             | telescope.nvim     |
+| <leader>gS  | git: open fugitive :Git split             | vim-fugitive       |
+| <leader>gaf | git: stage current buffer                 | gitsigns.nvim      |
+| <leader>grf | git: reset current buffer (undo changes)  | gitsigns.nvim      |
+| <leader>gah | git: stage hunk                           | gitsigns.nvim      |
+| <leader>guh | git: unstage current hunk                 | gitsigns.nvim      |
+| <leader>grh | git: reset current hunk (undo changes)    | gitsigns.nvim      |
+| <leader>gph | git: preview current hunk                 | gitsigns.nvim      |
