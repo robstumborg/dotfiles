@@ -16,5 +16,6 @@ require("formatter").setup({
 		markdown = { require("formatter.filetypes.markdown").prettier },
 		blade = { require("formatter.filetypes.html").prettier },
 		c = { require("formatter.filetypes.c").clangformat },
+		vue = { require("formatter.filetypes.vue").prettier },
 	},
 })
