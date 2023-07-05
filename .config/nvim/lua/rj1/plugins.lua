@@ -2,8 +2,7 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
-		"clone",
-		"--filter=blob:none",
+		"clone", "--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
 		"--branch=stable",
 		lazypath,
@@ -66,6 +65,9 @@ require("lazy").setup({
 	-- git
 	{ "lewis6991/gitsigns.nvim", dependencies = "nvim-lua/plenary.nvim" },
 	{ "tpope/vim-fugitive" },
+	{ "tpope/vim-rhubarb" },
+	{ "borissov/fugitive-gitea" },
+	{ "robstumborg/yadm.nvim" },
 
 	-- visual
 	"olimorris/onedarkpro.nvim",
@@ -106,15 +108,6 @@ require("lazy").setup({
 require("kommentary.config").configure_language("php", {
 	single_line_comment_string = "//",
 	multi_line_comment_strings = { "/*", "*/" },
-})
-
--- gitsigns
-require("gitsigns").setup({
-	current_line_blame = true,
-	attach_to_untracked = true,
-	yadm = {
-		enable = true,
-	},
 })
 
 -- nvim-surround

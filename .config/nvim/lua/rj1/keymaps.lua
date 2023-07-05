@@ -69,6 +69,7 @@ vim.keymap.set({ "n", "v" }, "<leader>gah", ":Gitsigns stage_hunk<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>guh", ":Gitsigns undo_stage_hunk<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>grh", ":Gitsigns reset_hunk<cr>")
 vim.keymap.set("n", "<leader>gph", ":Gitsigns preview_hunk<cr>")
+vim.keymap.set("n", "<leader>gb", ":GBrowse <cr>")
 
 -- vimux
 vim.keymap.set("n", "<leader>tt", ":VimuxTogglePane<cr>", { silent = true })
