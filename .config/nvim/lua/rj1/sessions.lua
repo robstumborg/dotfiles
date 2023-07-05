@@ -21,7 +21,11 @@ require("possession").setup({
 			return vim.fn.system("tmux rename-window " .. name)
 		end,
 		after_load = function(name)
-			return vim.fn.serverstart("/tmp/nvim-" .. name)
+			local server_address = "/tmp/nvim-" .. name
+			if vim.fn.filereadable(server_address) == 1 then
+				vim.fn.delete(server_address)
+			end
+			vim.fn.serverstart(server_address)
 		end,
 	},
 })
