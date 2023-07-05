@@ -71,3 +71,24 @@ vim.api.nvim_create_autocmd("dirchanged", {
 	pattern = "*",
 	command = 'call chansend(v:stderr, printf("\\033]7;%s\\033", v:event.cwd))',
 })
+
+-- toggle relative line numbers when entering/leaving splits
+local splitswitch = vim.api.nvim_create_augroup("splitswitch", {clear = true})
+
+vim.api.nvim_create_autocmd("WinEnter", {
+	group = splitswitch,
+	pattern = "*",
+	callback = function()
+		vim.opt.relativenumber = true
+	end,
+})
+
+
+vim.api.nvim_create_autocmd("WinLeave", {
+	group = splitswitch,
+	pattern = "*",
+	callback = function()
+		vim.opt.relativenumber = false
+		vim.opt.number = true
+	end,
+})
