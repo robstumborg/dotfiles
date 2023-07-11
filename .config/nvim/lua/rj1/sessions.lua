@@ -29,3 +29,31 @@ require("possession").setup({
 		end,
 	},
 })
+
+local get_sessions = function()
+	local sessions = require("possession.query").as_list()
+	local new_sessions = {}
+	for _, s in pairs(sessions) do
+		table.insert(new_sessions, s.name)
+	end
+	return new_sessions
+end
+
+local load_session = function()
+	local session = require("possession.session")
+	local sessions = get_sessions()
+	require("fzf-lua").fzf_exec(sessions, {
+		actions = {
+			["default"] = {
+				function(selected)
+					session.close()
+					vim.api.nvim_buf_delete(0, { force = true })
+					session.load(selected[1])
+				end,
+			},
+		},
+	})
+end
+
+-- create neovim command for FzfLoadSession
+vim.api.nvim_create_user_command("FzfLoadSession", load_session, { nargs = 0 })

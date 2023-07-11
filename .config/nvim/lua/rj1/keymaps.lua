@@ -37,17 +37,11 @@ vim.keymap.set("n", "<c-b>", ":NvimTreeToggle<cr>")
 -- toggle highlight
 vim.keymap.set("n", "<a-z>", ":set wrap!<cr>", { silent = true })
 
--- find files
-vim.keymap.set("n", "<c-p>", ":Telescope find_files<cr>")
-
--- find in files
-vim.keymap.set("n", "<c-f>", ":Telescope live_grep<cr>")
-
--- switch buffers via telescope
-vim.keymap.set("n", "<c-h>", ":Telescope buffers<cr>")
-
--- session switcher
-vim.keymap.set("n", "<leader>s", ":Telescope possession list<cr>")
+-- fzf
+vim.keymap.set("n", "<c-p>", ":FzfLua files<cr>")
+vim.keymap.set("n", "<c-f>", ":FzfLua grep_project<cr>")
+vim.keymap.set("n", "<c-h>", ":FzfLua buffers<cr>")
+vim.keymap.set("n", "<leader>s", ":FzfLoadSession<cr>")
 
 -- markdown preview
 vim.keymap.set("n", "<leader>mp", ":MarkdownPreview<cr>")
@@ -61,8 +55,7 @@ end)
 vim.keymap.set("n", "<leader>ff", ":Format<cr>")
 
 -- git
-vim.keymap.set("n", "<leader>gs", ":Telescope git_status<cr>")
-vim.keymap.set("n", "<leader>gS", ":Git<cr>")
+vim.keymap.set("n", "<leader>gs", ":Git<cr>")
 vim.keymap.set("n", "<leader>gaf", ":Gitsigns stage_buffer<cr>")
 vim.keymap.set("n", "<leader>grf", ":Gitsigns reset_buffer<cr>")
 vim.keymap.set({ "n", "v" }, "<leader>gah", ":Gitsigns stage_hunk<cr>")
