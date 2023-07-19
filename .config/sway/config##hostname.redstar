@@ -33,7 +33,7 @@ exec_always {
     gsettings set org.gnome.desktop.interface font-name $font
 }
 
-font $font 8
+font $font 12
 titlebar_padding 2
 default_border pixel 5
 gaps inner 5
@@ -41,7 +41,7 @@ gaps inner 5
 # class                 border  bg      text    indicator child_border
 client.focused          #98c379 #98c379 #000000 #98c379   #98c379
 client.focused_inactive #333333 #222222 #ffffff #484e50   #3e4452
-client.unfocused        #333333 #222222 #888888 #292d2e   #3e4452
+client.unfocused        #333333 #222222 #eeeeee #292d2e   #3e4452
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
