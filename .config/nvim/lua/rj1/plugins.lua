@@ -85,8 +85,12 @@ require("lazy").setup({
 
 	{ "jakewvincent/mkdnflow.nvim", rocks = "luautf8" },
 
-	-- fzf
-	"ibhagwan/fzf-lua",
+	-- telescope
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+	},
 
 	-- session management
 	{ "jedrzejboczar/possession.nvim", dependencies = "nvim-lua/plenary.nvim" },

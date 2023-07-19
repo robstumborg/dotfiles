@@ -37,11 +37,11 @@ vim.keymap.set("n", "<c-b>", ":NvimTreeToggle<cr>")
 -- toggle highlight
 vim.keymap.set("n", "<a-z>", ":set wrap!<cr>", { silent = true })
 
--- fzf
-vim.keymap.set("n", "<c-p>", ":FzfLua files<cr>")
-vim.keymap.set("n", "<c-f>", ":FzfLua grep_project<cr>")
-vim.keymap.set("n", "<c-h>", ":FzfLua buffers<cr>")
-vim.keymap.set("n", "<leader>s", ":FzfLoadSession<cr>")
+-- telescope
+vim.keymap.set("n", "<c-p>", ":Telescope find_files<cr>")
+vim.keymap.set("n", "<c-f>", ":Telescope live_grep<cr>")
+vim.keymap.set("n", "<c-h>", ":Telescope buffers<cr>")
+vim.keymap.set("n", "<leader>s", ":Telescope possession list<cr>")
 
 -- markdown preview
 vim.keymap.set("n", "<leader>mp", ":MarkdownPreview<cr>")
