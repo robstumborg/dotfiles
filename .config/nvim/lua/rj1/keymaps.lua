@@ -149,3 +149,6 @@ vim.keymap.set("n", "<leader>dw", "<cmd>TroubleToggle workspace_diagnostics<cr>"
 
 -- bind :W to :write
 vim.api.nvim_create_user_command("W", "write", {})
+
+vim.keymap.set({ "n", "x", "o" }, "H", "0", { silent = true })
+vim.keymap.set({ "n", "x", "o" }, "L", "$", { silent = true })
