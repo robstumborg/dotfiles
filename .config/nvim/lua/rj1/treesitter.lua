@@ -12,7 +12,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		enable = true,
-		disable = { "html" },
+		disable = { "html", "typescript" },
 	},
 	indent = {
 		enable = true,
