@@ -65,3 +65,13 @@ function Daily_status()
 		return "pending"
 	end
 end
+
+vim.api.nvim_create_user_command("QuickNote", function(opts)
+	local note = opts.args or nil
+	local file_path = vim.fn.expand(notes_dir .. "/quick-notes.md")
+	local f = io.open(file_path, "a")
+	if f ~= nil then
+		f:write("\n\n" .. note .. "\n\n")
+		f:close()
+	end
+end, { nargs = "?" })
