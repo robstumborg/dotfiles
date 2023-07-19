@@ -42,6 +42,9 @@ local on_attach = function(_, buffer)
 	vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { buffer = buffer })
 	vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { buffer = buffer })
 
+	-- refactor
+	vim.keymap.set("n", "<leader>rv", vim.lsp.buf.rename, { buffer = buffer })
+
 	-- disable inline error messages
 	vim.diagnostic.config({ virtual_text = false })
 end
@@ -135,9 +138,9 @@ lspconfig.setup_handlers({
 		nvim_lsp.intelephense.setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-      init_options = {
-        globalStoragePath = os.getenv("HOME") .. "/.local/state/intelephense",
-      },
+			init_options = {
+				globalStoragePath = os.getenv("HOME") .. "/.local/state/intelephense",
+			},
 			settings = {
 				intelephense = {
 					environment = {
