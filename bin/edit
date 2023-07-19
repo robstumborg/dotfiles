@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python
 import libtmux
 from pynvim import attach
 from i3ipc import Connection as sway
