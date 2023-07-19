@@ -17,9 +17,9 @@ bar:
             on-click:
               left: mpc toggle
             conditions:
-              state == playing: {string: {text: "▶ {artist} - {title} ", max: 50}}
-              state == paused: {string: {text: " {artist} - {title} ", max: 50}}
-              state == stopped: {string: {text: "■ {artist} - {title} ", max: 50}}
+              state == playing: {string: {text: "▶ {artist} - {title} ", max: 25}}
+              state == paused: {string: {text: " {artist} - {title} ", max: 25}}
+              state == stopped: {string: {text: "■ {artist} - {title} ", max: 25}}
 
     - alsa:
         card: pipewire
@@ -49,16 +49,26 @@ bar:
         poll-interval: 5
         content: {string: { text: "cpu: {cpu} gpu: {gpu} |"}}
 
+    # - script:
+    #     path: /home/rj1/.config/yambar/disk.sh
+    #     poll-interval: 120
+    #     content: {string: {text: "storage: {storage_drive} os: {os_drive} |"}}
+
     - script:
         path: /home/rj1/.config/yambar/mail.sh
         poll-interval: 30
         content: {string: {text: "inbox: {mail} |"}}
 
     - clock:
-        time-format: "%H:%M UTC |"
+        time-format: "UTC: %H:%M |"
         utc: true
         content:
           - string: {text: "{time}"}
+
+    - script:
+        path: /home/rj1/.config/yambar/time.sh
+        poll-interval: 60
+        content: {string: {text: "{ET} | {PT} |"}}
 
     - clock:
         time-format: "%a, %b %d %r"
@@ -69,7 +79,7 @@ bar:
     - script:
         path: /home/rj1/.config/yambar/task.sh
         poll-interval: 30
-        content: {string: { text: "task: {task}"}}
+        content: {string: { text: "{task}"}}
 
   left:
     - i3:
