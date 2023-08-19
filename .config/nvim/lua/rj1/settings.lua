@@ -1,3 +1,4 @@
+local color = require("onedarkpro.helpers")
 require("onedarkpro").setup({
 	options = {
 		cursorline = true,
@@ -5,7 +6,11 @@ require("onedarkpro").setup({
 		italic = false,
 		transparency = true,
 	},
+	highlights = {
+		Comment = { fg = color.lighten("comment", 15, "onedark") },
+	},
 })
+
 vim.o.termguicolors = true
 vim.cmd("colorscheme onedark")
 
@@ -73,7 +78,7 @@ vim.api.nvim_create_autocmd("dirchanged", {
 })
 
 -- toggle relative line numbers when entering/leaving splits
-local splitswitch = vim.api.nvim_create_augroup("splitswitch", {clear = true})
+local splitswitch = vim.api.nvim_create_augroup("splitswitch", { clear = true })
 
 vim.api.nvim_create_autocmd("WinEnter", {
 	group = splitswitch,
@@ -82,7 +87,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 		vim.opt.relativenumber = true
 	end,
 })
-
 
 vim.api.nvim_create_autocmd("WinLeave", {
 	group = splitswitch,
