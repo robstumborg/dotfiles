@@ -25,7 +25,7 @@ require("possession").setup({
 		after_load = function(name)
 			local server_address = "/tmp/nvim-" .. name
 			if vim.fn.filereadable(server_address) == 1 then
-				vim.fn.delete(server_address)
+				vim.fn.serverstop(server_address)
 			end
 			vim.fn.serverstart(server_address)
 		end,
