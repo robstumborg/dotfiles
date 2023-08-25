@@ -31,7 +31,7 @@ require("lazy").setup({
 	{
 		"Exafunction/codeium.vim",
 		config = function()
-			vim.keymap.set("i", "<a-l>", function()
+			vim.keymap.set("i", "<a-;>", function()
 				return vim.fn["codeium#Accept"]()
 			end, { expr = true })
 			vim.keymap.set("i", "<a-]>", function()
