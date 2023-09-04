@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "3/13/2023, 2:27:18 PM",
-	"time": 1678739238268,
+	"@time": "9/4/2023, 10:21:35 AM",
+	"time": 1693844495681,
 	"environment": {
-		"extension": "1.99.97",
+		"extension": "1.99.995",
 		"platform": "linux",
-		"firefox": 110
+		"firefox": 117
 	},
 	"clipSub": [
 		"p=^git@([^/:]+):=https://$1/=",
@@ -18,9 +18,9 @@
 		"#!no-check",
 		"#map K previousTab",
 		"#map J nextTab",
-		"map <a-s-k> zoomIn",
-		"map <a-s-j> zoomOut",
-		"map <a-s-h> zoomReset",
+		"map <c-s-h> zoomReset",
+		"map <c-s-k> zoomIn",
+		"map <c-s-j> zoomOut",
 		"map U LinkHints.activateCopyLinkUrl",
 		""
 	],
@@ -35,6 +35,7 @@
 		":w|wikpedia: https://en.wikipedia.org/?search=$s",
 		":gh|github: https://github.com/search?q=$s",
 		":yt|youtube: https://www.youtube.com/results?search_query=$s",
+		":pb|pirate bay:https://thepiratebay.org/search.php?q=$s&all=on&search=Pirate+Search&page=0&orderby=",
 		""
 	],
 	"searchUrl": "https://paulgo.io/search?q=$s paulgo",
