@@ -152,3 +152,12 @@ vim.api.nvim_create_user_command("W", "write", {})
 
 vim.keymap.set({ "n", "x", "o" }, "H", "0", { silent = true })
 vim.keymap.set({ "n", "x", "o" }, "L", "$", { silent = true })
+
+-- keymap to toggle between relative and absolute line numbers
+vim.keymap.set("n", "<c-l>", function()
+	if vim.o.relativenumber == true then
+		vim.wo.relativenumber = false
+	else
+		vim.wo.relativenumber = true
+	end
+end)
