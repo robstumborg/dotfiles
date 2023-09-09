@@ -1,0 +1,61 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "Hack Nerd Font Mono";
+  font-size: 18px;
+  min-height: 0;
+  color: #ffffff;
+}
+
+*.DVI-D-1 * {
+  font-size: 14px;
+}
+
+window#waybar {
+  background-color: rgba(29, 35, 48, 0.8);
+  color: #ffffff;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  background-color: transparent;
+  color: #ffffff;
+}
+
+#workspaces button.focused {
+  box-shadow: inset 0 -5px #98c379;
+}
+
+#mode {
+  background-color: #eb4d4b;
+}
+
+#clock,
+#temperature,
+#pulseaudio,
+#tray,
+#mode,
+#mpd {
+  /* padding: 0 10px; */
+  margin: 5px;
+  color: #ffffff;
+}
+
+#window,
+#workspaces {
+  margin: 0 4px;
+}
+
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}

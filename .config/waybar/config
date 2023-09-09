@@ -1,0 +1,154 @@
+[
+  {
+    "output": "HDMI-A-1",
+    "position": "bottom",
+    "layer": "top",
+    "modules-left": [
+      "sway/workspaces",
+      "sway/mode",
+      "custom/task"
+    ],
+    "modules-center": [
+    ],
+    "modules-right": [
+      "mpd",
+      "custom/recorder",
+      "pulseaudio",
+      "custom/temp",
+      "disk",
+      "clock#utc",
+      "clock#toronto",
+      "clock"
+    ],
+    "custom/task": {
+      "format": "{}",
+      "interval": 10,
+      "exec": "$XDG_CONFIG_HOME/waybar/task.sh"
+    },
+    "clock": {
+      "format": "{:%a, %d %b %r} CT",
+      "format-alt": "{:%H:%M:%S}",
+      "interval": 1
+    },
+    "clock#toronto": {
+      "format": "{:%I:%M %p} ET |",
+      "interval": 1,
+      "timezone": "America/Toronto"
+    },
+    "clock#utc": {
+      "format": "{:%H:%M} UTC |",
+      "interval": 1,
+      "timezone": "UTC"
+    },
+    "network": {
+      "interface": "redstar",
+      "interval": 1,
+      "format-wifi": " {essid} ({signalStrength}%) {bandwidthUpBits} {bandwidthDownBits}",
+      "format-ethernet": "{bandwidthUpBits}  {bandwidthDownBits}  |",
+      "format-disconnected": "⚠  disconnected",
+      "tooltip-format": "{ifname}: {ipaddr}",
+      "tooltip": false
+    },
+    "custom/temp": {
+      "exec": "$XDG_CONFIG_HOME/waybar/temp.sh",
+      "interval": 10
+    },
+    "memory": {
+      "interval": 5,
+      "format": "mem: {percentage}%"
+    },
+    "pulseaudio": {
+      "format": "{volume}% {icon} | {format_source} |",
+      "format-muted": "muted  | {format_source} |",
+      "format-source": "mic on",
+      "format-source-muted": "mic off",
+      "format-icons": {
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "scroll-step": 1,
+      "on-click": "pavucontrol",
+      "tooltip": false
+    },
+    "custom/recorder": {
+      "format": " ",
+      "return-type": "json",
+      "interval": 1,
+      "exec": "echo '{\"class\": \"recording\"}'",
+      "exec-if": "pgrep wf-recorder"
+    },
+    "mpd": {
+      "format": "{stateIcon} {artist} - {title} |",
+      "interval": 1,
+      "exec": "mpc current",
+      "exec-if": "pgrep mpd",
+      "on-click": "mpc toggle",
+      "escape": true,
+      "state-icons": {
+        "paused": "",
+        "playing": ""
+      },
+      "tooltip": false
+    },
+    "custom/weather": {
+      "format": "{}",
+      "tooltip": true,
+      "interval": 3600,
+      "exec": "python $HOME/.config/waybar/wttr.py",
+      "return-type": "json"
+    },
+    "sway/language": {
+      "on-click": "swaymsg input '12815:20484:SONiX_USB_DEVICE' xkb_switch_layout next",
+      "format": "{short} {variant}"
+    },
+    "custom/arrow1": {
+      "format": "",
+      "tooltip": false
+    },
+    "custom/arrow2": {
+      "format": "",
+      "tooltip": false
+    },
+    "custom/arrow3": {
+      "format": "",
+      "tooltip": false
+    },
+    "custom/arrow4": {
+      "format": "",
+      "tooltip": false
+    },
+    "custom/arrow5": {
+      "format": "",
+      "tooltip": false
+    },
+    "custom/arrow6": {
+      "format": "",
+      "tooltip": false
+    },
+    "disk": {
+      "interval": 120,
+      "format": " os: {free} |",
+      "path": "/"
+    }
+  },
+  {
+    "output": "DVI-D-1",
+    "position": "bottom",
+    "layer": "top",
+    "modules-left": [
+      "sway/workspaces",
+      "sway/mode"
+    ],
+    "modules-right": [
+      "clock"
+    ],
+    "clock": {
+      "format": "{:%a, %d %b %r}",
+      "format-alt": "{:%H:%M:%S}",
+      "interval": 1
+    }
+  }
+]
