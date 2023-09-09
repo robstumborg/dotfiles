@@ -1,6 +1,9 @@
 # display settings
 output HDMI-A-1 pos 0 0 res 3840x2160 scale 1
-output DP-1 disable
+# output DP-1 pos 0 3840 res 1920x1080 scale 1
+
+# start xdg-desktop-portal (for screen sharing)
+exec --no-startup-id /usr/lib/xdg-desktop-portal -r & /usr/lib/xdg-desktop-portal-wlr
 
 # dynamic wallpaper
 exec wallpaper
@@ -17,7 +20,6 @@ input "type:keyboard" {
     xkb_layout us
     repeat_delay 250
     repeat_rate 60
-    xkb_options caps:escape
 }
 
 # sway theme
@@ -45,20 +47,20 @@ client.unfocused        #333333 #222222 #eeeeee #292d2e   #3e4452
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
+# status bar
+bar { 
+    swaybar_command waybar
+}
+
+bindsym $mod+shift+y exec killall -SIGUSR2 waybar
+
 # lock settings
 set $sleep screen-lock
-
-exec swayidle timeout 180 $sleep \
-    timeout 210 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"; killall yambar; yambar'
-
 bindsym ctrl+alt+delete exec $sleep
 
-# bar
-exec yambar
-
-# restart bar
-bindsym $mod+shift+y exec "killall yambar; yambar"
+exec swayidle timeout 900 $sleep \
+    timeout 1200 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"'
 
 # terminal
 bindsym $mod+return exec launch-terminal
@@ -109,6 +111,8 @@ exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 bindsym $mod+equal exec amixer -D "pipewire" sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
 bindsym $mod+minus exec amixer -D "pipewire" sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
 bindsym $mod+0 exec amixer -D "pipewire" sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
+bindsym $mod+shift+0 exec amixer -D "pipewire" sset Capture toggle
+
 
 # media control
 bindsym $mod+m exec rofimpd
