@@ -12,11 +12,11 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		enable = true,
-		disable = { "html", "typescript" },
+		disable = { "html", "typescript", "javascript" },
 	},
 	indent = {
 		enable = true,
-		disable = { "html", "python" },
+		disable = { "html", "python", "javascript", "typescript" },
 	},
 	autotag = {
 		enable = true,
