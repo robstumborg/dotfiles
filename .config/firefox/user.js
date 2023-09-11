@@ -17,6 +17,9 @@ user_pref('media.ffvpx.enabled', false);
 user_pref('media.rdd-vpx.enabled', false);
 user_pref('media.navigator.mediadatadecoder_vpx_enabled', true);
 
+// disable alt key popping top menu
+user_pref('ui.key.menuAccessKeyFocuses', false);
+
 // etc
 user_pref("general.warnOnAboutConfig", false);
 user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
