@@ -29,7 +29,7 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- toggle highlight
-vim.keymap.set("n", "<a-h>", ":set hls!<cr>", { silent = true })
+vim.keymap.set("n", "<Left>", ":set hls!<cr>", { silent = true })
 
 -- toggle file explorer
 vim.keymap.set("n", "<c-b>", ":NvimTreeToggle<cr>")
