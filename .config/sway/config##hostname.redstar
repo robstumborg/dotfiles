@@ -108,10 +108,10 @@ set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
 
 # volume control
-bindsym $mod+equal exec amixer -D "pipewire" sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
-bindsym $mod+minus exec amixer -D "pipewire" sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
-bindsym $mod+0 exec amixer -D "pipewire" sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
-bindsym $mod+shift+0 exec amixer -D "pipewire" sset Capture toggle
+bindsym $mod+equal exec pactl set-sink-volume 0 +2% && pactl get-sink-volume 0 | awk '{print $12}' | tr -d '%' | head -1 > $WOBSOCK
+bindsym $mod+minus exec pactl set-sink-volume 0 -2% && pactl get-sink-volume 0 | awk '{print $12}' | tr -d '%' | head -1 > $WOBSOCK
+bindsym $mod+0 exec pactl set-sink-mute 0 toggle && pactl get-sink-volume 0 | awk '{print $12}' | tr -d '%' | head -1 > $WOBSOCK
+bindsym $mod+shift+0 exec pactl set-source-mute 0 toggle
 
 
 # media control
