@@ -45,6 +45,9 @@ local on_attach = function(_, buffer)
 	-- refactor
 	vim.keymap.set("n", "<leader>rv", vim.lsp.buf.rename, { buffer = buffer })
 
+	-- lsp restart
+	vim.keymap.set("n", "<leader>lr", ":LspRestart<cr>", { buffer = buffer })
+
 	-- disable inline error messages
 	vim.diagnostic.config({ virtual_text = false })
 end
