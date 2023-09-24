@@ -69,8 +69,8 @@ export PATH=$PATH:$XDG_CONFIG_HOME/composer/vendor/bin
 # export PATH=$PATH:$ANDROID_SDK_ROOT/tools/
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 
-# nvm
-export NVM_DIR=$XDG_DATA_HOME/nvm
+# node
+export NODE_OPTIONS=--openssl-legacy-provider
 
 # ruby
 export PATH=$PATH:$XDG_DATA_HOME/gem/ruby/3.0.0/bin
