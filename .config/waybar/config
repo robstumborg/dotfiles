@@ -70,7 +70,7 @@
         ]
       },
       "scroll-step": 1,
-      "on-click": "pavucontrol",
+      "on-click": "pactl set-sink-mute 0 toggle && pactl get-sink-volume 0",
       "tooltip": false
     },
     "custom/recorder": {
