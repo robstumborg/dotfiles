@@ -162,3 +162,20 @@ vim.keymap.set("n", "<c-l>", function()
 		vim.wo.relativenumber = true
 	end
 end)
+
+-- angular file switching
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "html",
+	callback = function()
+		vim.keymap.set("n", "<leader><space>", ":e %<.ts<cr>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>as", ":e %<.scss<cr>", { buffer = true, silent = true })
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "typescript",
+	callback = function()
+		vim.keymap.set("n", "<leader><space>", ":e %<.html<cr>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>as", ":e %<.scss<cr>", { buffer = true, silent = true })
+	end,
+})
