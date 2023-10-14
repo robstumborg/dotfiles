@@ -57,6 +57,9 @@ end)
 -- format buffer w/ formatter.nvim
 vim.keymap.set("n", "<leader>ff", ":Format<cr>")
 
+-- format selection w/ formatter.nvim
+vim.keymap.set("v", "<leader>ff", ":Format<cr>")
+
 -- git
 vim.keymap.set("n", "<leader>gg", ":Git<cr>", { desc = "git: fugitive interface" })
 vim.keymap.set("n", "<leader>gaf", ":Gitsigns stage_buffer<cr>", { desc = "git: stage this entire buffer" })
