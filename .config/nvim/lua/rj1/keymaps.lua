@@ -1,3 +1,6 @@
+local wk = require("which-key")
+wk.register()
+
 -- buffer navigation
 vim.keymap.set("n", "<c-k>", "<plug>(cokeline-focus-next)", { silent = true })
 vim.keymap.set("n", "<c-j>", "<plug>(cokeline-focus-prev)", { silent = true })
@@ -55,21 +58,21 @@ end)
 vim.keymap.set("n", "<leader>ff", ":Format<cr>")
 
 -- git
-vim.keymap.set("n", "<leader>gs", ":Git<cr>")
-vim.keymap.set("n", "<leader>gaf", ":Gitsigns stage_buffer<cr>")
-vim.keymap.set("n", "<leader>grf", ":Gitsigns reset_buffer<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>gah", ":Gitsigns stage_hunk<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>guh", ":Gitsigns undo_stage_hunk<cr>")
-vim.keymap.set({ "n", "v" }, "<leader>grh", ":Gitsigns reset_hunk<cr>")
-vim.keymap.set("n", "<leader>gph", ":Gitsigns preview_hunk<cr>")
-vim.keymap.set("n", "<leader>gn", ":Gitsigns next_hunk<cr>")
-vim.keymap.set("n", "<leader>gp", ":Gitsigns prev_hunk<cr>")
+vim.keymap.set("n", "<leader>gg", ":Git<cr>", { desc = "git: fugitive interface" })
+vim.keymap.set("n", "<leader>gaf", ":Gitsigns stage_buffer<cr>", { desc = "git: stage this entire buffer" })
+vim.keymap.set("n", "<leader>grf", ":Gitsigns reset_buffer<cr>", { desc = "git: reset buffer" })
+vim.keymap.set({ "n", "v" }, "<leader>gah", ":Gitsigns stage_hunk<cr>", { desc = "git: stage this hunk" })
+vim.keymap.set({ "n", "v" }, "<leader>guh", ":Gitsigns undo_stage_hunk<cr>", { desc = "git: undo stage this hunk" })
+vim.keymap.set({ "n", "v" }, "<leader>grh", ":Gitsigns reset_hunk<cr>", { desc = "git: reset this hunk" })
+vim.keymap.set("n", "<leader>gph", ":Gitsigns preview_hunk<cr>", { desc = "git: preview this hunk" })
+vim.keymap.set("n", "<leader>gn", ":Gitsigns next_hunk<cr>", { desc = "git: browse to next hunk" })
+vim.keymap.set("n", "<leader>gp", ":Gitsigns prev_hunk<cr>", { desc = "git: browse to previous hunk" })
 
 -- vimux
 vim.keymap.set("n", "<leader>tt", ":VimuxTogglePane<cr>", { silent = true })
 
 -- vimux executors
-vim.keymap.set("n", "<leader>tr", ':echo "can\'t execute this file"<cr>')
+vim.keymap.set("n", "<leader>tr", ':echo "can\'t execute this file"<cr>', { desc = "vimux: run this file" })
 vim.api.nvim_create_augroup("vimux", { clear = true })
 local vimuxtable = {
 	["php"] = "php",
@@ -129,7 +132,7 @@ endfunction]])
 vim.keymap.set("n", "<leader>tl", function()
 	local line = vim.fn.getline(".")
 	vim.cmd("VimuxRunCommand '" .. line .. "'")
-end)
+end, { desc = "vimux: execute visual selection as shell command" })
 
 -- todo
 vim.keymap.set("n", "]t", function()
