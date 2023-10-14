@@ -27,7 +27,7 @@ require("lazy").setup({
 	"microsoft/python-type-stubs",
 	"rafamadriz/friendly-snippets",
 
-	-- codeium
+	-- ai
 	{
 		"Exafunction/codeium.vim",
 		config = function()
@@ -45,6 +45,7 @@ require("lazy").setup({
 			end, { expr = true })
 		end,
 	},
+	"Robitx/gp.nvim",
 
 	-- syntax / editing
 	{ "nvim-treesitter/nvim-treesitter-textobjects", dependencies = "nvim-treesitter/nvim-treesitter" },

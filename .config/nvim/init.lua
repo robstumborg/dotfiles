@@ -3,7 +3,7 @@ vim.g.maplocalleader = " "
 
 require("rj1/plugins")
 require("rj1/settings")
-require("rj1/codeium")
+require("rj1/ai")
 require("rj1/notes")
 require("rj1/sessions")
 require("rj1/lualine")

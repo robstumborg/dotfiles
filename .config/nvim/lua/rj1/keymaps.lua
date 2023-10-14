@@ -1,6 +1,7 @@
 local wk = require("which-key")
 wk.register()
 
+
 -- buffer navigation
 vim.keymap.set("n", "<c-k>", "<plug>(cokeline-focus-next)", { silent = true })
 vim.keymap.set("n", "<c-j>", "<plug>(cokeline-focus-prev)", { silent = true })
@@ -185,3 +186,12 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "<leader>ngs", ":e %<.scss<cr>", { desc = "angular: switch to stylesheet", buffer = true, silent = true })
 	end,
 })
+
+-- openai
+vim.keymap.set("n", "<leader>an", ":GpChatNew<cr>", { desc = "gpt: new chat buffer" })
+vim.keymap.set("n", "<leader>ap", ":GpChatToggle<cr>", { desc = "gpt: chat popup" })
+vim.keymap.set("n", "<leader>as", ":GpChatRespond<cr>", { desc = "gpt: send message" })
+
+vim.keymap.set("v", "<leader>an", ":<C-u>'<,'>GpChatNew<cr>", { desc =  "gpt: new chat buffer" })
+vim.keymap.set("v", "<leader>ap", ":<C-u>'<,'>GpChatToggle<cr>", { desc = "gpt: chat popup" })
+vim.keymap.set("v", "<leader>ar", ":<C-u>'<,'>GpRewrite<cr>", { desc = "gpt: rewrite selection" })
