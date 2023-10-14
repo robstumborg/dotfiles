@@ -170,15 +170,15 @@ end)
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "html",
 	callback = function()
-		vim.keymap.set("n", "<leader><space>", ":e %<.ts<cr>", { buffer = true, silent = true })
-		vim.keymap.set("n", "<leader>as", ":e %<.scss<cr>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>ngc", ":e %<.ts<cr>", { desc = "angular: switch to component", buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>ngs", ":e %<.scss<cr>", { desc = "angular: switch to stylesheet", buffer = true, silent = true })
 	end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "typescript",
 	callback = function()
-		vim.keymap.set("n", "<leader><space>", ":e %<.html<cr>", { buffer = true, silent = true })
-		vim.keymap.set("n", "<leader>as", ":e %<.scss<cr>", { buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>ngt", ":e %<.html<cr>", { desc = "angular: switch to template", buffer = true, silent = true })
+		vim.keymap.set("n", "<leader>ngs", ":e %<.scss<cr>", { desc = "angular: switch to stylesheet", buffer = true, silent = true })
 	end,
 })
