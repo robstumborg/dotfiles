@@ -46,6 +46,7 @@ alias ta="transmission-remote -a"
 alias tl="transmission-remote --list"
 alias mpv="mpv --input-ipc-server=/tmp/mpv"
 alias e=edit
+alias slack="weechat --dir ~/.config/weechat-slack/conf:~/.config/weechat-slack/data:~/.config/weechat-slack/cache:~/.config/weechat-slack/runtime"
 
 urlencode() {
     php -r "echo urlencode('$1');"
