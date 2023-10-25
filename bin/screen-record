@@ -5,7 +5,8 @@ if [ $(pgrep screen-record) != 0 ]; then
   audio=$(echo -e "none\ndesktop\nmicrophone" | rofi -dmenu -p 'screencast audio')
   [ ! ${audio} ] && exit
   file="$HOME/vid/screencast/screencast-$(date +%F-%H-%M-%S).mp4"
-  cmd="wf-recorder -f \"${file}\" -g \"${dimensions}\" -c h264_vaapi -d /dev/dri/renderD128"
+  # cmd="wf-recorder -f \"${file}\" -g \"${dimensions}\" -c h264_vaapi -d /dev/dri/renderD128"
+  cmd="wf-recorder -f \"${file}\" -g \"${dimensions}\""
 
   # pactl list | grep -A2 'Source #' | grep 'Name: ' | cut -d" " -f2
 
@@ -15,7 +16,7 @@ if [ $(pgrep screen-record) != 0 ]; then
     bash -c "${cmd}"
     ;;
   microphone)
-    cmd+=" --audio=\"alsa_card.usb-Generic_Blue_Microphones_LT_201028234628D70F0609_111000-00\""
+    cmd+=" --audio=\"NoiseTorch\""
     bash -c "${cmd}"
     ;;
   none)
