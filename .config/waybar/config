@@ -1,6 +1,5 @@
 [
   {
-    "output": "HDMI-A-1",
     "position": "bottom",
     "layer": "top",
     "modules-left": [
@@ -18,8 +17,12 @@
       "disk",
       "clock#utc",
       "clock#toronto",
-      "clock"
+      "clock",
+      "battery"
     ],
+    "battery": {
+      "format": "| bat: {capacity}% "
+    },
     "custom/task": {
       "format": "{}",
       "interval": 10,
