@@ -1,6 +1,26 @@
 local wk = require("which-key")
 wk.register()
 
+vim.cmd([[
+noremap n h|        "move Left
+noremap e gj|       "move Down
+noremap i gk|       "move Up
+noremap o l|        "move Right
+noremap t i|        "(t)ype           replaces (i)nsert
+noremap T I|        "(T)ype at bol    replaces (I)nsert
+noremap E e|        "end of word      replaces (e)nd
+noremap h n|        "next match       replaces (n)ext
+noremap k N|        "previous match   replaces (N) prev
+noremap <C-m> m|    "mark             replaces (m)ark
+nnoremap ci ci|
+nnoremap di di|
+nnoremap vi vi|
+nnoremap yi yi|
+nnoremap ct ct|
+nnoremap dt dt|
+nnoremap vt vt|
+nnoremap yt yt|
+]])
 
 -- buffer navigation
 vim.keymap.set("n", "<c-k>", "<plug>(cokeline-focus-next)", { silent = true })
