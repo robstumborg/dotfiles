@@ -12,6 +12,9 @@ noremap E e|        "end of word      replaces (e)nd
 noremap h n|        "next match       replaces (n)ext
 noremap k N|        "previous match   replaces (N) prev
 noremap <C-m> m|    "mark             replaces (m)ark
+noremap l o|
+noremap L O|
+nnoremap cl cl|
 nnoremap ci ci|
 nnoremap di di|
 nnoremap vi vi|
@@ -23,8 +26,8 @@ nnoremap yt yt|
 ]])
 
 -- buffer navigation
-vim.keymap.set("n", "<c-k>", "<plug>(cokeline-focus-next)", { silent = true })
-vim.keymap.set("n", "<c-j>", "<plug>(cokeline-focus-prev)", { silent = true })
+vim.keymap.set("n", "<c-i>", "<plug>(cokeline-focus-next)", { silent = true })
+vim.keymap.set("n", "<c-e>", "<plug>(cokeline-focus-prev)", { silent = true })
 vim.keymap.set("n", "<c-w>", ":bd!<cr>", { silent = true })
 
 -- new file, save file
