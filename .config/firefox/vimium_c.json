@@ -1,11 +1,11 @@
 {
 	"name": "Vimium C",
-	"@time": "9/4/2023, 10:21:35 AM",
-	"time": 1693844495681,
+	"@time": "11/11/2023, 11:30:11 PM",
+	"time": 1699767011594,
 	"environment": {
 		"extension": "1.99.995",
 		"platform": "linux",
-		"firefox": 117
+		"firefox": 119
 	},
 	"clipSub": [
 		"p=^git@([^/:]+):=https://$1/=",
@@ -16,8 +16,10 @@
 	"grabBackFocus": true,
 	"keyMappings": [
 		"#!no-check",
-		"#map K previousTab",
-		"#map J nextTab",
+		"mapKey n h",
+		"mapKey e j",
+		"mapKey i k",
+		"mapKey o l",
 		"map <c-s-h> zoomReset",
 		"map <c-s-k> zoomIn",
 		"map <c-s-j> zoomOut",
