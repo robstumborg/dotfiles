@@ -11,10 +11,10 @@ exec wallpaper
 
 # winkey
 set $mod mod4
-set $left h
-set $down j
-set $up k
-set $right l
+set $left n
+set $down e
+set $up i
+set $right o
 
 # keeb settings
 input "type:keyboard" {
