@@ -1,0 +1,204 @@
+# display settings
+output eDP-1 pos 3840 1080 res 1920x1080 scale 1
+output DP-4 pos 0 0 res 3840x2160 scale 1
+output DP-5 pos 0 0 res 3840x2160 scale 1
+
+# start xdg-desktop-portal (screen sharing)
+exec --no-startup-id /usr/lib/xdg-desktop-portal -r & /usr/lib/xdg-desktop-portal-wlr
+
+# dynamic wallpaper
+exec wallpaper
+
+# winkey
+set $mod mod4
+set $left h
+set $down j
+set $up k
+set $right l
+
+# keeb settings
+input "type:keyboard" {
+    xkb_layout us
+    repeat_delay 250
+    repeat_rate 60
+}
+
+# make trackpoint tolerable
+input "2:10:TPPS/2_IBM_TrackPoint" {
+    accel_profile flat
+    pointer_accel 1
+}
+
+# disable touchpad
+input "1739:0:Synaptics_TM3276-022" {
+    events disabled
+}
+
+# sway theme
+set $font 'Hack Nerd Font Mono'
+set $cursor_theme 'Neutral'
+set $cursor_size 16
+seat seat0 hide_cursor 5000
+seat seat0 xcursor_theme $cursor_theme $cursor_size
+
+exec_always {
+    gsettings set org.gnome.desktop.interface cursor-theme $cursor_theme
+    gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+    gsettings set org.gnome.desktop.interface font-name $font
+}
+
+font $font 12
+titlebar_padding 2
+default_border pixel 5
+gaps inner 5
+
+# class                 border  bg      text    indicator child_border
+client.focused          #98c379 #98c379 #000000 #98c379   #98c379
+client.focused_inactive #333333 #222222 #ffffff #484e50   #3e4452
+client.unfocused        #333333 #222222 #eeeeee #292d2e   #3e4452
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+# status bar
+bar { 
+    swaybar_command waybar
+}
+
+bindsym $mod+shift+y exec killall -SIGUSR2 waybar
+
+# lock settings
+set $sleep screen-lock
+bindsym ctrl+alt+delete exec $sleep
+
+exec swayidle timeout 900 $sleep \
+    timeout 1200 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"'
+
+# brightness control
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym $mod+shift+equal exec xbacklight -inc 10
+bindsym $mod+shift+minus exec xbacklight -dec 10
+
+# terminal
+bindsym $mod+return exec launch-terminal
+
+# kill focused window
+bindsym $mod+shift+q kill
+
+# rofi
+bindsym $mod+space exec rofi -show run
+
+# rofi+pass
+bindsym $mod+p exec tessen
+
+# sshot
+bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
+
+# screencast
+bindsym $mod+shift+s exec screen-record
+
+# color picker
+bindsym $mod+c exec hyprpicker --autocopy 
+
+# toggle horizontal/vertical
+bindsym $mod+d layout toggle split
+bindsym $mod+apostrophe splitv
+bindsym $mod+semicolon splith
+
+# toggle layout
+bindsym $mod+t layout toggle all
+
+# fullscreen
+bindsym $mod+f fullscreen
+
+# floating/tiled toggle
+bindsym $mod+shift+f floating toggle
+
+# drag floating windows
+floating_modifier $mod normal
+
+# notifications
+exec mako
+
+# audio
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
+
+# volume control
+bindsym $mod+equal exec pactl set-sink-volume 0 +2% && pactl get-sink-volume 0 | awk '{print $12}' | tr -d '%' | head -1 > $WOBSOCK
+bindsym $mod+minus exec pactl set-sink-volume 0 -2% && pactl get-sink-volume 0 | awk '{print $12}' | tr -d '%' | head -1 > $WOBSOCK
+bindsym $mod+0 exec pactl set-sink-mute 0 toggle && pactl get-sink-volume 0 | awk '{print $12}' | tr -d '%' | head -1 > $WOBSOCK
+bindsym $mod+shift+0 exec pactl set-source-mute 0 toggle
+
+
+# media control
+bindsym $mod+m exec rofimpd
+bindsym $mod+slash exec mpc toggle
+bindsym $mod+period exec mpc next
+bindsym $mod+comma exec mpc prev
+bindsym $mod+shift+comma exec mpc seek -5
+bindsym $mod+shift+period exec mpc seek +5
+
+# reload sway
+bindsym $mod+shift+r reload
+
+# quit sway
+bindsym $mod+shift+x exec swaynag -t warning \
+    -m 'is you finished or is you done?' -b 'ye' 'swaymsg exit'
+
+# switch windows
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# move windows
+bindsym $mod+shift+$left move left
+bindsym $mod+shift+$down move down
+bindsym $mod+shift+$up move up
+bindsym $mod+shift+$right move right
+
+# switch workspaces
+bindsym $mod+b workspace "main"
+bindsym $mod+g workspace "goog"
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+
+# move windows to workspaces
+bindsym $mod+shift+b move container to workspace "main"
+bindsym $mod+shift+g move container to workspace "goog"
+bindsym $mod+shift+1 move container to workspace number 1
+bindsym $mod+shift+2 move container to workspace number 2
+bindsym $mod+shift+3 move container to workspace number 3
+bindsym $mod+shift+4 move container to workspace number 4
+bindsym $mod+shift+5 move container to workspace number 5
+bindsym $mod+shift+6 move container to workspace number 6
+bindsym $mod+shift+7 move container to workspace number 7
+bindsym $mod+shift+8 move container to workspace number 8
+bindsym $mod+shift+9 move container to workspace number 9
+
+# resize mode
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # return to default mode
+    bindsym return mode "default"
+    bindsym escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# wlsunset
+exec brightness-adjust
