@@ -101,11 +101,6 @@ require("lualine").setup({
 		},
 		lualine_x = {
 			{
-				Daily_status,
-				icon = "daily:",
-        color = { fg = colors.red },
-			},
-			{
 				"encoding",
         color = { fg = colors.purple },
 
