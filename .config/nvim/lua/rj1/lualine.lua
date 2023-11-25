@@ -79,7 +79,7 @@ require("lualine").setup({
 					return { fg = colors.purple }
 				end,
 			},
-			{
+			--[[ {
 				Codeium_status,
 				icon = "󰧑 ai:",
 
@@ -90,7 +90,7 @@ require("lualine").setup({
 						return { fg = colors.red }
 					end
 				end,
-			},
+			}, ]]
 		},
 		lualine_b = {
 			{
