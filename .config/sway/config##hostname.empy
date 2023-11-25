@@ -209,3 +209,6 @@ bindsym $mod+r mode "resize"
 
 # wlsunset
 exec brightness-adjust
+
+# noisetorch
+exec "sleep 4 && noisetorch -i"

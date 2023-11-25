@@ -31,7 +31,8 @@ end
 require("gp").setup({
 	openai_api_key = fetch_openai_key(),
 	openai_api_endpoint = "https://api.openai.com/v1/chat/completions",
+	chat_model = { model = "gpt-3.5-turbo-16k", temperature = 1.1, top_p = 1 },
 	chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/chatgpt/chats",
 	chat_user_prefix = "## prompt",
-	chat_assistant_prefix = "## response"
+	chat_assistant_prefix = "## response",
 })

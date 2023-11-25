@@ -1,0 +1,161 @@
+hack: &hack Hack Nerd Font Mono:pixelsize=29
+hack_brands: &hack_brands Font hack 6 Brands:pixelsize=16
+
+std_underline: &std_underline {underline: { size: 3, color: 98c379ff}}
+
+bar:
+  height: 26
+  location: bottom
+  spacing: 5
+  margin: 5
+  background: 1d2330c0
+  font: Hack Nerd Font Mono:pixelsize=18
+
+  left:
+    - i3:
+        anchors:
+          - string: &i3_common {margin: 5, on-click: "swaymsg --quiet workspace {name}"}
+          - string: &default {<<: *i3_common, text: "{name}"}
+          - focused: &focused
+              deco: *std_underline
+          - urgent: &urgent
+              foreground: 000000ff
+              deco: { background: {color: bc2b3fff}}
+          - map: &i3_mode
+              default:
+                - string:
+                    margin: 5
+                    text: "{mode}"
+                    deco: {background: {color: cc421dff}}
+                - empty: {right-margin: 7}
+              conditions:
+                mode == default: {empty: {}}
+        content:
+          "":
+            map:
+              conditions:
+                state == focused:   {string: {<<: [*default, *focused]}}
+                state == unfocused: {string: {<<: *default}}
+                state == invisible: {string: {<<: *default}}
+                state == urgent:    {string: {<<: [*default, *urgent]}}
+
+  right:
+    - mpd:
+        host: localhost
+        port: 6600
+        anchors:
+          list: &artist_album_title
+            spacing: 0
+            items:
+              - map:
+                  conditions:
+                    state == playing: {string: {text: "{artist} - "}}
+                    state == paused: {string: {text: "{artist} - ", foreground: ffffff66}}
+              - map:
+                  conditions:
+                    state == playing: {string: {text: "{title}"}}
+                    state == paused: {string: {text: "{title}", foreground: ffffff66}}
+
+              - string: {text: " |"}
+
+        content:
+          map:
+            conditions:
+              state == offline: {string: {text: "mpd offline |", foreground: ff0000ff}}
+              state == stopped: {string: {text: "stopped |"}}
+              state == paused: {list: *artist_album_title}
+              state == playing: {list: *artist_album_title}
+
+    - network:
+        name: wlan0
+        poll-interval: 10000
+        content:
+          map:
+            default: {string: {text: , foreground: ffffff66}}
+            conditions:
+              state == down: {string: {text: "no wifi", foreground: ff0000ff}}
+              state == up:
+                map:
+                  default:
+                    - string: {text: " {ssid} |"}
+
+                  conditions:
+                    ipv4 == "":
+                      - string: {text: , foreground: ffffff66}
+                      - string: {text: "{ssid} |", foreground: ffffff66}
+    - alsa:
+        card: pipewire
+        mixer: Master
+        content:
+          map:
+            on-click:
+              left: pavucontrol
+              wheel-up: amixer -D "pipewire" sset Master 2%+
+              wheel-down: amixer -D "pipewire" sset Master 2%-
+
+            conditions:
+              muted: {string: {text: '󰝟 muted |'}}
+              ~muted:
+                - ramp:
+                    tag: percent
+                    items:
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                - string: {text: " {percent}% |"}
+
+    - battery:
+        name: BAT1
+        poll-interval: 10000
+        anchors:
+          discharging: &discharging
+            list:
+              items:
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text: , foreground: ff0000ff}
+                      - string: {text: , foreground: ffa600ff}
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: , foreground: 00ff00ff}
+                - string: {text: "{capacity}% {estimate} |"}
+        content:
+          map:
+            conditions:
+              state == unknown:
+                <<: *discharging
+              state == discharging:
+                <<: *discharging
+              state == charging:
+                - string: {text: }
+                - string: {text: "{capacity}% {estimate} |"}
+              state == full:
+                - string: {text: }
+                - string: {text: "{capacity}% full |"}
+              state == "not charging":
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                - string: {text: " {capacity}% |"}
+
+    - clock:
+        time-format: "%r CT"
+        date-format: "%a, %d %b"
+        content:
+          - string: {text: "{date} {time}"}

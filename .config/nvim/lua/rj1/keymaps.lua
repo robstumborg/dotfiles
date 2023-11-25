@@ -84,6 +84,9 @@ vim.keymap.set("n", "<leader>ff", ":Format<cr>")
 -- format selection w/ formatter.nvim
 vim.keymap.set("v", "<leader>ff", ":Format<cr>")
 
+-- place filepath in clipboard
+vim.keymap.set('n', '<leader>fp', "<cmd>let @+ = expand('%')<cr>", {noremap = true, silent = true})
+
 -- git
 vim.keymap.set("n", "<leader>gg", ":Git<cr>", { desc = "git: fugitive interface" })
 vim.keymap.set("n", "<leader>gaf", ":Gitsigns stage_buffer<cr>", { desc = "git: stage this entire buffer" })
