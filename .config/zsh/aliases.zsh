@@ -47,6 +47,7 @@ alias tl="transmission-remote --list"
 alias mpv="mpv --input-ipc-server=/tmp/mpv"
 alias e=edit
 alias slack="weechat --dir ~/.config/weechat-slack/conf:~/.config/weechat-slack/data:~/.config/weechat-slack/cache:~/.config/weechat-slack/runtime"
+alias workout="mpv --mute ~/vid/workout/arms.webm"
 
 urlencode() {
     php -r "echo urlencode('$1');"
@@ -85,8 +86,9 @@ upload() {
     filename=$(basename $file)
 
     # curl -fsSL  -F "files[]=@\"${file}\"" https://uguu.se/upload.php | jq -r ".files[0].url"
-    curl -fsSL  -F "file=@\"${file}\"" https://0x0.st/
+    # curl -fsSL  -F "file=@\"${file}\"" https://0x0.st/
     # curl -fsSL  -F "file=@\"${file}\"" -F "url_len=5" https://filehole.org/
+    curl -fsSL  -F "file=@\"${file}\"" -F "url_len=5" https://u.rj1.su/upload
 }
 alias up=upload
 
@@ -165,3 +167,41 @@ function blurborder() {
 function send2kindle() {
     scp "${1}" kindle:/mnt/us/documents/
 }
+
+db-backup() {
+    # Get the current date and time
+    current_date=$(date +"%b_%d_%Y")
+    
+    # Set the filename
+    filename="${1}_${current_date}.sql"
+    
+    # Run the mysqldump command with the provided database and filename
+    mariadb-dump --port=3333 -u root -p "$1" > "$filename"
+}
+
+db-restore() {
+  # Set the database name and directory where the dump files are stored
+  database="your_database_name"
+  dump_dir="/path/to/dump_directory"
+
+  # Drop the database
+  echo "Dropping the '${database}' database..."
+  mysql -e "DROP DATABASE IF EXISTS ${database}"
+
+  # Recreate the database
+  echo "Recreating the '${database}' database..."
+  mysql -e "CREATE DATABASE ${database}"
+
+  # Find the latest dump file in the specified directory
+  dump_file=$(ls -1t "${dump_dir}"/*.sql 2>/dev/null | head -1)
+
+  if [ -z "${dump_file}" ]; then
+    echo "No dump files found in '${dump_dir}'"
+    exit 1
+  fi
+
+  # Import data from the latest dump file
+  echo "Importing data from '${dump_file}' into the '${database}' database..."
+  mysql "${database}" < "${dump_file}"
+}
+
