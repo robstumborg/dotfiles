@@ -69,6 +69,12 @@ ipi() {
     curl -s https://ipinfo.io/$1
 }
 
+upcast() {
+    file="$HOME/vid/screencast/$(/usr/bin/ls -Art $HOME/vid/screencast | tail -n 1)"
+    scp "$file" stu:/home/stu/web/rob.stumb.org/public/vid
+    echo "https://rob.stumb.org/vid/$(basename $file)";
+}
+
 upload() {
     if [ $# -lt 1 ]; then
         echo "filename parameter required"
