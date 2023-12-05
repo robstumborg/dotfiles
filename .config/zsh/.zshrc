@@ -18,6 +18,9 @@ zinit load "zsh-users/zsh-autosuggestions"
 bindkey '^l' autosuggest-accept
 source $XDG_CONFIG_HOME/zsh/aliases.zsh
 
+# node version manager
+source /usr/share/nvm/init-nvm.sh
+
 # settings
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{node_modules,.git,vendor}"'
