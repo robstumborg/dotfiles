@@ -29,9 +29,28 @@ local function fetch_openai_key()
 end
 
 require("gp").setup({
+	agents = {
+		{ name ="ChatGPT4" },
+		{ name ="ChatGPT3-5" },
+		{
+			name = "dev",
+			chat = true,
+			command = false,
+			-- model = { model = "gpt-3.5-turbo-16k", temperature = 1.1, top_p = 1 },
+ 			model = { model = "gpt-3.5-turbo-1106", temperature = 1.1, top_p = 1 },
+			system_prompt = "You are an AI assistant for a professional programmer.\n\n"
+							.. "The user provided the additional info about how they would like you to respond:\n\n"
+							.. "- If you're unsure don't guess and say you don't know instead.\n"
+							.. "- Ask question if you need clarification to provide a better answer.\n"
+							.. "- Think deeply and carefully from first principles, going through the problem step by step.\n"
+							.. "- Zoom out first to see the big picture and then zoom in to details.\n"
+							.. "- Use the Socratic method to improve your thinking and coding skills.\n"
+							.. "- Don't exclude any code from your output if the answer requires coding.\n"
+							.. "- Take a deep breath; You've got this!\n",
+		},
+	},
 	openai_api_key = fetch_openai_key(),
 	openai_api_endpoint = "https://api.openai.com/v1/chat/completions",
-	chat_model = { model = "gpt-3.5-turbo-16k", temperature = 1.1, top_p = 1 },
 	chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/chatgpt/chats",
 	chat_user_prefix = "## prompt",
 	chat_assistant_prefix = "## response",

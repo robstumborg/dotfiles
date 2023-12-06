@@ -219,5 +219,5 @@ vim.keymap.set("n", "<leader>ap", ":GpChatToggle<cr>", { desc = "gpt: chat popup
 vim.keymap.set("n", "<leader>as", ":GpChatRespond<cr>", { desc = "gpt: send message" })
 
 vim.keymap.set("v", "<leader>an", ":<C-u>'<,'>GpChatNew<cr>", { desc =  "gpt: new chat buffer" })
-vim.keymap.set("v", "<leader>ap", ":<C-u>'<,'>GpChatToggle<cr>", { desc = "gpt: chat popup" })
+vim.keymap.set("v", "<leader>ap", ":<C-u>'<,'>GpChatPaste<cr>", { desc = "gpt: chat paste" })
 vim.keymap.set("v", "<leader>ar", ":<C-u>'<,'>GpRewrite<cr>", { desc = "gpt: rewrite selection" })

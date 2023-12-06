@@ -73,7 +73,7 @@ bar:
           map:
             default: {string: {text: , foreground: ffffff66}}
             conditions:
-              state == down: {string: {text: "no wifi", foreground: ff0000ff}}
+              state == down: {string: {text: "no wifi |"}}
               state == up:
                 map:
                   default:

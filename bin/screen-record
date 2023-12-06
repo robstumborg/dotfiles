@@ -12,7 +12,7 @@ if [ $(pgrep screen-record) != 0 ]; then
 
   case $audio in
   desktop)
-    cmd+=" --audio=\"alsa_output.usb-Generic_Blue_Microphones_LT_201028234628D70F0609_111000-00.analog-stereo.monitor\""
+    cmd+=" --audio=\"bluez_output.AC_BF_71_0C_52_70.1.monitor\""
     bash -c "${cmd}"
     ;;
   microphone)
