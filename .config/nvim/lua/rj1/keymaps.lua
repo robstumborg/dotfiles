@@ -38,10 +38,10 @@ vim.keymap.set("n", "<c-s>", ":update<cr>", { silent = true })
 vim.keymap.set("n", "ss", ":split<cr>", { silent = true })
 vim.keymap.set("n", "sv", ":vsplit<cr>", { silent = true })
 vim.keymap.set("n", "sc", ":close<cr>", { silent = true })
-vim.keymap.set("n", "sh", "<c-w>h", { silent = true })
-vim.keymap.set("n", "sj", "<c-w>j", { silent = true })
-vim.keymap.set("n", "sk", "<c-w>k", { silent = true })
-vim.keymap.set("n", "sl", "<c-w>l", { silent = true })
+vim.keymap.set("n", "sn", "<c-w>h", { silent = true })
+vim.keymap.set("n", "se", "<c-w>j", { silent = true })
+vim.keymap.set("n", "si", "<c-w>k", { silent = true })
+vim.keymap.set("n", "so", "<c-w>l", { silent = true })
 
 -- don't let fugitive remap our s key so wo maintain our split navigation
 vim.api.nvim_create_autocmd("FileType", {
