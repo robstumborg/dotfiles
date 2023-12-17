@@ -24,13 +24,6 @@ input "type:keyboard" {
     repeat_rate 60
 }
 
-input "10730:864:Kinesis_Kinesis_Adv360" {
-    xkb_layout us
-    xkb_variant colemak
-    repeat_delay 250
-    repeat_rate 60
-}
-
 # make trackpoint tolerable
 input "2:10:TPPS/2_IBM_TrackPoint" {
     accel_profile flat
