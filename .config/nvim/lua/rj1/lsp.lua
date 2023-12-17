@@ -223,6 +223,7 @@ lspconfig.setup_handlers({
 						"zip",
 						"zlib",
 						"wordpress",
+						"random",
 					},
 				},
 			},
