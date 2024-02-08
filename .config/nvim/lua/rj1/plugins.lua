@@ -77,7 +77,7 @@ require("lazy").setup({
 	{ "noib3/nvim-cokeline", dependencies = "kyazdani42/nvim-web-devicons" },
 	{ "nvim-tree/nvim-tree.lua", dependencies = "kyazdani42/nvim-web-devicons" },
 	"karb94/neoscroll.nvim",
-	{ "iamcco/markdown-preview.nvim", build = ":call mkdp@util#install()" },
+	{ "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
 	"uga-rosa/ccc.nvim",
 	"tversteeg/registers.nvim",
 	"jinh0/eyeliner.nvim",

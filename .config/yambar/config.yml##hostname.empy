@@ -77,12 +77,12 @@ bar:
               state == up:
                 map:
                   default:
-                    - string: {text: " {ssid} |"}
+                    - string: {text: " |"}
 
                   conditions:
                     ipv4 == "":
                       - string: {text: , foreground: ffffff66}
-                      - string: {text: "{ssid} |", foreground: ffffff66}
+                      - string: {text: " |", foreground: ffffff66}
     - alsa:
         card: pipewire
         mixer: Master
@@ -124,7 +124,57 @@ bar:
                       - string: {text: }
                       - string: {text: }
                       - string: {text: , foreground: 00ff00ff}
+                - string: {text: " bat1: {capacity}% {estimate} |"}
+        content:
+          map:
+            conditions:
+              state == unknown:
+                <<: *discharging
+              state == discharging:
+                <<: *discharging
+              state == charging:
+                - string: {text: }
                 - string: {text: "{capacity}% {estimate} |"}
+              state == full:
+                - string: {text: }
+                - string: {text: "{capacity}% full |"}
+              state == "not charging":
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                - string: {text: " {capacity}% |"}
+
+    - battery:
+        name: BAT0
+        poll-interval: 10000
+        anchors:
+          discharging: &discharging
+            list:
+              items:
+                - ramp:
+                    tag: capacity
+                    items:
+                      - string: {text: , foreground: ff0000ff}
+                      - string: {text: , foreground: ffa600ff}
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: }
+                      - string: {text: , foreground: 00ff00ff}
+                - string: {text: " bat0: {capacity}% {estimate} |"}
         content:
           map:
             conditions:

@@ -89,6 +89,7 @@ vim.keymap.set('n', '<leader>fp', "<cmd>let @+ = expand('%')<cr>", {noremap = tr
 
 -- git
 vim.keymap.set("n", "<leader>gg", ":Git<cr>", { desc = "git: fugitive interface" })
+vim.keymap.set("n", "<leader>gb", ":Git blame<cr>", { desc = "git: blame" })
 vim.keymap.set("n", "<leader>gaf", ":Gitsigns stage_buffer<cr>", { desc = "git: stage this entire buffer" })
 vim.keymap.set("n", "<leader>grf", ":Gitsigns reset_buffer<cr>", { desc = "git: reset buffer" })
 vim.keymap.set({ "n", "v" }, "<leader>gah", ":Gitsigns stage_hunk<cr>", { desc = "git: stage this hunk" })
