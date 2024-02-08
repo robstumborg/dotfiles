@@ -48,6 +48,7 @@ alias mpv="mpv --input-ipc-server=/tmp/mpv"
 alias e=edit
 alias slack="weechat --dir ~/.config/weechat-slack/conf:~/.config/weechat-slack/data:~/.config/weechat-slack/cache:~/.config/weechat-slack/runtime"
 alias workout="mpv --mute ~/vid/workout/arms.webm"
+alias playwright="npx playwright"
 
 urlencode() {
     php -r "echo urlencode('$1');"
@@ -209,5 +210,30 @@ db-restore() {
   # Import data from the latest dump file
   echo "Importing data from '${dump_file}' into the '${database}' database..."
   mysql "${database}" < "${dump_file}"
+}
+
+# ping - https://gist.github.com/schappim/1d958254a2907f073cf3b70091ab4b0f
+function ping() {
+ local new_args=()
+ local url_found=0
+
+ for arg in "$@"; do
+     if [[ "$arg" =~ ^http ]] && [ $url_found -eq 0 ]; then
+         # Process the URL
+         local url="$arg"
+         url=${url#*://}  # Remove protocol
+         url=${url%%/*}   # Remove path
+         url=${url%%:*}   # Remove port
+         url=${url%%@*}   # Remove user info
+         new_args+=("$url")
+         url_found=1
+     else
+         # Add the argument as is
+         new_args+=("$arg")
+     fi
+ done
+
+ # Call the original ping command with the new argument list
+ command ping "${new_args[@]}"
 }
 
