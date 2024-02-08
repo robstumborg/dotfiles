@@ -19,7 +19,7 @@ bindkey '^l' autosuggest-accept
 source $XDG_CONFIG_HOME/zsh/aliases.zsh
 
 # node version manager
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
 
 # settings
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
