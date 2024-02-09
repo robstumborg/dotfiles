@@ -1,5 +1,11 @@
 # kinesis advantage 360 layout
 
+## weechat binds
+
+/key bind ctrl-e /buffer +1
+/key bind ctrl-i /buffer -1
+/key bind ctrl-o /window bare
+
 ## colemak layer
 
 ┌────────┬──────┬──────┬──────┬──────┬──────┬──────┐           ┌──────┬──────┬──────┬──────┬──────┬──────┬────────┐
