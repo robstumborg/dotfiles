@@ -86,7 +86,7 @@ require("lazy").setup({
 	"lukas-reineke/indent-blankline.nvim",
 	"https://github.com/folke/trouble.nvim",
 
-	{ "jakewvincent/mkdnflow.nvim", rocks = "luautf8" },
+	-- { "jakewvincent/mkdnflow.nvim", rocks = "luautf8" },
 
 	-- telescope
 	{
