@@ -1,17 +1,18 @@
 {
 	"name": "Vimium C",
-	"@time": "11/11/2023, 11:30:11 PM",
-	"time": 1699767011594,
+	"@time": "2/11/2024, 1:36:37 PM",
+	"time": 1707680197364,
 	"environment": {
-		"extension": "1.99.995",
+		"extension": "1.99.997",
 		"platform": "linux",
-		"firefox": 119
+		"firefox": 122
 	},
 	"clipSub": [
 		"p=^git@([^/:]+):=https://$1/=",
 		"s@^https://(?:www\\.)?google\\.com(?:\\.[^/]+)?/url\\?(?:[^&#]+&)*?url=([^&#]+)@$1@,matched,decodecomp",
 		""
 	],
+	"exclusionRules": [],
 	"extAllowList": "# extension id or hostname",
 	"grabBackFocus": true,
 	"keyMappings": [
@@ -20,12 +21,18 @@
 		"mapKey e j",
 		"mapKey i k",
 		"mapKey o l",
-		"map <c-s-h> zoomReset",
-		"map <c-s-k> zoomIn",
-		"map <c-s-j> zoomOut",
+		"#mapKey t i",
+		"#mapKey s f",
+		"# arstneio",
+		"map gt focusInput",
+		"",
+		"map <c-s-n> zoomReset",
+		"map <c-s-e> zoomIn",
+		"map <c-s-i> zoomOut",
 		"map U LinkHints.activateCopyLinkUrl",
 		""
 	],
+	"linkHintCharacters": "sadjklwcmpgh",
 	"nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
 	"previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
 	"searchEngines": [
