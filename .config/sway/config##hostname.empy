@@ -1,8 +1,6 @@
 # display settings
 output eDP-1 pos 3840 1080 res 1920x1080 scale 1
-output DP-4 pos 0 0 res 3840x2160 scale 1
-output DP-5 pos 0 0 res 3840x2160 scale 1
-output DP-6 pos 0 0 res 3840x2160 scale 1
+output DP-1 pos 0 0 res 3840x2160 scale 1
 
 # start xdg-desktop-portal (screen sharing)
 exec --no-startup-id /usr/lib/xdg-desktop-portal -r & /usr/lib/xdg-desktop-portal-wlr
