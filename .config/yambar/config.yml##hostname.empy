@@ -9,7 +9,7 @@ bar:
   spacing: 5
   margin: 5
   background: 1d2330c0
-  font: Hack Nerd Font Mono:pixelsize=18
+  font: Hack Nerd Font Mono:pixelsize=21
 
   left:
     - i3:
@@ -38,6 +38,11 @@ bar:
                 state == unfocused: {string: {<<: *default}}
                 state == invisible: {string: {<<: *default}}
                 state == urgent:    {string: {<<: [*default, *urgent]}}
+
+  center:
+    - script:
+        path: /home/rj1/.config/yambar/task.sh
+        content: {string: { text: "{task}"}}
 
   right:
     - mpd:
