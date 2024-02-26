@@ -1,0 +1,10 @@
+#!/bin/env sh
+
+cd ~/notes/snippets
+
+selected_file=$(fd . ~/notes/snippets | sed 's|^./||' | rofi -dmenu -p "choose snippet to place in clipboard")
+
+if [ -n "$selected_file" ]; then
+    snippet_content=$(cat "$selected_file")
+    echo -n "$snippet_content" | wl-copy
+fi
