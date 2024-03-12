@@ -41,7 +41,6 @@ alias uctl='systemctl --user'
 alias a=artisan
 alias nvimdiff="nvim -d"
 alias c=clear
-alias tr=transmission-remote
 alias ta="transmission-remote -a"
 alias tl="transmission-remote --list"
 alias mpv="mpv --input-ipc-server=/tmp/mpv"

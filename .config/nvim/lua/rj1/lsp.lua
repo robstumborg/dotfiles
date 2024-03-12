@@ -147,7 +147,7 @@ lspconfig.setup_handlers({
 			settings = {
 				intelephense = {
 					environment = {
-						phpVersion = 8.1,
+						phpVersion = 8.3,
 					},
 					stubs = {
 						"apache",
