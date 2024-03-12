@@ -98,7 +98,7 @@ bindsym $mod+s exec grim -g "$(slurp)" - | swappy -f -
 bindsym $mod+shift+s exec screen-record
 
 # snippet
-bindsym $mod+n exec snippet-rofi
+bindsym $mod+h exec snippet-rofi
 
 # color picker
 bindsym $mod+c exec hyprpicker --autocopy 
