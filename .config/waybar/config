@@ -139,7 +139,7 @@
     }
   },
   {
-    "output": "DVI-D-1",
+    "output": "eDP-1",
     "position": "bottom",
     "layer": "top",
     "modules-left": [
