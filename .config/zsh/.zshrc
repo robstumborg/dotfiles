@@ -11,6 +11,7 @@ autoload -U url-quote-magic bracketed-paste-magic
 zle -N self-insert url-quote-magic
 zle -N bracketed-paste bracketed-paste-magic
 
+source $XDG_CONFIG_HOME/zsh/colemak/colemak.zsh
 source $XDG_CONFIG_HOME/zsh/vi.zsh
 source $XDG_CONFIG_HOME/zsh/completion.zsh
 source $XDG_CONFIG_HOME/zsh/history.zsh
