@@ -30,8 +30,8 @@ require("telescope").setup({
 			i = {
 				-- close telescope by pressing esc only once
 				["<esc>"] = require("telescope.actions").close,
-				["<c-j>"] = require("telescope.actions").move_selection_next,
-				["<c-k>"] = require("telescope.actions").move_selection_previous,
+				["<c-e>"] = require("telescope.actions").move_selection_next,
+				["<c-i>"] = require("telescope.actions").move_selection_previous,
 				["<c-u>"] = false,
 				["<c-d>"] = false,
 			},
